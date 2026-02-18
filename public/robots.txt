@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://bimeventsworld.com/sitemap-index.xml

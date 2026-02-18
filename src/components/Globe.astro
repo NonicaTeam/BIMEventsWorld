@@ -1,0 +1,708 @@
+---
+import type { Lang } from '../i18n/locales';
+import { languages } from '../i18n/locales';
+import { useTranslations } from '../i18n/utils';
+import type { BIMEvent } from '../types';
+
+interface Props {
+  lang: Lang;
+  events: BIMEvent[];
+}
+
+const { lang, events } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section class="hero-section" id="hero">
+  <!-- Floating language switcher -->
+  <div class="floating-lang" id="lang-switcher">
+    <button class="floating-lang-btn" type="button" aria-label={t('nav.language')}>
+      {lang.toUpperCase()} <span class="arrow">&#9660;</span>
+    </button>
+    <div class="lang-dropdown">
+      {Object.entries(languages).map(([code, name]) => (
+        <a href={`/${code}/`} class:list={[{ active: code === lang }]}>
+          {name}
+        </a>
+      ))}
+    </div>
+  </div>
+
+  <div class="hero-overlay">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="pulse"></span>
+        Live BIM Events
+      </div>
+      <h1 class="hero-title">{t('hero.title')}</h1>
+      <p class="hero-description">{t('hero.subtitle')}<br />{t('hero.pastEventsNote')}<br />{t('hero.onePerCity')}</p>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-number">{events.length}</span>
+          <span class="stat-label">{t('hero.eventsLive')}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number" id="visit-count">-</span>
+          <span class="stat-label">{t('hero.visits')}</span>
+        </div>
+      </div>
+      <a href="#submit" class="hero-submit-btn" style="pointer-events: auto;">&#x2795; {t('nav.submit')}</a>
+    </div>
+  </div>
+
+  <div id="globe-container">
+    <div class="globe-loading" id="globe-loading">
+      <div class="spinner"></div>
+      <span>{t('globe.loading')}</span>
+    </div>
+    <div class="globe-atmosphere"></div>
+    <div class="globe-outer-ring globe-outer-ring--back"></div>
+    <canvas id="cobe-canvas"></canvas>
+
+    <canvas id="marker-canvas"></canvas>
+    <div class="globe-outer-ring"></div>
+    <div id="globe-hover-ring" class="globe-hover-ring">
+      <span class="hover-ring-pulse"></span>
+      <span class="hover-ring-pulse hover-ring-pulse-2"></span>
+      <span class="hover-ring-core"></span>
+      <span class="hover-ring-dashed"></span>
+    </div>
+    <div id="globe-tooltip" class="globe-tooltip"></div>
+
+    <!-- Side flag for clicked marker -->
+    <div class="event-flag" id="event-flag">
+      <div class="event-flag-arrow"></div>
+      <button class="flag-close" id="flag-close" aria-label="Close">&times;</button>
+      <div class="flag-header">
+        <span class="flag-emoji" id="flag-emoji"></span>
+        <h3 class="flag-name" id="flag-name"></h3>
+      </div>
+      <div class="flag-details">
+        <div class="flag-detail">
+          <span class="flag-detail-icon">&#128205;</span>
+          <span id="flag-location"></span>
+        </div>
+        <div class="flag-detail">
+          <span class="flag-detail-icon">&#128197;</span>
+          <span id="flag-dates"></span>
+        </div>
+        <div class="flag-detail">
+          <span class="flag-detail-icon">&#127760;</span>
+          <span id="flag-format"></span>
+        </div>
+      </div>
+      <a class="flag-cta" id="flag-cta" href="#" target="_blank" rel="noopener noreferrer">
+        {t('popup.visit')} &#x2197;
+      </a>
+      <div class="flag-actions">
+        <button class="flag-action-btn" id="flag-share" type="button" aria-label="Copy link" data-label={t('popup.share')} data-copied={t('popup.shared')}>
+          <span class="flag-action-icon">&#128279;</span> <span class="flag-action-text">{t('popup.share')}</span>
+        </button>
+        <button class="flag-action-btn" id="flag-calendar" type="button" aria-label="Add to calendar">
+          <span class="flag-action-icon">&#128197;</span> {t('popup.calendar')}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-hint">
+    <span>&#x1F5B1;</span>
+    <span>{t('globe.interact')}</span>
+  </div>
+
+  <!-- SEO: crawlable event listing (visually hidden) -->
+  <div class="sr-only">
+    <h2>Upcoming BIM Events</h2>
+    <ul>
+      {events.map((event) => (
+        <li>
+          <a href={`/${lang}/events/${event.id}/`}>{event.name} – {event.city}, {event.country} ({event.startDate} to {event.endDate})</a>
+          {event.description && <p>{event.description[lang] || event.description.en}</p>}
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <!-- Event data island for client-side JS -->
+  <script type="application/json" id="events-data" set:html={JSON.stringify(events)} />
+  <script type="application/json" id="lang-data" set:html={JSON.stringify(lang)} />
+</section>
+
+<script>
+  import createGlobe from 'cobe';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const canvas = document.getElementById('cobe-canvas') as HTMLCanvasElement;
+    const container = document.getElementById('globe-container');
+    const loadingEl = document.getElementById('globe-loading');
+    if (!canvas || !container) return;
+
+    // Parse event data
+    const events = JSON.parse(document.getElementById('events-data')?.textContent || '[]');
+    const lang = JSON.parse(document.getElementById('lang-data')?.textContent || '"en"');
+    const tooltip = document.getElementById('globe-tooltip') as HTMLElement;
+    const hoverRing = document.getElementById('globe-hover-ring') as HTMLElement;
+
+    // Filter to future, non-online events for globe markers
+    const now = new Date();
+    now.setHours(0, 0, 0, 0);
+    const activeMarkerEvents = events.filter((e: any) =>
+      e.mode !== 'online' && new Date(e.endDate) >= now
+    );
+
+    // --- Marker overlay canvas (2D, for mode-colored dots) ---
+    const markerCanvas = document.getElementById('marker-canvas') as HTMLCanvasElement;
+    const mCtx = markerCanvas.getContext('2d')!;
+
+    // Mode colors for marker dots
+    const MODE_COLORS: Record<string, {fill: string; glow: string}> = {
+      'in-person': { fill: 'rgba(6, 182, 212, 0.95)',  glow: 'rgba(6, 182, 212, 0.5)' },
+      'hybrid':    { fill: 'rgba(249, 175, 80, 0.95)',  glow: 'rgba(249, 115, 22, 0.5)' },
+    };
+
+    // --- Globe sizing ---
+    let w = container.clientWidth;
+    let h = container.clientHeight;
+    let dpr = Math.min(window.devicePixelRatio, 2);
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    canvas.style.width = w + 'px';
+    canvas.style.height = h + 'px';
+    markerCanvas.width = w * dpr;
+    markerCanvas.height = h * dpr;
+    markerCanvas.style.width = w + 'px';
+    markerCanvas.style.height = h + 'px';
+
+    // --- Rotation state ---
+    // COBE center longitude: phi = -(90 + lng) * PI / 180
+    // Positive theta tilts to show northern hemisphere
+    const initPhi = -(90 + 10) * Math.PI / 180;  // center on ~10°E (Europe)
+    let currentPhi = initPhi;
+    let currentTheta = 0.65;
+    let targetPhi = initPhi;
+    let targetTheta = 0.65;
+    let autoRotate = true;
+    let pointerDown = false;
+    let pointerX = 0;
+    let pointerY = 0;
+    let velocityX = 0;
+    let velocityY = 0;
+    let resumeTimer: ReturnType<typeof setTimeout>;
+
+    // --- Globe radius (COBE sphere is 0.8 in UV space, UV is normalized by height) ---
+    let globeR = h * 0.4;
+
+    // --- Patch COBE shader seam + texture filtering ---
+    // COBE's fragment shader uses acos()+sign-flip for longitude UV, which creates
+    // a discontinuity at h.z=0 (center of visible face → vertical seam through Africa).
+    // Fix: replace with atan(h.z,-h.x) which moves the discontinuity to the back.
+    // Also swap NEAREST→LINEAR texture filtering for smoother sampling.
+    const origGetContext = canvas.getContext.bind(canvas);
+    (canvas as any).getContext = function(type: string, attrs?: any) {
+      const ctx = origGetContext(type, attrs);
+      if (ctx && type.startsWith('webgl') && !(ctx as any).__patched) {
+        (ctx as any).__patched = true;
+        const gl = ctx as WebGLRenderingContext;
+        const origShaderSource = gl.shaderSource.bind(gl);
+        gl.shaderSource = function(shader: any, source: string) {
+          source = source.replace(
+            'i=acos(-h.x/cos(n));i=h.z<0.?-i:i;',
+            'i=atan(h.z,-h.x);'
+          );
+          return origShaderSource(shader, source);
+        };
+        const origTexParam = gl.texParameteri.bind(gl);
+        gl.texParameteri = function(target: any, pname: any, param: any) {
+          if (param === gl.NEAREST &&
+              (pname === gl.TEXTURE_MIN_FILTER || pname === gl.TEXTURE_MAG_FILTER)) {
+            return origTexParam(target, pname, gl.LINEAR);
+          }
+          return origTexParam(target, pname, param);
+        };
+      }
+      return ctx;
+    };
+
+    // --- COBE Globe (premium config) ---
+    const globe = createGlobe(canvas, {
+      devicePixelRatio: dpr,
+      width: w * dpr,
+      height: h * dpr,
+      phi: initPhi,
+      theta: 0.65,
+      dark: 1,
+      diffuse: 2,
+      scale: 1,
+      mapSamples: 80000,
+      mapBrightness: 6,
+      mapBaseBrightness: 0.05,
+      baseColor: [0.04, 0.06, 0.14],
+      markerColor: [0.3, 0.6, 1.0],
+      glowColor: [0.05, 0.15, 0.4],
+      opacity: 0.9,
+      offset: [0, 0],
+      markers: [],
+      onRender: (state) => {
+        if (needsCOBEResize) {
+          state.width = w * dpr;
+          state.height = h * dpr;
+          state.devicePixelRatio = dpr;
+          needsCOBEResize = false;
+        }
+        if (autoRotate && !pointerDown) {
+          targetPhi -= 0.003;
+        }
+        // Apply momentum when not dragging
+        if (!pointerDown) {
+          targetPhi += velocityX;
+          targetTheta += velocityY;
+          velocityX *= 0.93;
+          velocityY *= 0.93;
+          if (Math.abs(velocityX) < 0.0001) velocityX = 0;
+          if (Math.abs(velocityY) < 0.0001) velocityY = 0;
+        }
+        // Clamp theta to prevent flipping
+        targetTheta = Math.max(-0.6, Math.min(0.9, targetTheta));
+        // Smooth interpolation — responsive while dragging, smooth on release
+        const ease = pointerDown ? 0.6 : 0.15;
+        currentPhi += (targetPhi - currentPhi) * ease;
+        currentTheta += (targetTheta - currentTheta) * ease;
+        state.phi = currentPhi;
+        state.theta = currentTheta;
+        updateTooltip();
+      },
+    });
+
+    if (loadingEl) loadingEl.style.display = 'none';
+
+    // --- Lat/Lng → screen projection (matches COBE's marker coordinate convention) ---
+    // COBE offsets lng by -PI in its marker JS: b = lng*PI/180 - PI
+    // This flips gx and gz signs vs the naive spherical convention
+    function latLngToScreen(lat: number, lng: number, phi: number, theta: number) {
+      const latR = (lat * Math.PI) / 180;
+      const lngR = (lng * Math.PI) / 180;
+      const cosLat = Math.cos(latR), sinLat = Math.sin(latR);
+      const cosLng = Math.cos(lngR), sinLng = Math.sin(lngR);
+      const cosPhi = Math.cos(phi), sinPhi = Math.sin(phi);
+      const cosT = Math.cos(theta), sinT = Math.sin(theta);
+      const gx = cosLat * cosLng;
+      const gy = sinLat;
+      const gz = -cosLat * sinLng;
+      const vx = cosPhi * gx + sinPhi * gz;
+      const vy = sinPhi * sinT * gx + cosT * gy - cosPhi * sinT * gz;
+      const vz = -sinPhi * cosT * gx + sinT * gy + cosPhi * cosT * gz;
+      return { x: w / 2 + vx * globeR, y: h / 2 - vy * globeR, visible: vz > 0.12, z: vz };
+    }
+
+    // --- Draw marker dots on overlay canvas ---
+    function drawMarkers() {
+      mCtx.clearRect(0, 0, markerCanvas.width, markerCanvas.height);
+      mCtx.save();
+      mCtx.scale(dpr, dpr);
+      for (let i = 0; i < markerScreenPos.length; i++) {
+        const pos = markerScreenPos[i];
+        if (!pos || !pos.visible) continue;
+        const ev = activeMarkerEvents[i];
+        const mode = ev.mode || 'in-person';
+        const colors = MODE_COLORS[mode] || MODE_COLORS['in-person'];
+        const isHovered = i === hoveredIdx;
+
+        // Depth-based opacity: markers near edge fade slightly
+        const depthAlpha = Math.min(1, (pos.z - 0.12) / 0.25);
+        const isLarge = ev.size === 'large';
+        const baseR = isLarge ? 7 : 3.5;
+        const dotR = isHovered ? baseR * 1.4 : baseR;
+
+        // Outer glow
+        mCtx.beginPath();
+        mCtx.arc(pos.x, pos.y, dotR + 4, 0, Math.PI * 2);
+        mCtx.fillStyle = colors.glow.replace(/[\d.]+\)$/, `${0.35 * depthAlpha})`);
+        mCtx.fill();
+
+        // Main dot
+        mCtx.beginPath();
+        mCtx.arc(pos.x, pos.y, dotR, 0, Math.PI * 2);
+        mCtx.fillStyle = colors.fill.replace(/[\d.]+\)$/, `${0.95 * depthAlpha})`);
+        mCtx.fill();
+
+        // White highlight center
+        mCtx.beginPath();
+        mCtx.arc(pos.x, pos.y, dotR * 0.4, 0, Math.PI * 2);
+        mCtx.fillStyle = `rgba(255, 255, 255, ${0.7 * depthAlpha})`;
+        mCtx.fill();
+      }
+      mCtx.restore();
+    }
+
+    // --- Cached marker screen positions (computed each render frame) ---
+    let hoveredIdx = -1;
+    const markerScreenPos: {x: number; y: number; visible: boolean; z: number}[] = [];
+
+    function updateMarkerScreenPositions() {
+      for (let i = 0; i < activeMarkerEvents.length; i++) {
+        const ev = activeMarkerEvents[i];
+        const p = latLngToScreen(ev.lat, ev.lng, currentPhi, currentTheta);
+        markerScreenPos[i] = { x: p.x, y: p.y, visible: p.visible, z: p.z };
+      }
+    }
+
+    function findNearestMarker(cx: number, cy: number): number {
+      const rect = canvas.getBoundingClientRect();
+      const mx = cx - rect.left;
+      const my = cy - rect.top;
+      let best = -1;
+      let bestDist = Infinity;
+      for (let i = 0; i < markerScreenPos.length; i++) {
+        const pos = markerScreenPos[i];
+        if (!pos || !pos.visible) continue;
+        const ev = activeMarkerEvents[i];
+        const hitR = ev.size === 'large' ? 50 : 40;
+        const dx = mx - pos.x;
+        const dy = my - pos.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist > hitR) continue;
+        if (dist < bestDist) {
+          bestDist = dist;
+          best = i;
+        }
+      }
+      return best;
+    }
+
+    let prevHoveredIdx = -1;
+
+    function hideHoverEffects() {
+      hoverRing.classList.remove('visible');
+      tooltip.classList.remove('visible');
+      prevHoveredIdx = -1;
+    }
+
+    function updateTooltip() {
+      updateMarkerScreenPositions();
+      drawMarkers();
+      updateFlagPosition();
+      if (hoveredIdx < 0 || pointerDown) {
+        hideHoverEffects();
+        return;
+      }
+      const pos = markerScreenPos[hoveredIdx];
+      if (!pos || !pos.visible) {
+        hideHoverEffects();
+        hoveredIdx = -1;
+        container.style.cursor = 'grab';
+        return;
+      }
+      const ev = activeMarkerEvents[hoveredIdx];
+      const mode = ev.mode || 'in-person';
+
+      // Position hover ring at marker
+      hoverRing.style.transform = `translate3d(${pos.x}px, ${pos.y}px, 0)`;
+      hoverRing.dataset.mode = mode;
+
+      // Restart animations when switching to a new marker
+      if (hoveredIdx !== prevHoveredIdx) {
+        hoverRing.classList.remove('visible');
+        tooltip.classList.remove('visible');
+        // Force reflow so removing+adding class restarts animations
+        void hoverRing.offsetWidth;
+        hoverRing.classList.add('visible');
+        prevHoveredIdx = hoveredIdx;
+        // Show tooltip with slight delay for entrance animation
+        tooltip.textContent = ev.name;
+        tooltip.dataset.mode = mode;
+        const ttTransform = `translate3d(${pos.x}px, ${pos.y - 24}px, 0) translate(-50%, -100%)`;
+        tooltip.style.setProperty('--tt-transform', ttTransform);
+        tooltip.style.transform = ttTransform;
+        tooltip.classList.add('visible');
+      } else {
+        // Same marker, just update positions (globe is rotating)
+        const ttTransform = `translate3d(${pos.x}px, ${pos.y - 24}px, 0) translate(-50%, -100%)`;
+        tooltip.style.setProperty('--tt-transform', ttTransform);
+        tooltip.style.transform = ttTransform;
+      }
+    }
+
+    // --- Drag interaction ---
+    canvas.addEventListener('pointerdown', (e) => {
+      pointerDown = true;
+      autoRotate = false;
+      pointerX = e.clientX;
+      pointerY = e.clientY;
+      velocityX = 0;
+      velocityY = 0;
+      container.style.cursor = 'grabbing';
+      hideHoverEffects();
+      hideEventFlag();
+      clearTimeout(resumeTimer);
+    });
+    window.addEventListener('pointermove', (e) => {
+      if (pointerDown) {
+        const deltaX = e.clientX - pointerX;
+        const deltaY = e.clientY - pointerY;
+        pointerX = e.clientX;
+        pointerY = e.clientY;
+        velocityX = deltaX / 150;
+        velocityY = deltaY / 300;
+        targetPhi += velocityX;
+        targetTheta += velocityY;
+      }
+    });
+    window.addEventListener('pointerup', () => {
+      if (pointerDown) {
+        pointerDown = false;
+        container.style.cursor = 'grab';
+      }
+    });
+    container.style.cursor = 'grab';
+
+    // --- Canvas hover → tooltip + cursor ---
+    canvas.addEventListener('mousemove', (e) => {
+      if (pointerDown) return;
+      const idx = findNearestMarker(e.clientX, e.clientY);
+      hoveredIdx = idx;
+      container.style.cursor = idx >= 0 ? 'pointer' : 'grab';
+    });
+    canvas.addEventListener('mouseleave', () => {
+      hoveredIdx = -1;
+      hideHoverEffects();
+    });
+
+    // --- Canvas click → popup (with drag guard) ---
+    let pointerDownX = 0;
+    let pointerDownY = 0;
+    canvas.addEventListener('pointerdown', (e) => {
+      pointerDownX = e.clientX;
+      pointerDownY = e.clientY;
+    }, true);
+    canvas.addEventListener('click', (e) => {
+      // Ignore clicks after drag (moved more than 5px)
+      const dx = e.clientX - pointerDownX;
+      const dy = e.clientY - pointerDownY;
+      if (dx * dx + dy * dy > 25) return;
+      const idx = findNearestMarker(e.clientX, e.clientY);
+      if (idx >= 0) {
+        autoRotate = false;
+        clearTimeout(resumeTimer);
+        showEventFlag(idx);
+      } else {
+        hideEventFlag();
+      }
+    });
+
+
+    // --- Responsive resize ---
+    let needsCOBEResize = false;
+    function handleResize() {
+      w = container!.clientWidth;
+      h = container!.clientHeight;
+      dpr = Math.min(window.devicePixelRatio, 2);
+      globeR = h * 0.4;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      canvas.style.width = w + 'px';
+      canvas.style.height = h + 'px';
+      markerCanvas.width = w * dpr;
+      markerCanvas.height = h * dpr;
+      markerCanvas.style.width = w + 'px';
+      markerCanvas.style.height = h + 'px';
+      needsCOBEResize = true;
+    }
+    window.addEventListener('resize', handleResize);
+
+    // Detect DPI change (e.g. moving window to a different monitor)
+    function watchDpr() {
+      const mql = window.matchMedia(`(resolution: ${window.devicePixelRatio}dppx)`);
+      mql.addEventListener('change', () => {
+        handleResize();
+        watchDpr();
+      }, { once: true });
+    }
+    watchDpr();
+
+    // --- Side flag logic ---
+    const flag = document.getElementById('event-flag') as HTMLElement;
+    const flagClose = document.getElementById('flag-close');
+    let selectedIdx = -1;
+
+    function showEventFlag(idx: number) {
+      const event = activeMarkerEvents[idx];
+      const emojiEl = document.getElementById('flag-emoji');
+      const nameEl = document.getElementById('flag-name');
+      const locationEl = document.getElementById('flag-location');
+      const datesEl = document.getElementById('flag-dates');
+      const formatEl = document.getElementById('flag-format');
+      const ctaEl = document.getElementById('flag-cta') as HTMLAnchorElement;
+
+      if (emojiEl) emojiEl.textContent = event.emoji || '';
+      if (nameEl) nameEl.textContent = event.name;
+      if (locationEl) locationEl.textContent = event.mode === 'online' ? 'Online' : `${event.city}, ${event.country}`;
+      if (datesEl) datesEl.textContent = formatDate(event.startDate, event.endDate, lang);
+      if (formatEl) {
+        const modeText = event.mode === 'in-person' ? 'In-Person' : event.mode === 'online' ? 'Online' : 'Hybrid';
+        formatEl.innerHTML = `<span class="mode-badge ${event.mode}">${modeText}</span>`;
+      }
+      if (ctaEl) ctaEl.href = event.url;
+      // Set mode color
+      flag.dataset.mode = event.mode || 'in-person';
+      selectedIdx = idx;
+      flag.classList.remove('visible', 'flip');
+      void flag.offsetWidth;
+      updateFlagPosition();
+      flag.classList.add('visible');
+
+      // Update URL with event id
+      const url = new URL(window.location.href);
+      url.searchParams.set('event', event.id);
+      history.replaceState(null, '', url.toString());
+    }
+
+    function hideEventFlag() {
+      flag.classList.remove('visible');
+      selectedIdx = -1;
+
+      // Remove event param from URL
+      const url = new URL(window.location.href);
+      url.searchParams.delete('event');
+      history.replaceState(null, '', url.toString());
+    }
+
+    function updateFlagPosition() {
+      if (selectedIdx < 0) return;
+      const pos = markerScreenPos[selectedIdx];
+      if (!pos || !pos.visible) {
+        hideEventFlag();
+        return;
+      }
+      // Place flag to the right of marker; flip to left if near right edge
+      const flagW = 260;
+      const gap = 18;
+      const flipToLeft = pos.x + gap + flagW > w - 20;
+      if (flipToLeft) {
+        flag.classList.add('flip');
+        flag.style.transform = `translate3d(${pos.x - gap - flagW}px, ${pos.y}px, 0) translateY(-50%)`;
+      } else {
+        flag.classList.remove('flip');
+        flag.style.transform = `translate3d(${pos.x + gap}px, ${pos.y}px, 0) translateY(-50%)`;
+      }
+    }
+
+    flagClose?.addEventListener('click', (e) => { e.stopPropagation(); hideEventFlag(); });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') hideEventFlag();
+    });
+
+    // --- Share button (copy deep link) ---
+    const shareBtn = document.getElementById('flag-share');
+    shareBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (selectedIdx < 0) return;
+      const event = activeMarkerEvents[selectedIdx];
+      const url = new URL(window.location.href);
+      url.search = '';
+      url.hash = '';
+      url.searchParams.set('event', event.id);
+      navigator.clipboard.writeText(url.toString()).then(() => {
+        const textEl = shareBtn.querySelector('.flag-action-text');
+        if (textEl) {
+          textEl.textContent = shareBtn.dataset.copied || 'Copied!';
+          setTimeout(() => { textEl.textContent = shareBtn.dataset.label || 'Copy Link'; }, 1500);
+        }
+      });
+    });
+
+    // --- Calendar button (.ics download) ---
+    const calBtn = document.getElementById('flag-calendar');
+    calBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (selectedIdx < 0) return;
+      const event = activeMarkerEvents[selectedIdx];
+      const startDate = event.startDate.replace(/-/g, '');
+      // End date: add 1 day for all-day event (DTEND is exclusive in iCal)
+      const endParts = event.endDate.split('-').map(Number);
+      const endD = new Date(endParts[0], endParts[1] - 1, endParts[2] + 1);
+      const endDate = endD.toISOString().slice(0, 10).replace(/-/g, '');
+      const location = event.mode === 'online' ? 'Online' : `${event.city}, ${event.country}`;
+      const ics = [
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'PRODID:-//BIM Events World//EN',
+        'BEGIN:VEVENT',
+        `DTSTART;VALUE=DATE:${startDate}`,
+        `DTEND;VALUE=DATE:${endDate}`,
+        `SUMMARY:${event.name}`,
+        `LOCATION:${location}`,
+        `DESCRIPTION:${event.name} - ${event.url}`,
+        `URL:${event.url}`,
+        'END:VEVENT',
+        'END:VCALENDAR',
+      ].join('\r\n');
+      const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `${event.id}.ics`;
+      a.click();
+      URL.revokeObjectURL(a.href);
+    });
+
+    function formatDate(start: string, end: string, lang: string): string {
+      const s = new Date(start);
+      const e = new Date(end);
+      const locale = lang === 'en' ? 'en-US' : lang;
+      const opts: Intl.DateTimeFormatOptions = { month: 'short', day: 'numeric', year: 'numeric' };
+      if (start === end) return s.toLocaleDateString(locale, opts);
+      if (s.getMonth() === e.getMonth() && s.getFullYear() === e.getFullYear()) {
+        return `${s.toLocaleDateString(locale, { month: 'short', day: 'numeric' })} - ${e.getDate()}, ${e.getFullYear()}`;
+      }
+      return `${s.toLocaleDateString(locale, { month: 'short', day: 'numeric' })} - ${e.toLocaleDateString(locale, opts)}`;
+    }
+
+    // --- Deep link: ?event=<id> opens that event's flag ---
+    const urlParams = new URLSearchParams(window.location.search);
+    const deepLinkId = urlParams.get('event');
+    if (deepLinkId) {
+      const idx = activeMarkerEvents.findIndex((e: any) => e.id === deepLinkId);
+      if (idx >= 0) {
+        // Center globe on this event then open flag after a short delay
+        const ev = activeMarkerEvents[idx];
+        targetPhi = -(90 + ev.lng) * Math.PI / 180;
+        targetTheta = Math.max(-0.6, Math.min(0.9, (ev.lat * Math.PI / 180) * 0.35));
+        autoRotate = false;
+        setTimeout(() => { showEventFlag(idx); }, 800);
+      }
+    }
+
+    // --- Visit counter (server-side via Cloudflare KV) ---
+    const counterEl = document.getElementById('visit-count');
+    fetch('/api/counter')
+      .then(r => r.json())
+      .then(data => {
+        if (counterEl && data.count > 0) animateCounter(counterEl, data.count);
+      })
+      .catch(() => {
+        if (counterEl) counterEl.textContent = '-';
+      });
+
+    // --- Language switcher ---
+    const langSwitcher = document.getElementById('lang-switcher');
+    const langBtn = langSwitcher?.querySelector('.floating-lang-btn');
+    langBtn?.addEventListener('click', () => langSwitcher?.classList.toggle('open'));
+    document.addEventListener('click', (e) => {
+      if (langSwitcher && !langSwitcher.contains(e.target as Node)) {
+        langSwitcher.classList.remove('open');
+      }
+    });
+
+    function animateCounter(el: HTMLElement, target: number) {
+      const duration = 1000;
+      const start = performance.now();
+      function step(now: number) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(target * eased).toLocaleString();
+        if (progress < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+  });
+</script>

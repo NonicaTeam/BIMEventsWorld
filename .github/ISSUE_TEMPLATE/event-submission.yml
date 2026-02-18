@@ -1,0 +1,81 @@
+name: BIM Event Submission
+description: Submit a new BIM event to be added to the globe
+title: "[Event Submission] "
+labels: ["event-submission"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for submitting a BIM event! Please fill out the details below.
+        Your submission will be reviewed before being added to the globe.
+
+  - type: input
+    id: event-name
+    attributes:
+      label: Event Name
+      placeholder: e.g. BIM World Munich 2026
+    validations:
+      required: true
+
+  - type: input
+    id: city
+    attributes:
+      label: City
+      placeholder: e.g. Munich
+    validations:
+      required: true
+
+  - type: input
+    id: country
+    attributes:
+      label: Country
+      placeholder: e.g. Germany
+    validations:
+      required: true
+
+  - type: input
+    id: start-date
+    attributes:
+      label: Start Date
+      placeholder: "YYYY-MM-DD"
+    validations:
+      required: true
+
+  - type: input
+    id: end-date
+    attributes:
+      label: End Date
+      placeholder: "YYYY-MM-DD"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: mode
+    attributes:
+      label: Event Format
+      options:
+        - in-person
+        - online
+        - hybrid
+    validations:
+      required: true
+
+  - type: input
+    id: url
+    attributes:
+      label: Event Website URL
+      placeholder: https://...
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Brief Description
+      placeholder: Tell us about this event...
+
+  - type: input
+    id: email
+    attributes:
+      label: Your Email (for follow-up)
+      placeholder: optional

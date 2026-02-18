@@ -1,0 +1,93 @@
+---
+import { languages, type Lang } from '../i18n/locales';
+import type { BIMEvent } from '../types';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  keywords: string;
+  events?: BIMEvent[];
+  path?: string;
+}
+
+const { lang, title, description, keywords, events = [], path } = Astro.props;
+const siteUrl = 'https://bimeventsworld.com';
+const pageSuffix = path ? `/${path}` : '/';
+const currentUrl = `${siteUrl}/${lang}${pageSuffix}`;
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: title,
+  url: currentUrl,
+  description,
+  inLanguage: lang,
+};
+
+const eventSchemas = events.map((event) => ({
+  '@context': 'https://schema.org',
+  '@type': 'Event',
+  name: event.name,
+  startDate: event.startDate,
+  endDate: event.endDate,
+  description: event.description ? (event.description[lang] || event.description.en) : event.name,
+  url: event.url,
+  eventAttendanceMode:
+    event.mode === 'online'
+      ? 'https://schema.org/OnlineEventAttendanceMode'
+      : event.mode === 'hybrid'
+        ? 'https://schema.org/MixedEventAttendanceMode'
+        : 'https://schema.org/OfflineEventAttendanceMode',
+  location:
+    event.mode === 'online'
+      ? { '@type': 'VirtualLocation', url: event.url }
+      : {
+          '@type': 'Place',
+          name: `${event.city}, ${event.country}`,
+          address: {
+            '@type': 'PostalAddress',
+            addressLocality: event.city,
+            addressCountry: event.countryCode,
+          },
+        },
+}));
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#060b18" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<title>{title}</title>
+<meta name="description" content={description} />
+<meta name="keywords" content={keywords} />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href={currentUrl} />
+
+{Object.keys(languages).map((locale) => (
+  <link rel="alternate" hreflang={locale} href={`${siteUrl}/${locale}${pageSuffix}`} />
+))}
+<link rel="alternate" hreflang="x-default" href={`${siteUrl}/en${pageSuffix}`} />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={currentUrl} />
+<meta property="og:site_name" content="BIM Events Worldwide" />
+<meta property="og:locale" content={lang} />
+{Object.keys(languages).filter((l) => l !== lang).map((locale) => (
+  <meta property="og:locale:alternate" content={locale} />
+))}
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+<script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+{eventSchemas.map((schema) => (
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+))}

@@ -1,0 +1,371 @@
+---
+import type { Lang } from '../i18n/locales';
+import { useTranslations } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section class="form-section" id="submit">
+  <div class="container form-container">
+    <div class="form-header">
+      <p class="section-label">&#x2795; {t('nav.submit')}</p>
+      <h2 class="section-title">{t('form.title')}</h2>
+      <p class="section-subtitle" style="margin: 0 auto;">{t('form.subtitle')}</p>
+    </div>
+
+    <form class="submission-form" id="submission-form"
+          data-msg-success={t('form.success')}
+          data-msg-error={t('form.error')}
+          data-msg-submitting={t('form.submitting')}
+          data-msg-submit={t('form.submit')}>
+      <div class="form-group">
+        <label class="form-label" for="event-name">{t('form.name')} <span class="required">*</span></label>
+        <input class="form-input" type="text" id="event-name" name="name" required placeholder={t('form.name.placeholder')} />
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="event-city">{t('form.city')} <span class="required">*</span></label>
+          <input class="form-input" type="text" id="event-city" name="city" required placeholder={t('form.city.placeholder')} />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="event-country">{t('form.country')} <span class="required">*</span></label>
+          <input class="form-input" type="text" id="event-country" name="country" required placeholder={t('form.country.placeholder')} />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">{t('form.startDate')} <span class="required">*</span></label>
+          <input type="hidden" id="event-start" name="startDate" required />
+          <div class="custom-datepicker" data-target="event-start">
+            <button type="button" class="datepicker-trigger">
+              <span class="datepicker-icon">&#128197;</span>
+              <span class="datepicker-text">{t('form.startDate')}</span>
+              <span class="select-arrow">&#9660;</span>
+            </button>
+            <div class="datepicker-dropdown"></div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">{t('form.endDate')} <span class="required">*</span></label>
+          <input type="hidden" id="event-end" name="endDate" required />
+          <div class="custom-datepicker" data-target="event-end">
+            <button type="button" class="datepicker-trigger">
+              <span class="datepicker-icon">&#128197;</span>
+              <span class="datepicker-text">{t('form.endDate')}</span>
+              <span class="select-arrow">&#9660;</span>
+            </button>
+            <div class="datepicker-dropdown"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">{t('form.mode')} <span class="required">*</span></label>
+        <input type="hidden" id="event-mode" name="mode" value="in-person" required />
+        <div class="custom-select" id="custom-select">
+          <button type="button" class="custom-select-trigger" id="select-trigger">
+            <span class="select-icon">&#128205;</span>
+            <span class="select-text" id="select-text">{t('form.mode.inperson')}</span>
+            <span class="select-arrow">&#9660;</span>
+          </button>
+          <div class="custom-select-options" id="select-options">
+            <button type="button" class="custom-option active" data-value="in-person">
+              <span class="option-icon">&#128205;</span>
+              <span>{t('form.mode.inperson')}</span>
+            </button>
+            <button type="button" class="custom-option" data-value="online">
+              <span class="option-icon">&#128187;</span>
+              <span>{t('form.mode.online')}</span>
+            </button>
+            <button type="button" class="custom-option" data-value="hybrid">
+              <span class="option-icon">&#127760;</span>
+              <span>{t('form.mode.hybrid')}</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="event-url">{t('form.url')} <span class="required">*</span></label>
+        <input class="form-input" type="url" id="event-url" name="url" required placeholder={t('form.url.placeholder')} />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="event-email">{t('form.email')} <span class="required">*</span></label>
+        <input class="form-input" type="email" id="event-email" name="email" required placeholder={t('form.email.placeholder')} />
+      </div>
+
+      <div class="form-group form-consent">
+        <label class="form-checkbox-label">
+          <input type="checkbox" id="event-consent" name="mailingConsent" required />
+          <span>{t('form.mailingConsent')}</span>
+        </label>
+      </div>
+
+      <button type="submit" class="form-submit" id="form-submit-btn">{t('form.submit')}</button>
+
+      <div class="form-message" id="form-message"></div>
+    </form>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('submission-form') as HTMLFormElement;
+    const messageEl = document.getElementById('form-message');
+    const submitBtn = document.getElementById('form-submit-btn') as HTMLButtonElement;
+
+    if (!form) return;
+
+    // Custom date pickers
+    const lang = document.documentElement.lang || 'en';
+    const dayNames = [...Array(7)].map((_, i) => {
+      const d = new Date(2024, 0, i); // 2024-01-01 is Monday
+      return d.toLocaleDateString(lang === 'en' ? 'en-US' : lang, { weekday: 'narrow' });
+    });
+
+    document.querySelectorAll('.custom-datepicker').forEach((picker) => {
+      const el = picker as HTMLElement;
+      const targetId = el.dataset.target!;
+      const hiddenInput = document.getElementById(targetId) as HTMLInputElement;
+      const trigger = el.querySelector('.datepicker-trigger') as HTMLElement;
+      const textEl = el.querySelector('.datepicker-text') as HTMLElement;
+      const dropdown = el.querySelector('.datepicker-dropdown') as HTMLElement;
+      const defaultLabel = textEl.textContent || '';
+
+      let viewYear = new Date().getFullYear();
+      let viewMonth = new Date().getMonth();
+      let selectedDate: Date | null = null;
+
+      function pad(n: number) { return n < 10 ? '0' + n : '' + n; }
+
+      // Date boundaries
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const maxDate = new Date(today);
+      maxDate.setFullYear(maxDate.getFullYear() + 1);
+
+      function renderCalendar() {
+        const firstDay = new Date(viewYear, viewMonth, 1).getDay();
+        const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+        const monthLabel = new Date(viewYear, viewMonth).toLocaleDateString(
+          lang === 'en' ? 'en-US' : lang, { month: 'long', year: 'numeric' }
+        );
+
+        // Check if nav buttons should be disabled
+        const minMonth = today.getFullYear() * 12 + today.getMonth();
+        const maxMonth = maxDate.getFullYear() * 12 + maxDate.getMonth();
+        const curMonth = viewYear * 12 + viewMonth;
+        const prevDisabled = curMonth <= minMonth;
+        const nextDisabled = curMonth >= maxMonth;
+
+        let html = `<div class="dp-header">`;
+        html += `<button type="button" class="dp-nav dp-prev"${prevDisabled ? ' disabled' : ''}>&#9664;</button>`;
+        html += `<span class="dp-month-label">${monthLabel}</span>`;
+        html += `<button type="button" class="dp-nav dp-next"${nextDisabled ? ' disabled' : ''}>&#9654;</button>`;
+        html += `</div>`;
+        html += `<div class="dp-weekdays">`;
+        for (const d of dayNames) html += `<span>${d}</span>`;
+        html += `</div>`;
+        html += `<div class="dp-days">`;
+
+        for (let i = 0; i < firstDay; i++) html += `<span class="dp-empty"></span>`;
+
+        for (let d = 1; d <= daysInMonth; d++) {
+          const date = new Date(viewYear, viewMonth, d);
+          const iso = `${viewYear}-${pad(viewMonth + 1)}-${pad(d)}`;
+          const isToday = date.getTime() === today.getTime();
+          const isSelected = selectedDate && date.getTime() === selectedDate.getTime();
+          const isPast = date < today;
+          const isFuture = date > maxDate;
+          const isDisabled = isPast || isFuture;
+          let cls = 'dp-day';
+          if (isToday) cls += ' today';
+          if (isSelected) cls += ' selected';
+          if (isDisabled) cls += ' disabled';
+          html += `<button type="button" class="${cls}" data-date="${iso}"${isDisabled ? ' disabled' : ''}>${d}</button>`;
+        }
+
+        html += `</div>`;
+        dropdown.innerHTML = html;
+
+        // Attach nav listeners
+        dropdown.querySelector('.dp-prev')?.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (prevDisabled) return;
+          viewMonth--;
+          if (viewMonth < 0) { viewMonth = 11; viewYear--; }
+          renderCalendar();
+        });
+        dropdown.querySelector('.dp-next')?.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (nextDisabled) return;
+          viewMonth++;
+          if (viewMonth > 11) { viewMonth = 0; viewYear++; }
+          renderCalendar();
+        });
+
+        // Attach day listeners
+        dropdown.querySelectorAll('.dp-day').forEach((btn) => {
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const iso = (btn as HTMLElement).dataset.date!;
+            selectedDate = new Date(iso + 'T00:00:00');
+            hiddenInput.value = iso;
+            textEl.textContent = selectedDate.toLocaleDateString(
+              lang === 'en' ? 'en-US' : lang, { month: 'short', day: 'numeric', year: 'numeric' }
+            );
+            textEl.classList.add('has-value');
+            el.classList.remove('open');
+            renderCalendar();
+          });
+        });
+      }
+
+      trigger.addEventListener('click', () => {
+        // Close other datepickers
+        document.querySelectorAll('.custom-datepicker.open').forEach((p) => {
+          if (p !== el) p.classList.remove('open');
+        });
+        if (!el.classList.contains('open')) renderCalendar();
+        el.classList.toggle('open');
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!el.contains(e.target as Node)) el.classList.remove('open');
+      });
+
+      // Reset support
+      form.addEventListener('reset', () => {
+        selectedDate = null;
+        hiddenInput.value = '';
+        textEl.textContent = defaultLabel;
+        textEl.classList.remove('has-value');
+        viewYear = new Date().getFullYear();
+        viewMonth = new Date().getMonth();
+      });
+    });
+
+    // Custom select dropdown
+    const customSelect = document.getElementById('custom-select');
+    const selectTrigger = document.getElementById('select-trigger');
+    const selectOptions = document.getElementById('select-options');
+    const selectText = document.getElementById('select-text');
+    const hiddenInput = document.getElementById('event-mode') as HTMLInputElement;
+    const triggerIcon = selectTrigger?.querySelector('.select-icon');
+
+    selectTrigger?.addEventListener('click', () => {
+      customSelect?.classList.toggle('open');
+    });
+
+    selectOptions?.querySelectorAll('.custom-option').forEach((opt) => {
+      opt.addEventListener('click', () => {
+        const btn = opt as HTMLElement;
+        const value = btn.dataset.value || '';
+        const label = btn.querySelector('span:last-child')?.textContent || '';
+        const icon = btn.querySelector('.option-icon')?.textContent || '';
+        if (hiddenInput) hiddenInput.value = value;
+        if (selectText) selectText.textContent = label;
+        if (triggerIcon) triggerIcon.textContent = icon;
+        selectOptions.querySelectorAll('.custom-option').forEach((o) => o.classList.remove('active'));
+        btn.classList.add('active');
+        customSelect?.classList.remove('open');
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (customSelect && !customSelect.contains(e.target as Node)) {
+        customSelect.classList.remove('open');
+      }
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+      const data: Record<string, string> = {};
+      formData.forEach((value, key) => {
+        data[key] = value.toString();
+      });
+
+      // Validate dates
+      if (data.startDate && data.endDate && data.startDate > data.endDate) {
+        showMessage('error', 'End date must be after start date.');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = form.dataset.msgSubmitting || 'Submitting...';
+
+      try {
+        // Build event JSON matching events.json format
+        const eventId = data.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+        const eventJson = JSON.stringify({
+          id: eventId,
+          name: data.name,
+          city: data.city,
+          country: data.country,
+          countryCode: '??',
+          lat: 0,
+          lng: 0,
+          startDate: data.startDate,
+          endDate: data.endDate,
+          mode: data.mode,
+          url: data.url,
+          emoji: ''
+        }, null, 2);
+
+        // Open a pre-filled GitHub Issue with body (template textarea can't be pre-filled via URL)
+        const body = [
+          `**Event Name:** ${data.name}`,
+          `**City:** ${data.city}`,
+          `**Country:** ${data.country}`,
+          `**Start Date:** ${data.startDate}`,
+          `**End Date:** ${data.endDate}`,
+          `**Format:** ${data.mode}`,
+          `**URL:** ${data.url}`,
+          data.email ? `**Email:** ${data.email}` : '',
+          '',
+          '### events.json entry',
+          '```json',
+          eventJson,
+          '```',
+        ].filter(Boolean).join('\n');
+
+        const params = new URLSearchParams({
+          labels: 'event-submission',
+          title: `[Event Submission] ${data.name}`,
+          body,
+        });
+
+        const githubUrl = `https://github.com/NonicaTeam/AECEvents/issues/new?${params.toString()}`;
+        window.open(githubUrl, '_blank');
+
+        showMessage('success', '');
+        form.reset();
+      } catch {
+        showMessage('error', '');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = form.dataset.msgSubmit || 'Submit for Review';
+      }
+    });
+
+    function showMessage(type: 'success' | 'error', customMsg: string) {
+      if (!messageEl) return;
+      messageEl.className = `form-message ${type}`;
+      if (type === 'success') {
+        messageEl.textContent = customMsg || form.dataset.msgSuccess || 'Thank you!';
+      } else {
+        messageEl.textContent = customMsg || form.dataset.msgError || 'Something went wrong.';
+      }
+    }
+  });
+</script>

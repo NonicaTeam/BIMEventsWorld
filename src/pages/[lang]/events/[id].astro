@@ -1,0 +1,333 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { languages, type Lang } from '../../../i18n/locales';
+import { useTranslations } from '../../../i18n/utils';
+import { formatDateRange } from '../../../utils/events';
+import eventsData from '../../../data/events.json';
+import type { BIMEvent } from '../../../types';
+
+export function getStaticPaths() {
+  const paths = [];
+  for (const lang of Object.keys(languages)) {
+    for (const event of eventsData) {
+      paths.push({
+        params: { lang, id: event.id },
+        props: { event: event as BIMEvent, lang: lang as Lang },
+      });
+    }
+  }
+  return paths;
+}
+
+const { event, lang } = Astro.props;
+const t = useTranslations(lang);
+
+const modeLabel = event.mode === 'in-person'
+  ? t('table.filter.inperson')
+  : event.mode === 'online'
+    ? t('table.filter.online')
+    : t('table.filter.hybrid');
+
+const location = event.mode === 'online' ? 'Online' : `${event.city}, ${event.country}`;
+const dateRange = formatDateRange(event.startDate, event.endDate, lang);
+
+const pageTitle = `${event.name} | ${location} | BIM Events World`;
+const pageDescription = `${event.name} - ${modeLabel} BIM event in ${location}, ${dateRange}. Find details, dates, and registration.`;
+const pageKeywords = `${event.name}, ${event.city}, ${event.country}, BIM event, ${event.mode}`;
+
+// .ics calendar data
+const icsStart = event.startDate.replace(/-/g, '');
+const endParts = event.endDate.split('-').map(Number);
+const endD = new Date(endParts[0], endParts[1] - 1, endParts[2] + 1);
+const icsEnd = endD.toISOString().slice(0, 10).replace(/-/g, '');
+---
+
+<BaseLayout
+  lang={lang}
+  title={pageTitle}
+  description={pageDescription}
+  keywords={pageKeywords}
+  events={[event]}
+  path={`events/${event.id}/`}
+>
+  <section class="event-detail">
+    <div class="container event-detail-container">
+      <nav class="event-breadcrumb">
+        <a href={`/${lang}/`}>{t('nav.home')}</a>
+        <span class="breadcrumb-sep">/</span>
+        <a href={`/${lang}/#events`}>{t('nav.events')}</a>
+        <span class="breadcrumb-sep">/</span>
+        <span>{event.name}</span>
+      </nav>
+
+      <div class="event-detail-card">
+        <div class="event-detail-header">
+          <span class="event-detail-emoji">{event.emoji}</span>
+          <h1 class="event-detail-title">{event.name}</h1>
+          <span class={`mode-badge ${event.mode}`}>{modeLabel}</span>
+        </div>
+
+        <div class="event-detail-meta">
+          <div class="event-meta-item">
+            <span class="event-meta-icon">&#128197;</span>
+            <div>
+              <span class="event-meta-label">{t('event.date')}</span>
+              <span class="event-meta-value">{dateRange}</span>
+            </div>
+          </div>
+          <div class="event-meta-item">
+            <span class="event-meta-icon">&#128205;</span>
+            <div>
+              <span class="event-meta-label">{t('event.location')}</span>
+              <span class="event-meta-value">{location}</span>
+            </div>
+          </div>
+          <div class="event-meta-item">
+            <span class="event-meta-icon">&#127760;</span>
+            <div>
+              <span class="event-meta-label">{t('event.format')}</span>
+              <span class="event-meta-value">{modeLabel}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="event-detail-actions">
+          <a href={event.url} target="_blank" rel="noopener noreferrer" class="event-detail-cta">
+            {t('event.visitWebsite')} &#x2197;
+          </a>
+          <a
+            class="event-detail-cal"
+            id="event-cal-link"
+            data-name={event.name}
+            data-start={icsStart}
+            data-end={icsEnd}
+            data-location={location}
+            data-url={event.url}
+            data-id={event.id}
+            href="#"
+          >
+            &#128197; {t('event.addToCalendar')}
+          </a>
+        </div>
+
+        <div class="event-detail-nav">
+          <a href={`/${lang}/?event=${event.id}`} class="event-nav-link">
+            &#127758; {t('event.backToGlobe')}
+          </a>
+          <a href={`/${lang}/#events`} class="event-nav-link">
+            &#9776; {t('event.allEvents')}
+          </a>
+        </div>
+      </div>
+
+      <div class="event-past-notice">
+        <h2 class="past-notice-title">{t('event.pastNoticeTitle')}</h2>
+        <p class="past-notice-text">{t('event.pastNoticeText')}</p>
+        <a href={`/${lang}/`} class="past-notice-cta">
+          &#127758; {t('event.exploreGlobe')}
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .event-detail {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    padding: 2rem 0;
+    background: var(--bg, #0a0e1a);
+  }
+  .event-detail-container {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  .event-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 1.5rem;
+  }
+  .event-breadcrumb a {
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .event-breadcrumb a:hover { color: #60a5fa; }
+  .breadcrumb-sep { opacity: 0.4; }
+
+  .event-detail-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 1rem;
+    padding: 2rem;
+  }
+  .event-detail-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+  .event-detail-emoji { font-size: 2rem; }
+  .event-detail-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+    flex: 1;
+  }
+
+  .event-detail-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding: 1.25rem;
+    background: rgba(255,255,255,0.03);
+    border-radius: 0.75rem;
+  }
+  .event-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .event-meta-icon { font-size: 1.25rem; width: 1.5rem; text-align: center; flex-shrink: 0; }
+  .event-meta-label {
+    display: block;
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.45);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .event-meta-value {
+    display: block;
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.9);
+  }
+
+  .event-detail-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .event-detail-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.65rem 1.25rem;
+    background: #2563eb;
+    color: #fff;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: background 0.2s;
+  }
+  .event-detail-cta:hover { background: #1d4ed8; }
+  .event-detail-cal {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.65rem 1.25rem;
+    background: rgba(255,255,255,0.06);
+    color: rgba(255,255,255,0.8);
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background 0.2s;
+    cursor: pointer;
+  }
+  .event-detail-cal:hover { background: rgba(255,255,255,0.1); }
+
+  .event-detail-nav {
+    display: flex;
+    gap: 1rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    flex-wrap: wrap;
+  }
+  .event-nav-link {
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.2s;
+  }
+  .event-nav-link:hover { color: #60a5fa; }
+
+  .event-past-notice {
+    margin-top: 1.5rem;
+    padding: 1.25rem 1.5rem;
+    background: rgba(96, 165, 250, 0.06);
+    border: 1px solid rgba(96, 165, 250, 0.15);
+    border-radius: 0.75rem;
+    text-align: center;
+  }
+  .past-notice-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.7);
+    margin: 0 0 0.5rem;
+  }
+  .past-notice-text {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.45);
+    margin: 0 0 1rem;
+    line-height: 1.5;
+  }
+  .past-notice-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1rem;
+    background: rgba(96, 165, 250, 0.12);
+    color: #60a5fa;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: background 0.2s;
+  }
+  .past-notice-cta:hover { background: rgba(96, 165, 250, 0.2); }
+
+  @media (max-width: 640px) {
+    .event-detail-card { padding: 1.25rem; }
+    .event-detail-title { font-size: 1.25rem; }
+    .event-detail-actions { flex-direction: column; }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const calLink = document.getElementById('event-cal-link');
+    if (!calLink) return;
+    calLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      const el = calLink as HTMLElement;
+      const ics = [
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'PRODID:-//BIM Events World//EN',
+        'BEGIN:VEVENT',
+        `DTSTART;VALUE=DATE:${el.dataset.start}`,
+        `DTEND;VALUE=DATE:${el.dataset.end}`,
+        `SUMMARY:${el.dataset.name}`,
+        `LOCATION:${el.dataset.location}`,
+        `DESCRIPTION:${el.dataset.name} - ${el.dataset.url}`,
+        `URL:${el.dataset.url}`,
+        'END:VEVENT',
+        'END:VCALENDAR',
+      ].join('\r\n');
+      const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `${el.dataset.id}.ics`;
+      a.click();
+      URL.revokeObjectURL(a.href);
+    });
+  });
+</script>

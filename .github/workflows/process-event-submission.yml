@@ -1,0 +1,143 @@
+name: Process Approved Event Submission
+
+on:
+  issues:
+    types: [labeled]
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  process-event:
+    if: github.event.label.name == 'approved'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Parse issue and add event
+        uses: actions/github-script@v7
+        id: parse
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const body = issue.body;
+
+            // Parse form fields from GitHub Issue form
+            function extractField(label) {
+              const regex = new RegExp(`### ${label}\\s*\\n\\s*(.+)`, 'i');
+              const match = body.match(regex);
+              return match ? match[1].trim() : '';
+            }
+
+            const name = extractField('Event Name');
+            const city = extractField('City');
+            const country = extractField('Country');
+            const startDate = extractField('Start Date');
+            const endDate = extractField('End Date');
+            const mode = extractField('Event Format');
+            const url = extractField('Event Website URL');
+
+            if (!name || !city || !country || !startDate || !endDate || !url) {
+              core.setFailed('Missing required fields in issue body');
+              return;
+            }
+
+            // Generate event ID
+            const id = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+            // Geocode using Nominatim (free, returns lat/lng + country code)
+            let lat = 0, lng = 0, countryCode = '';
+            try {
+              const geoRes = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(city + ', ' + country)}&format=json&limit=1&accept-language=en`, {
+                headers: { 'User-Agent': 'AECEvents-Bot/1.0' }
+              });
+              const geoData = await geoRes.json();
+              if (geoData.length > 0) {
+                lat = parseFloat(parseFloat(geoData[0].lat).toFixed(4));
+                lng = parseFloat(parseFloat(geoData[0].lon).toFixed(4));
+              }
+            } catch (e) {
+              console.log('Geocoding failed, coordinates will need manual adjustment');
+            }
+
+            // Get country code from Nominatim reverse lookup
+            if (lat !== 0 && lng !== 0) {
+              try {
+                const revRes = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&zoom=3`, {
+                  headers: { 'User-Agent': 'AECEvents-Bot/1.0' }
+                });
+                const revData = await revRes.json();
+                if (revData.address && revData.address.country_code) {
+                  countryCode = revData.address.country_code.toUpperCase();
+                }
+              } catch (e) {
+                console.log('Reverse geocode failed for country code');
+              }
+            }
+            if (!countryCode) {
+              countryCode = country.substring(0, 2).toUpperCase();
+            }
+
+            // Generate flag emoji from country code (e.g. "DE" → 🇩🇪)
+            const emoji = countryCode.split('').map(c =>
+              String.fromCodePoint(0x1F1E6 + c.charCodeAt(0) - 65)
+            ).join('');
+
+            const newEvent = {
+              id,
+              name,
+              city,
+              country,
+              countryCode,
+              lat,
+              lng,
+              startDate,
+              endDate,
+              mode: mode.toLowerCase(),
+              url,
+              emoji
+            };
+
+            // Read current events
+            const fs = require('fs');
+            const eventsPath = 'src/data/events.json';
+            const events = JSON.parse(fs.readFileSync(eventsPath, 'utf8'));
+
+            // Check for duplicates
+            if (events.some(e => e.id === id)) {
+              core.setFailed(`Event with id "${id}" already exists`);
+              return;
+            }
+
+            // Add new event
+            events.push(newEvent);
+
+            // Sort by start date
+            events.sort((a, b) => a.startDate.localeCompare(b.startDate));
+
+            // Write back
+            fs.writeFileSync(eventsPath, JSON.stringify(events, null, 2) + '\n');
+
+            core.setOutput('event_name', name);
+            core.setOutput('issue_number', issue.number);
+
+            // Comment on the issue
+            await github.rest.issues.createComment({
+              ...context.repo,
+              issue_number: issue.number,
+              body: `Event "${name}" has been approved and added to the events data. A pull request will be created shortly.`
+            });
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          title: "Add event: ${{ steps.parse.outputs.event_name }}"
+          body: |
+            Adds approved event from issue #${{ steps.parse.outputs.issue_number }}.
+
+            Auto-generated from the event submission workflow.
+          branch: "add-event-${{ steps.parse.outputs.issue_number }}"
+          commit-message: "feat: add event ${{ steps.parse.outputs.event_name }}"
+          labels: "auto-event"

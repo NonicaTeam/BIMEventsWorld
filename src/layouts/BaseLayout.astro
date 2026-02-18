@@ -1,0 +1,31 @@
+---
+import SEOHead from '../components/SEOHead.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+import type { Lang } from '../i18n/locales';
+import type { BIMEvent } from '../types';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  keywords: string;
+  events?: BIMEvent[];
+  path?: string;
+}
+
+const { lang, title, description, keywords, events, path } = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <SEOHead lang={lang} title={title} description={description} keywords={keywords} events={events} path={path} />
+  </head>
+  <body>
+    <main>
+      <slot />
+    </main>
+    <Footer lang={lang} />
+  </body>
+</html>

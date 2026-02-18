@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#0a0e17"/>
+  <circle cx="32" cy="30" r="18" fill="none" stroke="url(#g)" stroke-width="2"/>
+  <ellipse cx="32" cy="30" rx="8" ry="18" fill="none" stroke="url(#g)" stroke-width="1.5"/>
+  <line x1="14" y1="30" x2="50" y2="30" stroke="url(#g)" stroke-width="1.2"/>
+  <line x1="18" y1="20" x2="46" y2="20" stroke="url(#g)" stroke-width="0.8" opacity="0.6"/>
+  <line x1="18" y1="40" x2="46" y2="40" stroke="url(#g)" stroke-width="0.8" opacity="0.6"/>
+  <circle cx="42" cy="20" r="4" fill="#3b82f6"/>
+  <circle cx="42" cy="20" r="2" fill="#fff"/>
+  <text x="32" y="58" text-anchor="middle" font-family="system-ui" font-size="10" font-weight="700" fill="#94a3c0">BIM</text>
+</svg>

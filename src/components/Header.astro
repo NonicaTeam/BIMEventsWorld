@@ -1,0 +1,61 @@
+---
+import { languages, type Lang } from '../i18n/locales';
+import { useTranslations } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href={`/${lang}/`} class="site-logo">
+      <span class="logo-icon">&#x1F310;</span>
+      <span>BIM Events</span>
+    </a>
+
+    <button class="mobile-nav-toggle" aria-label="Toggle navigation" id="nav-toggle">
+      &#9776;
+    </button>
+
+    <nav class="header-nav" id="header-nav">
+      <a href={`/${lang}/#events`}>{t('nav.events')}</a>
+      <a href={`/${lang}/#submit`}>{t('nav.submit')}</a>
+
+      <div class="lang-switcher" id="lang-switcher">
+        <button class="lang-switcher-btn" type="button" aria-label={t('nav.language')}>
+          {lang.toUpperCase()}
+          <span class="arrow">&#9660;</span>
+        </button>
+        <div class="lang-dropdown">
+          {Object.entries(languages).map(([code, name]) => (
+            <a href={`/${code}/`} class:list={[{ active: code === lang }]}>
+              {name}
+            </a>
+          ))}
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggle = document.getElementById('nav-toggle');
+    const nav = document.getElementById('header-nav');
+    toggle?.addEventListener('click', () => nav?.classList.toggle('open'));
+
+    const switcher = document.getElementById('lang-switcher');
+    const btn = switcher?.querySelector('.lang-switcher-btn');
+    btn?.addEventListener('click', () => switcher?.classList.toggle('open'));
+
+    document.addEventListener('click', (e) => {
+      if (switcher && !switcher.contains(e.target as Node)) {
+        switcher.classList.remove('open');
+      }
+    });
+  });
+</script>

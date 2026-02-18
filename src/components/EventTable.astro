@@ -1,0 +1,209 @@
+---
+import type { Lang } from '../i18n/locales';
+import { useTranslations } from '../i18n/utils';
+import { formatDateRange } from '../utils/events';
+import type { BIMEvent } from '../types';
+
+interface Props {
+  lang: Lang;
+  events: BIMEvent[];
+}
+
+const { lang, events } = Astro.props;
+const t = useTranslations(lang);
+
+function getModeLabel(mode: string): string {
+  if (mode === 'in-person') return t('table.filter.inperson');
+  if (mode === 'online') return t('table.filter.online');
+  return t('table.filter.hybrid');
+}
+---
+
+<section class="events-section" id="events">
+  <div class="container">
+    <div class="events-header">
+      <div>
+        <p class="section-label">&#9776; {t('nav.events')}</p>
+        <h2 class="section-title">{t('table.title')}</h2>
+        <p class="section-subtitle">{t('table.subtitle')}</p>
+      </div>
+    </div>
+    <div class="events-toolbar">
+      <div class="events-search-wrap">
+        <span class="events-search-icon">&#128269;</span>
+        <input type="text" class="events-search" id="events-search" placeholder={t('table.search')} autocomplete="off" />
+      </div>
+      <div class="events-filters" id="events-filters">
+        <button class="filter-btn active" data-filter="all">{t('table.filter.all')}</button>
+        <button class="filter-btn" data-filter="in-person">{t('table.filter.inperson')}</button>
+        <button class="filter-btn" data-filter="online">{t('table.filter.online')}</button>
+        <button class="filter-btn" data-filter="hybrid">{t('table.filter.hybrid')}</button>
+      </div>
+      <a href="#submit" class="submit-event-btn">&#x2795; {t('nav.submit')}</a>
+    </div>
+
+    <div class="events-table-wrapper">
+      <table class="events-table">
+        <thead>
+          <tr>
+            <th>{t('table.col.event')}</th>
+            <th>{t('table.col.location')}</th>
+            <th>{t('table.col.date')}</th>
+            <th>{t('table.col.format')}</th>
+            <th>{t('table.col.link')}</th>
+          </tr>
+        </thead>
+        <tbody class="events-tbody" id="events-tbody">
+          {events.map((event) => (
+            <tr class="event-row" data-mode={event.mode} data-name={event.name.toLowerCase()} data-lat={event.lat} data-lng={event.lng}
+                data-id={event.id} data-event-name={event.name} data-start={event.startDate} data-end={event.endDate}
+                data-city={event.city} data-country={event.country} data-url={event.url}>
+              <td data-label={t('table.col.event')}>
+                <a href={`/${lang}/events/${event.id}/`} class="event-title-link">{event.name}</a>
+              </td>
+              <td data-label={t('table.col.location')}>
+                {event.mode === 'online' ? t('table.online') : `${event.city}, ${event.country}`}
+              </td>
+              <td data-label={t('table.col.date')} class="event-date-cell">
+                {formatDateRange(event.startDate, event.endDate, lang)}
+              </td>
+              <td data-label={t('table.col.format')}>
+                <span class={`mode-badge ${event.mode}`}>{getModeLabel(event.mode)}</span>
+              </td>
+              <td data-label={t('table.col.link')}>
+                <div class="event-actions-cell">
+                  <a href={event.url} target="_blank" rel="noopener noreferrer" class="event-link">
+                    {t('table.visit')} &#x2197;
+                  </a>
+                  <button class="event-cal-btn" type="button" aria-label={t('popup.calendar')} title={t('popup.calendar')}>
+                    &#128197;
+                  </button>
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      {events.length === 0 && (
+        <div class="events-empty">{t('table.empty')}</div>
+      )}
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Filter state
+    let activeMode = 'all';
+    let searchQuery = '';
+
+    const filterBtns = document.querySelectorAll('[data-filter]');
+    const rows = document.querySelectorAll('.event-row');
+    const searchInput = document.getElementById('events-search') as HTMLInputElement;
+
+    function applyFilters() {
+      rows.forEach((row) => {
+        const el = row as HTMLElement;
+        const rowMode = el.dataset.mode || '';
+        const rowName = el.dataset.name || '';
+        const rowCity = (el.dataset.city || '').toLowerCase();
+        const rowCountry = (el.dataset.country || '').toLowerCase();
+        const modeMatch = activeMode === 'all' || rowMode === activeMode;
+        const textMatch = !searchQuery || rowName.includes(searchQuery) || rowCity.includes(searchQuery) || rowCountry.includes(searchQuery);
+        el.style.display = modeMatch && textMatch ? '' : 'none';
+      });
+    }
+
+    // Filter buttons
+    filterBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        activeMode = (btn as HTMLElement).dataset.filter || 'all';
+        filterBtns.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        applyFilters();
+      });
+    });
+
+    // Search input
+    searchInput?.addEventListener('input', () => {
+      searchQuery = searchInput.value.toLowerCase().trim();
+      applyFilters();
+    });
+
+    // Calendar buttons (.ics download)
+    document.querySelectorAll('.event-cal-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const row = btn.closest('.event-row') as HTMLElement;
+        if (!row) return;
+        const name = row.dataset.eventName || '';
+        const startDate = (row.dataset.start || '').replace(/-/g, '');
+        const endParts = (row.dataset.end || '').split('-').map(Number);
+        const endD = new Date(endParts[0], endParts[1] - 1, endParts[2] + 1);
+        const endDate = endD.toISOString().slice(0, 10).replace(/-/g, '');
+        const mode = row.dataset.mode || 'in-person';
+        const location = mode === 'online' ? 'Online' : `${row.dataset.city}, ${row.dataset.country}`;
+        const url = row.dataset.url || '';
+        const id = row.dataset.id || 'event';
+        const ics = [
+          'BEGIN:VCALENDAR',
+          'VERSION:2.0',
+          'PRODID:-//BIM Events World//EN',
+          'BEGIN:VEVENT',
+          `DTSTART;VALUE=DATE:${startDate}`,
+          `DTEND;VALUE=DATE:${endDate}`,
+          `SUMMARY:${name}`,
+          `LOCATION:${location}`,
+          `DESCRIPTION:${name} - ${url}`,
+          `URL:${url}`,
+          'END:VEVENT',
+          'END:VCALENDAR',
+        ].join('\r\n');
+        const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `${id}.ics`;
+        a.click();
+        URL.revokeObjectURL(a.href);
+      });
+    });
+
+    // Proximity sorting
+    function haversine(lat1: number, lng1: number, lat2: number, lng2: number): number {
+      const R = 6371;
+      const dLat = ((lat2 - lat1) * Math.PI) / 180;
+      const dLng = ((lng2 - lng1) * Math.PI) / 180;
+      const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos((lat1 * Math.PI) / 180) *
+          Math.cos((lat2 * Math.PI) / 180) *
+          Math.sin(dLng / 2) *
+          Math.sin(dLng / 2);
+      return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    }
+
+    function sortByProximity(lat: number, lng: number) {
+      const tbody = document.getElementById('events-tbody');
+      if (!tbody) return;
+      const rowEls = Array.from(tbody.querySelectorAll('.event-row')) as HTMLElement[];
+
+      rowEls.forEach((row) => {
+        const eLat = parseFloat(row.dataset.lat || '0');
+        const eLng = parseFloat(row.dataset.lng || '0');
+        row.dataset.distance = String(Math.round(haversine(lat, lng, eLat, eLng)));
+      });
+
+      rowEls.sort((a, b) => parseInt(a.dataset.distance || '0') - parseInt(b.dataset.distance || '0'));
+      rowEls.forEach((row) => tbody.appendChild(row));
+    }
+
+    document.addEventListener('visitor-located', ((e: CustomEvent) => {
+      sortByProximity(e.detail.lat, e.detail.lng);
+    }) as EventListener);
+
+    // If location already available
+    if ((window as any).__visitorLocation) {
+      const { lat, lng } = (window as any).__visitorLocation;
+      sortByProximity(lat, lng);
+    }
+  });
+</script>

@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Globe from '../../components/Globe.astro';
+import EventTable from '../../components/EventTable.astro';
+import SubmissionForm from '../../components/SubmissionForm.astro';
+import { useTranslations } from '../../i18n/utils';
+import { getUpcomingEvents } from '../../utils/events';
+import eventsData from '../../data/events.json';
+import type { BIMEvent } from '../../types';
+
+const lang = 'nl';
+const t = useTranslations(lang);
+const events = getUpcomingEvents(eventsData as BIMEvent[]);
+---
+
+<BaseLayout
+  lang={lang}
+  title={t('site.title')}
+  description={t('site.description')}
+  keywords={t('site.keywords')}
+  events={events}
+>
+  <Globe lang={lang} events={events} />
+  <EventTable lang={lang} events={events} />
+  <SubmissionForm lang={lang} />
+</BaseLayout>
