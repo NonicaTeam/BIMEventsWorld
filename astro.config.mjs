@@ -9,6 +9,7 @@ export default defineConfig({
   adapter: cloudflare(),
   integrations: [
     sitemap({
+      lastmod: new Date(),
       i18n: {
         defaultLocale: 'en',
         locales: {
