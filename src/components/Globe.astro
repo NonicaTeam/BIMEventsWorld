@@ -164,6 +164,9 @@ const t = useTranslations(lang);
     let w = container.clientWidth;
     let h = container.clientHeight;
     let dpr = Math.min(window.devicePixelRatio, 2);
+    // On portrait screens the globe (sized by height) overflows horizontally.
+    // Scale it down so the diameter stays within the viewport width with some padding.
+    let cobeScale = Math.min(1, (w / h) * 1.35);
     canvas.width = w * dpr;
     canvas.height = h * dpr;
     canvas.style.width = w + 'px';
@@ -190,7 +193,7 @@ const t = useTranslations(lang);
     let resumeTimer: ReturnType<typeof setTimeout>;
 
     // --- Globe radius (COBE sphere is 0.8 in UV space, UV is normalized by height) ---
-    let globeR = h * 0.4;
+    let globeR = h * 0.4 * cobeScale;
 
     // --- Patch COBE shader seam + texture filtering ---
     // COBE's fragment shader uses acos()+sign-flip for longitude UV, which creates
@@ -232,7 +235,7 @@ const t = useTranslations(lang);
       theta: 0.65,
       dark: 1,
       diffuse: 2,
-      scale: 1,
+      scale: cobeScale,
       mapSamples: 80000,
       mapBrightness: 6,
       mapBaseBrightness: 0.05,
@@ -247,6 +250,7 @@ const t = useTranslations(lang);
           state.width = w * dpr;
           state.height = h * dpr;
           state.devicePixelRatio = dpr;
+          (state as any).scale = cobeScale;
           needsCOBEResize = false;
         }
         if (autoRotate && !pointerDown) {
@@ -496,7 +500,8 @@ const t = useTranslations(lang);
       w = container!.clientWidth;
       h = container!.clientHeight;
       dpr = Math.min(window.devicePixelRatio, 2);
-      globeR = h * 0.4;
+      cobeScale = Math.min(1, (w / h) * 1.35);
+      globeR = h * 0.4 * cobeScale;
       canvas.width = w * dpr;
       canvas.height = h * dpr;
       canvas.style.width = w + 'px';

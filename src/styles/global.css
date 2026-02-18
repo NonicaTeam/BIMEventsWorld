@@ -233,6 +233,7 @@ ul, ol {
 .hero-section {
   position: relative;
   height: 100vh;
+  height: 100dvh;
   min-height: 600px;
   display: flex;
   flex-direction: column;
@@ -510,7 +511,12 @@ ul, ol {
   width: 100% !important;
   height: 100% !important;
   z-index: 1;
+  touch-action: none;
   animation: globeShimmer 5s ease-in-out infinite alternate;
+}
+
+#marker-canvas {
+  touch-action: none;
 }
 
 @keyframes globeShimmer {
