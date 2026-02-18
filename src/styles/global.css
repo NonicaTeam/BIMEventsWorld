@@ -53,6 +53,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  -webkit-tap-highlight-color: transparent;
 }
 
 html {
@@ -679,7 +680,7 @@ ul, ol {
   background: rgba(10, 18, 36, 0.92);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--flag-border);
+  border: 1.5px solid var(--flag-border);
   border-radius: var(--radius-md);
   padding: 14px 16px;
   z-index: 20;
@@ -687,9 +688,11 @@ ul, ol {
   visibility: hidden;
   opacity: 0;
   box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.5),
-    0 0 40px var(--flag-glow),
-    0 0 80px var(--flag-glow);
+    0 8px 32px rgba(0, 0, 0, 0.6),
+    0 4px 16px rgba(0, 0, 0, 0.4),
+    0 0 20px var(--flag-glow),
+    0 0 50px var(--flag-glow),
+    0 0 90px var(--flag-glow);
   will-change: transform, opacity;
 }
 
@@ -707,18 +710,18 @@ ul, ol {
 /* Mode colors */
 .event-flag[data-mode="in-person"] {
   --flag-accent: var(--color-inperson);
-  --flag-border: rgba(6, 182, 212, 0.25);
-  --flag-glow: rgba(6, 182, 212, 0.15);
+  --flag-border: rgba(6, 182, 212, 0.45);
+  --flag-glow: rgba(6, 182, 212, 0.25);
 }
 .event-flag[data-mode="online"] {
   --flag-accent: var(--color-online);
-  --flag-border: rgba(139, 92, 246, 0.25);
-  --flag-glow: rgba(139, 92, 246, 0.15);
+  --flag-border: rgba(139, 92, 246, 0.45);
+  --flag-glow: rgba(139, 92, 246, 0.25);
 }
 .event-flag[data-mode="hybrid"] {
   --flag-accent: var(--color-hybrid);
-  --flag-border: rgba(249, 115, 22, 0.25);
-  --flag-glow: rgba(249, 115, 22, 0.15);
+  --flag-border: rgba(249, 115, 22, 0.45);
+  --flag-glow: rgba(249, 115, 22, 0.25);
 }
 
 @keyframes flagIn {
