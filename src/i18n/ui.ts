@@ -81,6 +81,8 @@ export const ui = {
     'event.pastNoticeTitle': 'About Past Events',
     'event.pastNoticeText': 'This event may have already taken place. Past events are automatically removed from the globe. Visit the interactive globe to explore all upcoming BIM events worldwide.',
     'event.exploreGlobe': 'Explore the Globe',
+    'opensource.text': 'This project is open source.',
+    'opensource.link': 'View on GitHub',
   },
   es: {
     'site.title': 'BIM Events World | Descubre Eventos de Building Information Modeling',
@@ -164,6 +166,8 @@ export const ui = {
     'event.pastNoticeTitle': 'Sobre Eventos Pasados',
     'event.pastNoticeText': 'Es posible que este evento ya haya tenido lugar. Los eventos pasados se eliminan automaticamente del globo. Visita el globo interactivo para explorar todos los proximos eventos BIM en el mundo.',
     'event.exploreGlobe': 'Explorar el Globo',
+    'opensource.text': 'Este proyecto es de codigo abierto.',
+    'opensource.link': 'Ver en GitHub',
   },
   fr: {
     'site.title': 'BIM Events World | Découvrez les Événements Building Information Modeling',
@@ -247,6 +251,8 @@ export const ui = {
     'event.pastNoticeTitle': 'A Propos des Evenements Passes',
     'event.pastNoticeText': 'Cet evenement a peut-etre deja eu lieu. Les evenements passes sont automatiquement supprimes du globe. Visitez le globe interactif pour explorer tous les prochains evenements BIM dans le monde.',
     'event.exploreGlobe': 'Explorer le Globe',
+    'opensource.text': 'Ce projet est open source.',
+    'opensource.link': 'Voir sur GitHub',
   },
   de: {
     'site.title': 'BIM Events World | Building Information Modeling Events Entdecken',
@@ -330,6 +336,8 @@ export const ui = {
     'event.pastNoticeTitle': 'Uber Vergangene Events',
     'event.pastNoticeText': 'Dieses Event hat moglicherweise bereits stattgefunden. Vergangene Events werden automatisch vom Globus entfernt. Besuchen Sie den interaktiven Globus, um alle kommenden BIM-Events weltweit zu entdecken.',
     'event.exploreGlobe': 'Globus Erkunden',
+    'opensource.text': 'Dieses Projekt ist Open Source.',
+    'opensource.link': 'Auf GitHub ansehen',
   },
   it: {
     'site.title': 'BIM Events World | Scopri gli Eventi di Building Information Modeling',
@@ -413,6 +421,8 @@ export const ui = {
     'event.pastNoticeTitle': 'Informazioni sugli Eventi Passati',
     'event.pastNoticeText': 'Questo evento potrebbe essersi gia svolto. Gli eventi passati vengono automaticamente rimossi dal globo. Visita il globo interattivo per esplorare tutti i prossimi eventi BIM nel mondo.',
     'event.exploreGlobe': 'Esplora il Globo',
+    'opensource.text': 'Questo progetto e open source.',
+    'opensource.link': 'Vedi su GitHub',
   },
   nl: {
     'site.title': 'BIM Events World | Ontdek Building Information Modeling Events',
@@ -496,5 +506,7 @@ export const ui = {
     'event.pastNoticeTitle': 'Over Verlopen Evenementen',
     'event.pastNoticeText': 'Dit evenement heeft mogelijk al plaatsgevonden. Verlopen evenementen worden automatisch van de wereldbol verwijderd. Bezoek de interactieve wereldbol om alle komende BIM-evenementen wereldwijd te ontdekken.',
     'event.exploreGlobe': 'Verken de Wereldbol',
+    'opensource.text': 'Dit project is open source.',
+    'opensource.link': 'Bekijk op GitHub',
   },
 } as const;

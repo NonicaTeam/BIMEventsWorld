@@ -1147,6 +1147,30 @@ ul, ol {
   font-size: 0.95rem;
 }
 
+/* === Open Source Note === */
+.opensource-note {
+  text-align: center;
+  padding: 24px 20px;
+  background: var(--color-bg-secondary);
+  border-top: 1px solid var(--color-border);
+}
+
+.opensource-note p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+}
+
+.opensource-note a {
+  color: var(--color-accent-light);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.opensource-note a:hover {
+  text-decoration: underline;
+}
+
 /* === Submission Form Section === */
 .form-section {
   position: relative;

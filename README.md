@@ -24,7 +24,7 @@ Know about a BIM event that's missing? There's a submission form on the site tha
 
 ## Contributing
 
-Contributions are welcome, whether that's adding events, improving translations, or fixing bugs. The event data lives in `src/data/events.json` and translations are in `src/i18n/ui.ts`.
+Contributions are welcome, whether that's improving translations, or fixing bugs. To add events, submit an issue following the template on the [live website](https://bimeventsworld.com). The event data lives in `src/data/events.json` and translations are in `src/i18n/ui.ts`.
 
 ## License
 

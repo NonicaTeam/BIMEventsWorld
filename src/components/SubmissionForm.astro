@@ -10,6 +10,10 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 ---
 
+<div class="opensource-note">
+  <p>{t('opensource.text')} <a href="https://github.com/nonicateam/bimeventsworld" target="_blank" rel="noopener noreferrer">{t('opensource.link')} &rarr;</a></p>
+</div>
+
 <section class="form-section" id="submit">
   <div class="container form-container">
     <div class="form-header">
