@@ -5,7 +5,7 @@ import cloudflare from '@astrojs/cloudflare';
 
 export default defineConfig({
   site: 'https://bimeventsworld.com',
-  output: 'server',
+  output: 'static',
   adapter: cloudflare(),
   integrations: [
     sitemap({
