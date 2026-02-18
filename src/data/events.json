@@ -65,14 +65,14 @@
     "lng": 5.5,
     "startDate": "2026-04-15",
     "endDate": "2026-04-16",
-    "mode": "hybrid",
+    "mode": "in-person",
     "url": "https://aps.autodesk.com/autodesk-devcon-europe-2026",
     "emoji": "🇳🇱"
   },
   {
     "id": "bim-on-editeca-2026",
     "name": "BIM On Editeca",
-    "city": "Barcelona",
+    "city": "",
     "country": "Spain",
     "countryCode": "ES",
     "lat": 37.5,

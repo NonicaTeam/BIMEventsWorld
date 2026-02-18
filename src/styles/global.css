@@ -1704,16 +1704,19 @@ ul, ol {
   }
 
   .events-toolbar {
-    flex-direction: column;
-    align-items: stretch;
+    flex-wrap: wrap;
+    align-items: center;
   }
 
   .events-search-wrap {
+    flex: 0 0 100%;
     max-width: none;
   }
 
   .events-filters {
     flex-wrap: wrap;
+    flex: 1;
+    min-width: 0;
   }
 
   /* Mobile table → cards */
