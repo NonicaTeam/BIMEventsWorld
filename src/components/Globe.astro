@@ -571,6 +571,8 @@ const t = useTranslations(lang);
       history.replaceState(null, '', url.toString());
     }
 
+    const isMobile = () => window.innerWidth <= 768;
+
     function updateFlagPosition() {
       if (selectedIdx < 0) return;
       const pos = markerScreenPos[selectedIdx];
@@ -578,6 +580,8 @@ const t = useTranslations(lang);
         hideEventFlag();
         return;
       }
+      // On mobile the flag is a CSS bottom sheet — no inline positioning needed
+      if (isMobile()) return;
       // Place flag to the right of marker; flip to left if near right edge
       const flagW = 260;
       const gap = 18;
