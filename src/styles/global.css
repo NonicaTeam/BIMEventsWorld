@@ -511,12 +511,12 @@ ul, ol {
   width: 100% !important;
   height: 100% !important;
   z-index: 1;
-  touch-action: none;
+  touch-action: pan-y;
   animation: globeShimmer 5s ease-in-out infinite alternate;
 }
 
 #marker-canvas {
-  touch-action: none;
+  touch-action: pan-y;
 }
 
 @keyframes globeShimmer {

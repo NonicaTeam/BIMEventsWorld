@@ -1,0 +1,28 @@
+{
+  "name": "BIM Events Worldwide",
+  "short_name": "BIM Events",
+  "description": "Discover upcoming BIM events worldwide on an interactive globe",
+  "start_url": "/en/",
+  "display": "standalone",
+  "background_color": "#060b18",
+  "theme_color": "#060b18",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

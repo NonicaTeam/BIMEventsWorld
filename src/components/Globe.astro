@@ -191,6 +191,7 @@ const t = useTranslations(lang);
     let velocityX = 0;
     let velocityY = 0;
     let resumeTimer: ReturnType<typeof setTimeout>;
+    const isMobile = () => window.innerWidth <= 768;
 
     // --- Globe radius (COBE sphere is 0.8 in UV space, UV is normalized by height) ---
     let globeR = h * 0.4 * cobeScale;
@@ -446,9 +447,15 @@ const t = useTranslations(lang);
         pointerX = e.clientX;
         pointerY = e.clientY;
         velocityX = deltaX / 150;
-        velocityY = deltaY / 300;
         targetPhi += velocityX;
-        targetTheta += velocityY;
+        // On mobile, vertical swipes scroll the page (touch-action: pan-y),
+        // so only apply vertical tilt on desktop
+        if (!isMobile()) {
+          velocityY = deltaY / 300;
+          targetTheta += velocityY;
+        } else {
+          velocityY = 0;
+        }
       }
     });
     window.addEventListener('pointerup', () => {
@@ -570,8 +577,6 @@ const t = useTranslations(lang);
       url.searchParams.delete('event');
       history.replaceState(null, '', url.toString());
     }
-
-    const isMobile = () => window.innerWidth <= 768;
 
     function updateFlagPosition() {
       if (selectedIdx < 0) return;
