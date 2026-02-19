@@ -19,7 +19,7 @@ const t = useTranslations(lang);
     <div class="form-header">
       <p class="section-label">&#x2795; {t('nav.submit')}</p>
       <h2 class="section-title">{t('form.title')}</h2>
-      <p class="section-subtitle" style="margin: 0 auto;">{t('form.subtitle')}</p>
+      <p class="section-subtitle" style="margin: 0 auto;" set:html={t('form.subtitle')} />
     </div>
 
     <form class="submission-form" id="submission-form"
