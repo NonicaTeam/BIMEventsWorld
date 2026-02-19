@@ -1,7 +1,7 @@
 export const ui = {
   en: {
     'site.title': 'BIM Events World | Discover Building Information Modeling Events',
-    'site.description': 'Explore upcoming BIM events, conferences, and workshops worldwide on our interactive 3D globe. Find Building Information Modeling events near you.',
+    'site.description': 'Discover upcoming BIM events, conferences, and workshops on an always up-to-date world map. Past events are removed automatically so you only see future BIM events.',
     'site.keywords': 'BIM events, BIM conferences, BIM workshops, Building Information Modeling, AEC events, construction technology events, digital construction, BIM summit',
     'nav.home': 'Home',
     'nav.events': 'Events',
@@ -86,7 +86,7 @@ export const ui = {
   },
   es: {
     'site.title': 'BIM Events World | Descubre Eventos de Building Information Modeling',
-    'site.description': 'Explora próximos eventos, conferencias y talleres BIM en todo el mundo en nuestro globo 3D interactivo. Encuentra eventos de Building Information Modeling cerca de ti.',
+    'site.description': 'Descubre eventos, conferencias y talleres BIM en un mapa mundial siempre actualizado. Los eventos pasados se eliminan automaticamente para que solo veas eventos BIM futuros.',
     'site.keywords': 'eventos BIM, conferencias BIM, talleres BIM, Building Information Modeling, eventos AEC, eventos tecnología construcción, construcción digital, cumbre BIM',
     'nav.home': 'Inicio',
     'nav.events': 'Eventos',
@@ -171,7 +171,7 @@ export const ui = {
   },
   fr: {
     'site.title': 'BIM Events World | Découvrez les Événements Building Information Modeling',
-    'site.description': 'Explorez les événements, conférences et ateliers BIM à venir dans le monde entier sur notre globe 3D interactif. Trouvez des événements BIM près de chez vous.',
+    'site.description': 'Decouvrez les evenements, conferences et ateliers BIM sur une carte du monde toujours a jour. Les evenements passes sont supprimes automatiquement pour ne montrer que les evenements BIM futurs.',
     'site.keywords': 'événements BIM, conférences BIM, ateliers BIM, Building Information Modeling, événements AEC, événements technologie construction, construction numérique, sommet BIM',
     'nav.home': 'Accueil',
     'nav.events': 'Événements',
@@ -256,7 +256,7 @@ export const ui = {
   },
   de: {
     'site.title': 'BIM Events World | Building Information Modeling Events Entdecken',
-    'site.description': 'Entdecken Sie kommende BIM-Veranstaltungen, Konferenzen und Workshops weltweit auf unserem interaktiven 3D-Globus. Finden Sie BIM-Events in Ihrer Nähe.',
+    'site.description': 'Entdecken Sie BIM-Veranstaltungen, Konferenzen und Workshops auf einer stets aktuellen Weltkarte. Vergangene Events werden automatisch entfernt, sodass nur zukunftige BIM-Events angezeigt werden.',
     'site.keywords': 'BIM Veranstaltungen, BIM Konferenzen, BIM Workshops, Building Information Modeling, AEC Events, Bautechnologie Events, digitales Bauen, BIM Gipfel',
     'nav.home': 'Startseite',
     'nav.events': 'Veranstaltungen',
@@ -341,7 +341,7 @@ export const ui = {
   },
   it: {
     'site.title': 'BIM Events World | Scopri gli Eventi di Building Information Modeling',
-    'site.description': 'Esplora i prossimi eventi, conferenze e workshop BIM in tutto il mondo sul nostro globo 3D interattivo. Trova eventi BIM vicino a te.',
+    'site.description': 'Scopri eventi, conferenze e workshop BIM su una mappa mondiale sempre aggiornata. Gli eventi passati vengono rimossi automaticamente per mostrare solo eventi BIM futuri.',
     'site.keywords': 'eventi BIM, conferenze BIM, workshop BIM, Building Information Modeling, eventi AEC, eventi tecnologia costruzione, costruzione digitale, summit BIM',
     'nav.home': 'Home',
     'nav.events': 'Eventi',
@@ -426,7 +426,7 @@ export const ui = {
   },
   nl: {
     'site.title': 'BIM Events World | Ontdek Building Information Modeling Events',
-    'site.description': 'Verken komende BIM-evenementen, conferenties en workshops wereldwijd op onze interactieve 3D-wereldbol. Vind BIM-evenementen bij jou in de buurt.',
+    'site.description': 'Ontdek BIM-evenementen, conferenties en workshops op een altijd actuele wereldkaart. Verlopen evenementen worden automatisch verwijderd zodat je alleen toekomstige BIM-evenementen ziet.',
     'site.keywords': 'BIM evenementen, BIM conferenties, BIM workshops, Building Information Modeling, AEC evenementen, bouwtechnologie evenementen, digitaal bouwen, BIM top',
     'nav.home': 'Home',
     'nav.events': 'Evenementen',
