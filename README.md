@@ -4,6 +4,8 @@ A 3D globe with upcoming BIM events around the world.
 
 **[bimeventsworld.com](https://bimeventsworld.com)**
 
+Open Sourced.
+
 ## Why this exists
 
 BIM events are scattered across dozens of websites, LinkedIn posts, and word of mouth. We wanted a single place where you can see what's happening and where, without having to dig around.
