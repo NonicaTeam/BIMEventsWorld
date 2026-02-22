@@ -6,7 +6,7 @@ A 3D globe with upcoming BIM events around the world.
 
 ## Why this exists
 
-If you work in BIM, you know how it goes: events are scattered across dozens of websites, LinkedIn posts, and word of mouth. We wanted a single place where you can see what's happening and where, without having to dig around.
+BIM events are scattered across dozens of websites, LinkedIn posts, and word of mouth. We wanted a single place where you can see what's happening and where, without having to dig around.
 
 The globe shows events within the next 12 months. Past events are automatically removed. One event per city to keep things readable.
 
@@ -20,11 +20,11 @@ The globe shows events within the next 12 months. Past events are automatically 
 
 ## Submit an event
 
-Know about a BIM event that's missing? There's a submission form on the site that lets you suggest it. You can also open an issue or PR in this repo to add it directly to the [events list](src/data/events.json).
+There's a submission form on the site that lets you suggest it. You can also open an issue or PR in this repo to add it directly to the [events list](src/data/events.json).
 
 ## Contributing
 
-Contributions are welcome, whether that's improving translations, or fixing bugs. To add events, submit an issue following the template on the [live website](https://bimeventsworld.com). The event data lives in `src/data/events.json` and translations are in `src/i18n/ui.ts`.
+Contributions are welcome, whether that's improving translations, or fixing bugs. To add events, submit an issue following the template on the [live website](https://bimeventsworld.com).
 
 ## License
 
