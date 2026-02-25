@@ -14,6 +14,20 @@
     "emoji": "🇳🇱"
   },
   {
+    "id": "bim-meetup-polska-2026",
+    "name": "BIM MeetUp Polska 2026",
+    "city": "Wroclaw",
+    "country": "Poland",
+    "countryCode": "PL",
+    "lat": 51.1079,
+    "lng": 17.0385,
+    "startDate": "2026-03-19",
+    "endDate": "2026-03-20",
+    "mode": "in-person",
+    "url": "https://www.bimmeetup.pl/",
+    "emoji": "🇵🇱"
+  },
+  {
     "id": "rebuild-2026",
     "name": "REBUILD",
     "city": "Madrid",
@@ -82,6 +96,34 @@
     "mode": "online",
     "url": "https://editeca.com/evento/bim-on/",
     "emoji": "🇪🇸"
+  },
+  {
+    "id": "the-bim-summit-2026",
+    "name": "The BIM Summit",
+    "city": "Stockholm",
+    "country": "Sweden",
+    "countryCode": "SE",
+    "lat": 59.3293,
+    "lng": 18.0686,
+    "startDate": "2026-04-28",
+    "endDate": "2026-04-28",
+    "mode": "in-person",
+    "url": "https://www.symetrigroup.com/campaigns/bim-summit-by-symetri/",
+    "emoji": "🇸🇪"
+  },
+  {
+    "id": "openbim-poland-2026",
+    "name": "openBIM POLAND 2026",
+    "city": "Warsaw",
+    "country": "Poland",
+    "countryCode": "PL",
+    "lat": 52.2297,
+    "lng": 21.0122,
+    "startDate": "2026-05-14",
+    "endDate": "2026-05-15",
+    "mode": "in-person",
+    "url": "https://buildingsmart.org.pl/openbim-poland-2026/",
+    "emoji": "🇵🇱"
   },
   {
     "id": "digital-construction-week-2026",

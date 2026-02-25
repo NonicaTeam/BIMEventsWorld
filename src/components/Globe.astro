@@ -634,7 +634,7 @@ const t = useTranslations(lang);
       const startDate = event.startDate.replace(/-/g, '');
       // End date: add 1 day for all-day event (DTEND is exclusive in iCal)
       const endParts = event.endDate.split('-').map(Number);
-      const endD = new Date(endParts[0], endParts[1] - 1, endParts[2] + 1);
+      const endD = new Date(Date.UTC(endParts[0], endParts[1] - 1, endParts[2] + 1));
       const endDate = endD.toISOString().slice(0, 10).replace(/-/g, '');
       const location = event.mode === 'online' ? 'Online' : `${event.city}, ${event.country}`;
       const ics = [

@@ -38,7 +38,7 @@ const pageKeywords = `${event.name}, ${event.city}, ${event.country}, BIM event,
 // .ics calendar data
 const icsStart = event.startDate.replace(/-/g, '');
 const endParts = event.endDate.split('-').map(Number);
-const endD = new Date(endParts[0], endParts[1] - 1, endParts[2] + 1);
+const endD = new Date(Date.UTC(endParts[0], endParts[1] - 1, endParts[2] + 1));
 const icsEnd = endD.toISOString().slice(0, 10).replace(/-/g, '');
 ---
 

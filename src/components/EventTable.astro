@@ -138,7 +138,7 @@ function getModeLabel(mode: string): string {
         const name = row.dataset.eventName || '';
         const startDate = (row.dataset.start || '').replace(/-/g, '');
         const endParts = (row.dataset.end || '').split('-').map(Number);
-        const endD = new Date(endParts[0], endParts[1] - 1, endParts[2] + 1);
+        const endD = new Date(Date.UTC(endParts[0], endParts[1] - 1, endParts[2] + 1));
         const endDate = endD.toISOString().slice(0, 10).replace(/-/g, '');
         const mode = row.dataset.mode || 'in-person';
         const location = mode === 'online' ? 'Online' : `${row.dataset.city}, ${row.dataset.country}`;
