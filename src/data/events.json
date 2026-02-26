@@ -1,5 +1,19 @@
 [
   {
+    "id": "wib-xpresso-perth-wa-australia",
+    "name": "WIB Xpresso - Perth, WA",
+    "city": "Perth",
+    "country": "Australia",
+    "countryCode": "AU",
+    "lat": -31.9505,
+    "lng": 115.8605,
+    "startDate": "2026-02-27",
+    "endDate": "2026-02-27",
+    "mode": "in-person",
+    "url": "https://womeninbim.org/event/women-in-bim-xpresso-perth-wa/",
+    "emoji": "🇦🇺"
+  },
+  {
     "id": "computational-design-day-2026",
     "name": "Computational Design Day",
     "city": "Delft",
@@ -12,6 +26,20 @@
     "mode": "in-person",
     "url": "https://www.revitgg.nl/geen-categorie/computational-design-day-2026",
     "emoji": "🇳🇱"
+  },
+  {
+    "id": "women-in-bim-conference-2026-brisbane",
+    "name": "Women in BIM Conference 2026 - Brisbane",
+    "city": "Brisbane",
+    "country": "Australia",
+    "countryCode": "AU",
+    "lat": -27.4698,
+    "lng": 153.0251,
+    "startDate": "2026-03-12",
+    "endDate": "2026-03-12",
+    "mode": "in-person",
+    "url": "https://womeninbim.org/conference/",
+    "emoji": "🇦🇺"
   },
   {
     "id": "bim-meetup-polska-2026",
