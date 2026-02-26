@@ -98,6 +98,20 @@
     "emoji": "🇫🇷"
   },
   {
+    "id": "qatar-bim-summit-2026",
+    "name": "Qatar BIM Summit 2026",
+    "city": "Doha",
+    "country": "Qatar",
+    "countryCode": "QA",
+    "lat": 25.2854,
+    "lng": 51.5310,
+    "startDate": "2026-04-05",
+    "endDate": "2026-04-07",
+    "mode": "in-person",
+    "url": "https://www.qatarbimsummit.com/",
+    "emoji": "🇶🇦"
+  },
+  {
     "id": "autodesk-devcon-amsterdam-2026",
     "name": "Autodesk DevCon Europe",
     "city": "Amsterdam",
@@ -152,6 +166,20 @@
     "mode": "in-person",
     "url": "https://buildingsmart.org.pl/openbim-poland-2026/",
     "emoji": "🇵🇱"
+  },
+  {
+    "id": "eubim-2026",
+    "name": "EUBIM",
+    "city": "Valencia",
+    "country": "Spain",
+    "countryCode": "ES",
+    "lat": 39.4699,
+    "lng": -0.3763,
+    "startDate": "2026-05-20",
+    "endDate": "2026-05-23",
+    "mode": "in-person",
+    "url": "https://www.eubim.com/",
+    "emoji": "🇪🇸"
   },
   {
     "id": "digital-construction-week-2026",
