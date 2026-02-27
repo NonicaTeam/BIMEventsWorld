@@ -196,6 +196,20 @@
     "emoji": "🇬🇧"
   },
   {
+    "id": "bim-invitational-meetup",
+    "name": "BIM Invitational Meetup",
+    "city": "Saint Paul",
+    "country": "United States",
+    "countryCode": "US",
+    "lat": 44.9537,
+    "lng": -93.0900,
+    "startDate": "2026-07-27",
+    "endDate": "2026-07-28",
+    "mode": "in-person",
+    "url": "https://www.biminvitational.com/",
+    "emoji": "🇺🇸"
+  },
+  {
     "id": "autodesk-university-2026",
     "name": "Autodesk University",
     "city": "Las Vegas",

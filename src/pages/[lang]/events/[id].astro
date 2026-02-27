@@ -32,7 +32,7 @@ const location = event.mode === 'online' ? 'Online' : `${event.city}, ${event.co
 const dateRange = formatDateRange(event.startDate, event.endDate, lang);
 
 const pageTitle = `${event.name} | ${location} | BIM Events World`;
-const pageDescription = `${event.name} - ${modeLabel} BIM event in ${location}, ${dateRange}. Find details, dates, and registration.`;
+const pageDescription = `${event.name} - ${modeLabel} ${t('event.descIn')} ${location}, ${dateRange}. ${t('event.descSuffix')}`;
 const pageKeywords = `${event.name}, ${event.city}, ${event.country}, BIM event, ${event.mode}`;
 
 // .ics calendar data

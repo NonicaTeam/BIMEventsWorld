@@ -1,2 +1,2 @@
 # Redirect root to default language
-/ /en/ 302
+/ /en/ 301
