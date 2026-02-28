@@ -120,7 +120,7 @@ const icsEnd = endD.toISOString().slice(0, 10).replace(/-/g, '');
         </div>
       </div>
 
-      <div class="event-past-notice">
+      <div class="event-past-notice" id="event-past-notice" data-end={event.endDate} style="display:none">
         <h2 class="past-notice-title">{t('event.pastNoticeTitle')}</h2>
         <p class="past-notice-text">{t('event.pastNoticeText')}</p>
         <a href={`/${lang}/`} class="past-notice-cta">
@@ -303,6 +303,15 @@ const icsEnd = endD.toISOString().slice(0, 10).replace(/-/g, '');
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
+    const pastNotice = document.getElementById('event-past-notice') as HTMLElement | null;
+    if (pastNotice) {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      if (new Date(pastNotice.dataset.end || '') < today) {
+        pastNotice.style.display = '';
+      }
+    }
+
     const calLink = document.getElementById('event-cal-link');
     if (!calLink) return;
     calLink.addEventListener('click', (e) => {

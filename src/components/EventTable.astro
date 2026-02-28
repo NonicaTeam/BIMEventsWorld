@@ -101,6 +101,9 @@ function getModeLabel(mode: string): string {
     const rows = document.querySelectorAll('.event-row');
     const searchInput = document.getElementById('events-search') as HTMLInputElement;
 
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
     function applyFilters() {
       rows.forEach((row) => {
         const el = row as HTMLElement;
@@ -110,7 +113,8 @@ function getModeLabel(mode: string): string {
         const rowCountry = (el.dataset.country || '').toLowerCase();
         const modeMatch = activeMode === 'all' || rowMode === activeMode;
         const textMatch = !searchQuery || rowName.includes(searchQuery) || rowCity.includes(searchQuery) || rowCountry.includes(searchQuery);
-        el.style.display = modeMatch && textMatch ? '' : 'none';
+        const isFuture = new Date(el.dataset.end || '') >= today;
+        el.style.display = modeMatch && textMatch && isFuture ? '' : 'none';
       });
     }
 
@@ -205,5 +209,8 @@ function getModeLabel(mode: string): string {
       const { lat, lng } = (window as any).__visitorLocation;
       sortByProximity(lat, lng);
     }
+
+    // Hide past events on initial load
+    applyFilters();
   });
 </script>
