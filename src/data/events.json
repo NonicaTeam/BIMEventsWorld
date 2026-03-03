@@ -14,6 +14,20 @@
     "emoji": "🇦🇺"
   },
   {
+    "id": "tokenizacion-bim-construccion-2026",
+    "name": "Tokenización: BIM en la Industria de la Construcción",
+    "city": "Ciudad de México",
+    "country": "México",
+    "countryCode": "MX",
+    "lat": 19.4326,
+    "lng": -99.1332,
+    "startDate": "2026-03-05",
+    "endDate": "2026-03-05",
+    "mode": "online",
+    "url": "https://docs.google.com/forms/d/e/1FAIpQLSdgRuyQDboKSuO0iBmKqnx15WIWX3h4NqkEWSjVBUZX8nXWWA/viewform",
+    "emoji": "🇲🇽"
+  },
+  {
     "id": "computational-design-day-2026",
     "name": "Computational Design Day",
     "city": "Delft",
