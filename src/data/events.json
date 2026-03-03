@@ -224,6 +224,20 @@
     "emoji": "🇺🇸"
   },
   {
+    "id": "bim-hero-dao-annual-summit-2026",
+    "name": "BIM Hero DAO Annual General Meeting & Summit",
+    "city": "Nashville",
+    "country": "United States",
+    "countryCode": "US",
+    "lat": 36.1456,
+    "lng": -86.8029,
+    "startDate": "2026-09-10",
+    "endDate": "2026-09-10",
+    "mode": "in-person",
+    "url": "https://www.linkedin.com/events/7419559059541983233/",
+    "emoji": "🇺🇸"
+  },
+  {
     "id": "autodesk-university-2026",
     "name": "Autodesk University",
     "city": "Las Vegas",
