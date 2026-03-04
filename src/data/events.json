@@ -56,6 +56,20 @@
     "emoji": "🇦🇺"
   },
   {
+    "id": "new-york-build-2026",
+    "name": "New York Build 2026",
+    "city": "New York City",
+    "country": "United States",
+    "countryCode": "US",
+    "lat": 40.7569,
+    "lng": -74.0018,
+    "startDate": "2026-03-18",
+    "endDate": "2026-03-19",
+    "mode": "in-person",
+    "url": "https://www.newyorkbuildexpo.com",
+    "emoji": "🇺🇸"
+  },
+  {
     "id": "bim-meetup-polska-2026",
     "name": "BIM MeetUp Polska 2026",
     "city": "Wroclaw",
@@ -168,6 +182,34 @@
     "emoji": "🇸🇪"
   },
   {
+    "id": "sydney-build-expo-2026",
+    "name": "Sydney Build Expo 2026",
+    "city": "Sydney",
+    "country": "Australia",
+    "countryCode": "AU",
+    "lat": -33.8752,
+    "lng": 151.1997,
+    "startDate": "2026-04-29",
+    "endDate": "2026-04-30",
+    "mode": "in-person",
+    "url": "https://www.sydneybuildexpo.com",
+    "emoji": "🇦🇺"
+  },
+  {
+    "id": "bim-forum-conference-2026",
+    "name": "BIM Fórum Conference 2026",
+    "city": "São Paulo",
+    "country": "Brazil",
+    "countryCode": "BR",
+    "lat": -23.5164,
+    "lng": -46.6361,
+    "startDate": "2026-05-06",
+    "endDate": "2026-05-07",
+    "mode": "in-person",
+    "url": "https://bimforumconference.com.br",
+    "emoji": "🇧🇷"
+  },
+  {
     "id": "openbim-poland-2026",
     "name": "openBIM POLAND 2026",
     "city": "Warsaw",
@@ -194,6 +236,20 @@
     "mode": "in-person",
     "url": "https://www.eubim.com/",
     "emoji": "🇪🇸"
+  },
+  {
+    "id": "bdtic-2026",
+    "name": "BDTIC 2026",
+    "city": "Brussels",
+    "country": "Belgium",
+    "countryCode": "BE",
+    "lat": 50.8316,
+    "lng": 4.3590,
+    "startDate": "2026-05-26",
+    "endDate": "2026-05-28",
+    "mode": "in-person",
+    "url": "https://buildingdigitaltwin.org",
+    "emoji": "🇧🇪"
   },
   {
     "id": "digital-construction-week-2026",
