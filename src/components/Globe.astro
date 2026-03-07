@@ -38,7 +38,7 @@ const t = useTranslations(lang);
       <p class="hero-description">{t('hero.subtitle')}<br />{t('hero.pastEventsNote')}<br />{t('hero.onePerCity')}</p>
       <div class="hero-stats">
         <div class="stat-item">
-          <span class="stat-number">{events.length}</span>
+          <span class="stat-number" id="event-count">{events.length}</span>
           <span class="stat-label">{t('hero.eventsLive')}</span>
         </div>
         <div class="stat-item">
@@ -149,6 +149,9 @@ const t = useTranslations(lang);
     const activeMarkerEvents = events.filter((e: any) =>
       new Date(e.endDate) >= now
     );
+
+    const eventCountEl = document.getElementById('event-count');
+    if (eventCountEl) eventCountEl.textContent = String(activeMarkerEvents.length);
 
     // --- Marker overlay canvas (2D, for mode-colored dots) ---
     const markerCanvas = document.getElementById('marker-canvas') as HTMLCanvasElement;
