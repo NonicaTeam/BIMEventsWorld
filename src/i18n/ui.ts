@@ -85,6 +85,7 @@ export const ui = {
     'event.descSuffix': 'Find details, dates, and registration.',
     'opensource.text': 'This project is open source.',
     'opensource.link': 'View on GitHub',
+    'opensource.totalEvents': '{count} events tracked worldwide so far',
   },
   es: {
     'site.title': 'BIM Events World | Calendario Global de Eventos BIM',
@@ -172,6 +173,7 @@ export const ui = {
     'event.descSuffix': 'Encuentra detalles, fechas y registro.',
     'opensource.text': 'Este proyecto es de codigo abierto.',
     'opensource.link': 'Ver en GitHub',
+    'opensource.totalEvents': '{count} eventos registrados en todo el mundo hasta ahora',
   },
   fr: {
     'site.title': 'BIM Events World | Calendrier Mondial des Événements BIM',
@@ -259,6 +261,7 @@ export const ui = {
     'event.descSuffix': 'Trouvez les détails, les dates et les inscriptions.',
     'opensource.text': 'Ce projet est open source.',
     'opensource.link': 'Voir sur GitHub',
+    'opensource.totalEvents': '{count} evenements recenses dans le monde a ce jour',
   },
   de: {
     'site.title': 'BIM Events World | Globaler BIM-Veranstaltungskalender',
@@ -346,6 +349,7 @@ export const ui = {
     'event.descSuffix': 'Details, Termine und Anmeldung finden.',
     'opensource.text': 'Dieses Projekt ist Open Source.',
     'opensource.link': 'Auf GitHub ansehen',
+    'opensource.totalEvents': '{count} Veranstaltungen weltweit erfasst',
   },
   it: {
     'site.title': 'BIM Events World | Calendario Globale degli Eventi BIM',
@@ -433,6 +437,7 @@ export const ui = {
     'event.descSuffix': 'Trova dettagli, date e registrazione.',
     'opensource.text': 'Questo progetto e open source.',
     'opensource.link': 'Vedi su GitHub',
+    'opensource.totalEvents': '{count} eventi registrati in tutto il mondo finora',
   },
   nl: {
     'site.title': 'BIM Events World | Wereldwijde BIM-Evenementenkalender',
@@ -520,5 +525,6 @@ export const ui = {
     'event.descSuffix': 'Vind details, data en registratie.',
     'opensource.text': 'Dit project is open source.',
     'opensource.link': 'Bekijk op GitHub',
+    'opensource.totalEvents': '{count} evenementen wereldwijd bijgehouden tot nu toe',
   },
 } as const;

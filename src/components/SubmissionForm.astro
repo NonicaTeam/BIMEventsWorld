@@ -1,6 +1,7 @@
 ---
 import type { Lang } from '../i18n/locales';
 import { useTranslations } from '../i18n/utils';
+import eventsData from '../data/events.json';
 
 interface Props {
   lang: Lang;
@@ -12,6 +13,7 @@ const t = useTranslations(lang);
 
 <div class="opensource-note">
   <p>{t('opensource.text')} <a href="https://github.com/nonicateam/bimeventsworld" target="_blank" rel="noopener noreferrer">{t('opensource.link')} &rarr;</a></p>
+  <p class="total-events-note" set:html={t('opensource.totalEvents').replace('{count}', `<span class="total-count">${eventsData.length}</span>`)} />
 </div>
 
 <section class="form-section" id="submit">

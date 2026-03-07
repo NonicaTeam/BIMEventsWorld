@@ -1171,6 +1171,18 @@ ul, ol {
   text-decoration: underline;
 }
 
+.opensource-note .total-events-note {
+  margin-top: 8px;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  letter-spacing: 0.02em;
+}
+
+.opensource-note .total-count {
+  font-weight: 700;
+  color: var(--color-accent-light);
+}
+
 /* === Submission Form Section === */
 .form-section {
   position: relative;
