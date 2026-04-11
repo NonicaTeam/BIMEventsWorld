@@ -1,0 +1,61 @@
+======================================
+ BIM Events World - Servir en Local
+======================================
+
+REQUISITOS:
+- Node.js instalado
+- Python 3 instalado
+
+--------------------------------------
+OPCION 1: Astro Dev Server (desarrollo)
+--------------------------------------
+1. Abrir terminal en la carpeta del proyecto
+2. Ejecutar:
+
+   npm run dev
+
+3. Abrir en el navegador: http://localhost:4321/
+
+Nota: Este modo tiene hot-reload (cambios en vivo).
+
+--------------------------------------
+OPCION 2: Python (sitio compilado)
+--------------------------------------
+1. Abrir terminal en la carpeta del proyecto
+2. Compilar el sitio:
+
+   npm run build
+
+3. Servir con Python:
+
+   cd dist
+   python -m http.server 8080
+
+4. Abrir en el navegador: http://localhost:8080/en/index.html
+
+Nota: Las rutas tipo /en/ sin index.html pueden dar 404.
+Para que funcionen sin index.html, usar este comando en vez del paso 3:
+
+   python -c "
+   import http.server, socketserver, os
+   class H(http.server.SimpleHTTPRequestHandler):
+       def __init__(self, *a, **k):
+           super().__init__(*a, directory='dist', **k)
+       def do_GET(self):
+           p = self.translate_path(self.path)
+           if os.path.isdir(p) and os.path.exists(os.path.join(p, 'index.html')):
+               self.path = self.path.rstrip('/') + '/index.html'
+           super().do_GET()
+   with socketserver.TCPServer(('', 8080), H) as s:
+       print('http://localhost:8080')
+       s.serve_forever()
+   "
+
+   (ejecutar desde la carpeta raiz del proyecto, NO desde dist)
+
+--------------------------------------
+NOTAS IMPORTANTES
+--------------------------------------
+- El endpoint /api/counter NO funciona en local (requiere Cloudflare KV)
+- Las fuentes (Google Fonts) requieren conexion a internet
+- El redirect de / a /en/ solo funciona en Cloudflare, en local ir directo a /en/
