@@ -182,6 +182,34 @@
     "emoji": "🇪🇸"
   },
   {
+    "id": "augicon-26-2026",
+    "name": "AUGI CON 26 – The Users Helping Users",
+    "city": "Online",
+    "country": "United States",
+    "countryCode": "US",
+    "lat": 38.0,
+    "lng": -97.0,
+    "startDate": "2026-04-23",
+    "endDate": "2026-04-24",
+    "mode": "online",
+    "url": "https://www.augicon.com",
+    "emoji": "🇺🇸"
+  },
+  {
+    "id": "gwf-2026-amsterdam",
+    "name": "Geospatial World Forum 2026",
+    "city": "Amsterdam",
+    "country": "Netherlands",
+    "countryCode": "NL",
+    "lat": 52.3376,
+    "lng": 4.8929,
+    "startDate": "2026-04-27",
+    "endDate": "2026-05-01",
+    "mode": "in-person",
+    "url": "https://geospatialworld.net/gwf/2026/",
+    "emoji": "🇳🇱"
+  },
+  {
     "id": "the-bim-summit-2026",
     "name": "The BIM Summit",
     "city": "Stockholm",
@@ -238,6 +266,20 @@
     "emoji": "🇵🇱"
   },
   {
+    "id": "confluence-chicago-2026",
+    "name": "Confluence Chicago 2026",
+    "city": "Chicago",
+    "country": "United States",
+    "countryCode": "US",
+    "lat": 41.8763,
+    "lng": -87.6245,
+    "startDate": "2026-05-20",
+    "endDate": "2026-05-20",
+    "mode": "in-person",
+    "url": "https://www.eventbrite.com/e/confluence-chicago-2026-tickets-1981575007189",
+    "emoji": "🇺🇸"
+  },
+  {
     "id": "eubim-2026",
     "name": "EUBIM",
     "city": "Valencia",
@@ -266,6 +308,20 @@
     "emoji": "🇧🇪"
   },
   {
+    "id": "ic2-santander-2026",
+    "name": "IC2: Innovation Industry Construction Congress",
+    "city": "Santander",
+    "country": "Spain",
+    "countryCode": "ES",
+    "lat": 43.4623,
+    "lng": -3.8099,
+    "startDate": "2026-06-01",
+    "endDate": "2026-06-05",
+    "mode": "in-person",
+    "url": "https://ic2.es/",
+    "emoji": "🇪🇸"
+  },
+  {
     "id": "digital-construction-week-2026",
     "name": "Digital Construction Week",
     "city": "London",
@@ -280,6 +336,20 @@
     "emoji": "🇬🇧"
   },
   {
+    "id": "infrabim-open-2026-cachan",
+    "name": "InfraBIM Open 2026 (IBO26)",
+    "city": "Cachan",
+    "country": "France",
+    "countryCode": "FR",
+    "lat": 48.7971,
+    "lng": 2.3316,
+    "startDate": "2026-06-08",
+    "endDate": "2026-06-10",
+    "mode": "in-person",
+    "url": "https://www.ibo-jnce-2026.com/en",
+    "emoji": "🇫🇷"
+  },
+  {
     "id": "bim-invitational-meetup",
     "name": "BIM Invitational Meetup",
     "city": "Saint Paul",
@@ -292,6 +362,20 @@
     "mode": "in-person",
     "url": "https://www.biminvitational.com/",
     "emoji": "🇺🇸"
+  },
+  {
+    "id": "buildingsmart-implementers-assembly-bagnoli-irpino-2026",
+    "name": "buildingSMART Implementers Assembly",
+    "city": "Bagnoli Irpino",
+    "country": "Italy",
+    "countryCode": "IT",
+    "lat": 40.8306,
+    "lng": 15.0939,
+    "startDate": "2026-09-09",
+    "endDate": "2026-09-10",
+    "mode": "in-person",
+    "url": "https://www.buildingsmart.org/implementers-assembly/",
+    "emoji": "🇮🇹"
   },
   {
     "id": "bim-hero-dao-annual-summit-2026",
