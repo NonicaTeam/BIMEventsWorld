@@ -113,7 +113,8 @@ function getModeLabel(mode: string): string {
         const rowCountry = (el.dataset.country || '').toLowerCase();
         const modeMatch = activeMode === 'all' || rowMode === activeMode;
         const textMatch = !searchQuery || rowName.includes(searchQuery) || rowCity.includes(searchQuery) || rowCountry.includes(searchQuery);
-        const isFuture = new Date(el.dataset.end || '') >= today;
+        const [ey, em, ed] = (el.dataset.end || '').split('-').map(Number);
+        const isFuture = new Date(ey, em - 1, ed) >= today;
         el.style.display = modeMatch && textMatch && isFuture ? '' : 'none';
       });
     }

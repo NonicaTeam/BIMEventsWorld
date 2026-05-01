@@ -146,8 +146,9 @@ const t = useTranslations(lang);
     // Filter to future events for globe markers
     const now = new Date();
     now.setHours(0, 0, 0, 0);
+    const parseDate = (s: string) => { const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d); };
     const activeMarkerEvents = events.filter((e: any) =>
-      new Date(e.endDate) >= now
+      parseDate(e.endDate) >= now
     );
 
     const eventCountEl = document.getElementById('event-count');
@@ -663,8 +664,8 @@ const t = useTranslations(lang);
     });
 
     function formatDate(start: string, end: string, lang: string): string {
-      const s = new Date(start);
-      const e = new Date(end);
+      const s = parseDate(start);
+      const e = parseDate(end);
       const locale = lang === 'en' ? 'en-US' : lang;
       const opts: Intl.DateTimeFormatOptions = { month: 'short', day: 'numeric', year: 'numeric' };
       if (start === end) return s.toLocaleDateString(locale, opts);

@@ -307,7 +307,8 @@ const icsEnd = endD.toISOString().slice(0, 10).replace(/-/g, '');
     if (pastNotice) {
       const today = new Date();
       today.setHours(0, 0, 0, 0);
-      if (new Date(pastNotice.dataset.end || '') < today) {
+      const [py, pm, pd] = (pastNotice.dataset.end || '').split('-').map(Number);
+      if (new Date(py, pm - 1, pd) < today) {
         pastNotice.style.display = '';
       }
     }
