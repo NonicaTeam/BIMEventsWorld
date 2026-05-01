@@ -350,6 +350,20 @@
     "emoji": "🇫🇷"
   },
   {
+    "id": "2026-cesium-developer-conference",
+    "name": "2026 Cesium Developer Conference",
+    "city": "Philadelphia",
+    "country": "United States",
+    "countryCode": "US",
+    "lat": 39.9526,
+    "lng": -75.1652,
+    "startDate": "2026-06-08",
+    "endDate": "2026-06-10",
+    "mode": "in-person",
+    "url": "https://cesium.com/events/cesium-developer-conference/",
+    "emoji": "🇺🇸"
+  },
+  {
     "id": "bim-invitational-meetup",
     "name": "BIM Invitational Meetup",
     "city": "Saint Paul",
