@@ -364,6 +364,20 @@
     "emoji": "🇺🇸"
   },
   {
+    "id": "architech-social-san-diego-2026",
+    "name": "archi+tech Social Night",
+    "city": "San Diego",
+    "country": "United States",
+    "countryCode": "US",
+    "lat": 32.7157,
+    "lng": -117.1611,
+    "startDate": "2026-06-12",
+    "endDate": "2026-06-12",
+    "mode": "in-person",
+    "url": "https://luma.com/dfmu0kut",
+    "emoji": "🇺🇸"
+  },
+  {
     "id": "bim-invitational-meetup",
     "name": "BIM Invitational Meetup",
     "city": "Saint Paul",
@@ -432,6 +446,34 @@
     "mode": "in-person",
     "url": "https://www.bimworld-cph.com/",
     "emoji": "🇩🇰"
+  },
+  {
+    "id": "buildingsmart-summit-tokyo-2026",
+    "name": "buildingSMART International Summit Tokyo 2026",
+    "city": "Tokyo",
+    "country": "Japan",
+    "countryCode": "JP",
+    "lat": 35.5494,
+    "lng": 139.7798,
+    "startDate": "2026-10-06",
+    "endDate": "2026-10-08",
+    "mode": "in-person",
+    "url": "https://www.buildingsmart.org/event/buildingsmart-international-summit-tokyo-2026/",
+    "emoji": "🇯🇵"
+  },
+  {
+    "id": "building-transformations-toronto-2026",
+    "name": "Building Transformations Toronto Summit 2026",
+    "city": "Toronto",
+    "country": "Canada",
+    "countryCode": "CA",
+    "lat": 43.6595,
+    "lng": -79.3883,
+    "startDate": "2026-11-04",
+    "endDate": "2026-11-05",
+    "mode": "in-person",
+    "url": "https://www.buildingtransformations.org/events/contech26",
+    "emoji": "🇨🇦"
   },
   {
     "id": "bim-world-munich-2026",
