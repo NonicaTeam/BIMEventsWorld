@@ -308,6 +308,20 @@
     "emoji": "🇧🇪"
   },
   {
+    "id": "bim-roadshow-monterrey-2026",
+    "name": "The BIM Road Show México 2026 – Monterrey",
+    "city": "Monterrey",
+    "country": "México",
+    "countryCode": "MX",
+    "lat": 25.6866,
+    "lng": -100.3161,
+    "startDate": "2026-05-27",
+    "endDate": "2026-05-27",
+    "mode": "in-person",
+    "url": "https://thebimroadshow.com/",
+    "emoji": "🇲🇽"
+  },
+  {
     "id": "ic2-santander-2026",
     "name": "IC2: Innovation Industry Construction Congress",
     "city": "Santander",
