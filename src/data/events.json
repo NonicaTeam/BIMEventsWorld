@@ -406,6 +406,20 @@
     "emoji": "🇪🇸"
   },
   {
+    "id": "xchange-2026-brisbane",
+    "name": "XChange 2026",
+    "city": "Brisbane",
+    "country": "Australia",
+    "countryCode": "AU",
+    "lat": -27.4847,
+    "lng": 153.0291,
+    "startDate": "2026-06-24",
+    "endDate": "2026-06-25",
+    "mode": "in-person",
+    "url": "https://www.buildingsmart.org.au/xchange2026",
+    "emoji": "🇦🇺"
+  },
+  {
     "id": "bim-roadshow-hermosillo-2026",
     "name": "The BIM Road Show México 2026 – Hermosillo",
     "city": "Hermosillo",
@@ -446,6 +460,20 @@
     "mode": "in-person",
     "url": "https://thebimroadshow.com/bim",
     "emoji": "🇲🇽"
+  },
+  {
+    "id": "east-coast-industry-summit-halifax-2026",
+    "name": "2026 East Coast Industry Summit",
+    "city": "Halifax",
+    "country": "Canada",
+    "countryCode": "CA",
+    "lat": 44.6476,
+    "lng": -63.5728,
+    "startDate": "2026-08-11",
+    "endDate": "2026-08-13",
+    "mode": "in-person",
+    "url": "https://www.buildingtransformations.org/events/halifax26",
+    "emoji": "🇨🇦"
   },
   {
     "id": "bim-roadshow-merida-2026",
@@ -642,6 +670,20 @@
     "mode": "in-person",
     "url": "https://www.bim-world.de/",
     "emoji": "🇩🇪"
+  },
+  {
+    "id": "melbourne-build-expo-2026",
+    "name": "Melbourne Build Expo 2026",
+    "city": "Melbourne",
+    "country": "Australia",
+    "countryCode": "AU",
+    "lat": -37.8259,
+    "lng": 144.9521,
+    "startDate": "2026-11-25",
+    "endDate": "2026-11-26",
+    "mode": "in-person",
+    "url": "https://melbournebuildexpo.com/",
+    "emoji": "🇦🇺"
   },
   {
     "id": "london-build-expo-2026",
