@@ -392,6 +392,20 @@
     "emoji": "🇺🇸"
   },
   {
+    "id": "bim-roadshow-hermosillo-2026",
+    "name": "The BIM Road Show México 2026 – Hermosillo",
+    "city": "Hermosillo",
+    "country": "México",
+    "countryCode": "MX",
+    "lat": 29.0729,
+    "lng": -110.9559,
+    "startDate": "2026-06-25",
+    "endDate": "2026-06-25",
+    "mode": "in-person",
+    "url": "https://thebimroadshow.com/bim",
+    "emoji": "🇲🇽"
+  },
+  {
     "id": "bim-invitational-meetup",
     "name": "BIM Invitational Meetup",
     "city": "Saint Paul",
@@ -404,6 +418,34 @@
     "mode": "in-person",
     "url": "https://www.biminvitational.com/",
     "emoji": "🇺🇸"
+  },
+  {
+    "id": "bim-roadshow-guadalajara-2026",
+    "name": "The BIM Road Show México 2026 – Guadalajara",
+    "city": "Guadalajara",
+    "country": "México",
+    "countryCode": "MX",
+    "lat": 20.6597,
+    "lng": -103.3496,
+    "startDate": "2026-07-30",
+    "endDate": "2026-07-30",
+    "mode": "in-person",
+    "url": "https://thebimroadshow.com/bim",
+    "emoji": "🇲🇽"
+  },
+  {
+    "id": "bim-roadshow-merida-2026",
+    "name": "The BIM Road Show México 2026 – Mérida",
+    "city": "Mérida",
+    "country": "México",
+    "countryCode": "MX",
+    "lat": 20.9674,
+    "lng": -89.6237,
+    "startDate": "2026-08-27",
+    "endDate": "2026-08-27",
+    "mode": "in-person",
+    "url": "https://thebimroadshow.com/bim",
+    "emoji": "🇲🇽"
   },
   {
     "id": "buildingsmart-implementers-assembly-bagnoli-irpino-2026",
@@ -462,6 +504,34 @@
     "emoji": "🇩🇰"
   },
   {
+    "id": "bim-roadshow-tijuana-2026",
+    "name": "The BIM Road Show México 2026 – Tijuana",
+    "city": "Tijuana",
+    "country": "México",
+    "countryCode": "MX",
+    "lat": 32.5149,
+    "lng": -117.0382,
+    "startDate": "2026-09-24",
+    "endDate": "2026-09-24",
+    "mode": "in-person",
+    "url": "https://thebimroadshow.com/bim",
+    "emoji": "🇲🇽"
+  },
+  {
+    "id": "bimforum-dfma-symposium-washington-dc-2026",
+    "name": "BIMForum DfMA Symposium 2026",
+    "city": "Washington DC",
+    "country": "United States",
+    "countryCode": "US",
+    "lat": 38.9072,
+    "lng": -77.0369,
+    "startDate": "2026-09-29",
+    "endDate": "2026-09-30",
+    "mode": "in-person",
+    "url": "https://bimforum.org/events/",
+    "emoji": "🇺🇸"
+  },
+  {
     "id": "buildingsmart-summit-tokyo-2026",
     "name": "buildingSMART International Summit Tokyo 2026",
     "city": "Tokyo",
@@ -474,6 +544,34 @@
     "mode": "in-person",
     "url": "https://www.buildingsmart.org/event/buildingsmart-international-summit-tokyo-2026/",
     "emoji": "🇯🇵"
+  },
+  {
+    "id": "release-aec-paris-2026",
+    "name": "RELEASE [AEC] 2026",
+    "city": "Paris",
+    "country": "France",
+    "countryCode": "FR",
+    "lat": 48.8938,
+    "lng": 2.3878,
+    "startDate": "2026-10-20",
+    "endDate": "2026-10-20",
+    "mode": "in-person",
+    "url": "https://www.release-aec.com/",
+    "emoji": "🇫🇷"
+  },
+  {
+    "id": "bim-roadshow-leon-2026",
+    "name": "The BIM Road Show México 2026 – León",
+    "city": "León",
+    "country": "México",
+    "countryCode": "MX",
+    "lat": 21.1221,
+    "lng": -101.6824,
+    "startDate": "2026-10-29",
+    "endDate": "2026-10-29",
+    "mode": "in-person",
+    "url": "https://thebimroadshow.com/bim",
+    "emoji": "🇲🇽"
   },
   {
     "id": "building-transformations-toronto-2026",
@@ -490,6 +588,20 @@
     "emoji": "🇨🇦"
   },
   {
+    "id": "bim-roadshow-mexico-city-2026",
+    "name": "The BIM Road Show México 2026 – Mexico City",
+    "city": "Mexico City",
+    "country": "México",
+    "countryCode": "MX",
+    "lat": 19.4326,
+    "lng": -99.1332,
+    "startDate": "2026-11-19",
+    "endDate": "2026-11-19",
+    "mode": "in-person",
+    "url": "https://thebimroadshow.com/bim",
+    "emoji": "🇲🇽"
+  },
+  {
     "id": "bim-world-munich-2026",
     "name": "BIM World Munich",
     "city": "Munich",
@@ -502,5 +614,19 @@
     "mode": "in-person",
     "url": "https://www.bim-world.de/",
     "emoji": "🇩🇪"
+  },
+  {
+    "id": "london-build-expo-2026",
+    "name": "London Build Expo 2026",
+    "city": "London",
+    "country": "United Kingdom",
+    "countryCode": "GB",
+    "lat": 51.5079,
+    "lng": 0.0306,
+    "startDate": "2026-11-25",
+    "endDate": "2026-11-26",
+    "mode": "in-person",
+    "url": "https://www.londonbuildexpo.com/",
+    "emoji": "🇬🇧"
   }
 ]
