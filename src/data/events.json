@@ -392,6 +392,20 @@
     "emoji": "🇺🇸"
   },
   {
+    "id": "zigurat-summit-2026-barcelona",
+    "name": "Zigurat Summit 2026",
+    "city": "Barcelona",
+    "country": "Spain",
+    "countryCode": "ES",
+    "lat": 41.3851,
+    "lng": 2.1734,
+    "startDate": "2026-06-18",
+    "endDate": "2026-06-18",
+    "mode": "in-person",
+    "url": "https://info.e-zigurat.com/zigurat-summit-2026?lang=EN",
+    "emoji": "🇪🇸"
+  },
+  {
     "id": "bim-roadshow-hermosillo-2026",
     "name": "The BIM Road Show México 2026 – Hermosillo",
     "city": "Hermosillo",
@@ -586,6 +600,20 @@
     "mode": "in-person",
     "url": "https://www.buildingtransformations.org/events/contech26",
     "emoji": "🇨🇦"
+  },
+  {
+    "id": "mena-construction-summit-2026",
+    "name": "MENA Construction Summit 2026",
+    "city": "Dubai",
+    "country": "United Arab Emirates",
+    "countryCode": "AE",
+    "lat": 25.1356,
+    "lng": 55.1853,
+    "startDate": "2026-11-09",
+    "endDate": "2026-11-10",
+    "mode": "in-person",
+    "url": "https://events.meed.com/event/menaconstructionsummit/",
+    "emoji": "🇦🇪"
   },
   {
     "id": "bim-roadshow-mexico-city-2026",
