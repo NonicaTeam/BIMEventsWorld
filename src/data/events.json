@@ -658,20 +658,6 @@
     "emoji": "🇦🇪"
   },
   {
-    "id": "trimble-dimensions-2026",
-    "name": "Trimble Dimensions 2026",
-    "city": "Las Vegas",
-    "country": "United States",
-    "countryCode": "US",
-    "lat": 36.1212,
-    "lng": -115.1697,
-    "startDate": "2026-11-09",
-    "endDate": "2026-11-11",
-    "mode": "in-person",
-    "url": "https://www.trimble.com/en/our-company/events/dimensions/overview",
-    "emoji": "🇺🇸"
-  },
-  {
     "id": "bim-roadshow-mexico-city-2026",
     "name": "The BIM Road Show México 2026 – Mexico City",
     "city": "Mexico City",
