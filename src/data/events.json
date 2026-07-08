@@ -712,5 +712,19 @@
     "mode": "in-person",
     "url": "https://www.londonbuildexpo.com/",
     "emoji": "🇬🇧"
+  },
+  {
+    "id": "buildtech-week-2027",
+    "name": "BuildTech Week 2027",
+    "city": "Berlin",
+    "country": "Germany",
+    "countryCode": "DE",
+    "lat": 52.3814,
+    "lng": 13.5225,
+    "startDate": "2027-04-06",
+    "endDate": "2027-04-07",
+    "mode": "in-person",
+    "url": "https://buildtechweek.peoplevents.uk/",
+    "emoji": "🇩🇪"
   }
 ]
