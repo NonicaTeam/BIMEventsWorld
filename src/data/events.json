@@ -574,6 +574,20 @@
     "emoji": "🇺🇸"
   },
   {
+    "id": "bimeet-greet-2026",
+    "name": "BIMeet&Greet",
+    "city": "Brescia",
+    "country": "Italy",
+    "countryCode": "IT",
+    "lat": 45.5588,
+    "lng": 10.2050,
+    "startDate": "2026-10-01",
+    "endDate": "2026-10-02",
+    "mode": "in-person",
+    "url": "https://bimeetandgreet.com/",
+    "emoji": "🇮🇹"
+  },
+  {
     "id": "buildingsmart-summit-tokyo-2026",
     "name": "buildingSMART International Summit Tokyo 2026",
     "city": "Tokyo",
