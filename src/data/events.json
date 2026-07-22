@@ -588,6 +588,20 @@
     "emoji": "🇯🇵"
   },
   {
+    "id": "pinnacle-futurebuild-summit-2026",
+    "name": "Pinnacle FutureBuild Summit 2026",
+    "city": "San Francisco",
+    "country": "United States",
+    "countryCode": "US",
+    "lat": 37.5989,
+    "lng": -122.3776,
+    "startDate": "2026-10-08",
+    "endDate": "2026-10-09",
+    "mode": "in-person",
+    "url": "https://pinnaclefuturebuild.com/",
+    "emoji": "🇺🇸"
+  },
+  {
     "id": "release-aec-paris-2026",
     "name": "RELEASE [AEC] 2026",
     "city": "Paris",
