@@ -768,5 +768,19 @@
     "mode": "in-person",
     "url": "https://buildtechweek.peoplevents.uk/",
     "emoji": "🇩🇪"
+  },
+  {
+    "id": "nxt-bld-2027",
+    "name": "NXT BLD 2027",
+    "city": "London",
+    "country": "United Kingdom",
+    "countryCode": "GB",
+    "lat": 51.4998,
+    "lng": -0.1289,
+    "startDate": "2027-05-26",
+    "endDate": "2027-05-27",
+    "mode": "in-person",
+    "url": "https://nxtbld.com/",
+    "emoji": "🇬🇧"
   }
 ]
