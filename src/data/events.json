@@ -742,6 +742,20 @@
     "emoji": "🇬🇧"
   },
   {
+    "id": "rebuild-2027",
+    "name": "REBUILD 2027",
+    "city": "Madrid",
+    "country": "Spain",
+    "countryCode": "ES",
+    "lat": 40.4655,
+    "lng": -3.6146,
+    "startDate": "2027-03-16",
+    "endDate": "2027-03-18",
+    "mode": "in-person",
+    "url": "https://www.rebuildexpo.com/en/",
+    "emoji": "🇪🇸"
+  },
+  {
     "id": "buildtech-week-2027",
     "name": "BuildTech Week 2027",
     "city": "Berlin",
