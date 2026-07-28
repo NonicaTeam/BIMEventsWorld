@@ -728,20 +728,6 @@
     "emoji": "🇦🇺"
   },
   {
-    "id": "london-build-expo-2026",
-    "name": "London Build Expo 2026",
-    "city": "London",
-    "country": "United Kingdom",
-    "countryCode": "GB",
-    "lat": 51.5079,
-    "lng": 0.0306,
-    "startDate": "2026-11-25",
-    "endDate": "2026-11-26",
-    "mode": "in-person",
-    "url": "https://www.londonbuildexpo.com/",
-    "emoji": "🇬🇧"
-  },
-  {
     "id": "rebuild-2027",
     "name": "REBUILD 2027",
     "city": "Madrid",
