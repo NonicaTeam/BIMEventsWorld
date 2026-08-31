@@ -260,7 +260,7 @@ const t = useTranslations(lang);
           needsCOBEResize = false;
         }
         if (autoRotate && !pointerDown) {
-          targetPhi -= 0.003;
+          targetPhi += 0.003;
         }
         // Apply momentum when not dragging
         if (!pointerDown) {
