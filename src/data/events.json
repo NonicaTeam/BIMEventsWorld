@@ -546,6 +546,20 @@
     "emoji": "🇩🇰"
   },
   {
+    "id": "innovationskongress-2026-digitales-planen-bauen-betreiben",
+    "name": "Innovationskongress 2026 – Digitales Planen, Bauen & Betreiben",
+    "city": "Vienna",
+    "country": "Austria",
+    "countryCode": "AT",
+    "lat": 48.2082,
+    "lng": 16.3738,
+    "startDate": "2026-09-17",
+    "endDate": "2026-09-17",
+    "mode": "in-person",
+    "url": "https://www.digitalfindetstadt.at/innovationskongress",
+    "emoji": "🇦🇹"
+  },
+  {
     "id": "bim-roadshow-tijuana-2026",
     "name": "The BIM Road Show México 2026 – Tijuana",
     "city": "Tijuana",
@@ -588,6 +602,20 @@
     "emoji": "🇮🇹"
   },
   {
+    "id": "bimday-2026",
+    "name": "BIMDAY 2026",
+    "city": "Santa Fe",
+    "country": "Argentina",
+    "countryCode": "AR",
+    "lat": -31.6333,
+    "lng": -60.7000,
+    "startDate": "2026-10-02",
+    "endDate": "2026-10-02",
+    "mode": "hybrid",
+    "url": "https://d1.capsf.ar/blog/2026/08/18/bimday-2026-tecnologia-para-proyectar-construir-y-gestionar-procesos/",
+    "emoji": "🇦🇷"
+  },
+  {
     "id": "buildingsmart-summit-tokyo-2026",
     "name": "buildingSMART International Summit Tokyo 2026",
     "city": "Tokyo",
@@ -600,6 +628,20 @@
     "mode": "in-person",
     "url": "https://www.buildingsmart.org/event/buildingsmart-international-summit-tokyo-2026/",
     "emoji": "🇯🇵"
+  },
+  {
+    "id": "saie-bologna-2026",
+    "name": "SAIE Bologna 2026",
+    "city": "Bologna",
+    "country": "Italy",
+    "countryCode": "IT",
+    "lat": 44.4949,
+    "lng": 11.3426,
+    "startDate": "2026-10-07",
+    "endDate": "2026-10-10",
+    "mode": "in-person",
+    "url": "https://www.saiebologna.it/en",
+    "emoji": "🇮🇹"
   },
   {
     "id": "pinnacle-futurebuild-summit-2026",
@@ -644,6 +686,20 @@
     "emoji": "🇺🇸"
   },
   {
+    "id": "bim-paiva-2026",
+    "name": "BIM-päivä 2026",
+    "city": "Helsinki",
+    "country": "Finland",
+    "countryCode": "FI",
+    "lat": 60.1699,
+    "lng": 24.9384,
+    "startDate": "2026-10-27",
+    "endDate": "2026-10-27",
+    "mode": "in-person",
+    "url": "https://events.ril.fi/en/events/bim-paiva.html",
+    "emoji": "🇫🇮"
+  },
+  {
     "id": "bim-roadshow-leon-2026",
     "name": "The BIM Road Show México 2026 – León",
     "city": "León",
@@ -684,6 +740,20 @@
     "mode": "in-person",
     "url": "https://events.meed.com/event/menaconstructionsummit/",
     "emoji": "🇦🇪"
+  },
+  {
+    "id": "basque-tech-summit-iv",
+    "name": "Basque Tech Summit IV",
+    "city": "San Sebastián",
+    "country": "Spain",
+    "countryCode": "ES",
+    "lat": 43.3183,
+    "lng": -1.9812,
+    "startDate": "2026-11-19",
+    "endDate": "2026-11-21",
+    "mode": "in-person",
+    "url": "https://basquetechsummit.com/",
+    "emoji": "🇪🇸"
   },
   {
     "id": "bim-roadshow-mexico-city-2026",
@@ -728,6 +798,20 @@
     "emoji": "🇦🇺"
   },
   {
+    "id": "geo-week-2027",
+    "name": "Geo Week 2027",
+    "city": "Salt Lake City",
+    "country": "United States",
+    "countryCode": "US",
+    "lat": 40.7608,
+    "lng": -111.8910,
+    "startDate": "2027-02-23",
+    "endDate": "2027-02-25",
+    "mode": "in-person",
+    "url": "https://www.geo-week.com/",
+    "emoji": "🇺🇸"
+  },
+  {
     "id": "rebuild-2027",
     "name": "REBUILD 2027",
     "city": "Madrid",
@@ -740,6 +824,20 @@
     "mode": "in-person",
     "url": "https://www.rebuildexpo.com/en/",
     "emoji": "🇪🇸"
+  },
+  {
+    "id": "digital-construction-asia-2027",
+    "name": "Digital Construction Asia 2027",
+    "city": "Singapore",
+    "country": "Singapore",
+    "countryCode": "SG",
+    "lat": 1.3521,
+    "lng": 103.8198,
+    "startDate": "2027-03-17",
+    "endDate": "2027-03-18",
+    "mode": "in-person",
+    "url": "https://www.digitalconstructionasia.com/",
+    "emoji": "🇸🇬"
   },
   {
     "id": "buildtech-week-2027",
@@ -756,6 +854,20 @@
     "emoji": "🇩🇪"
   },
   {
+    "id": "expo-construir-2027",
+    "name": "Expo Construir 2027",
+    "city": "Buenos Aires",
+    "country": "Argentina",
+    "countryCode": "AR",
+    "lat": -34.6037,
+    "lng": -58.3816,
+    "startDate": "2027-05-05",
+    "endDate": "2027-05-06",
+    "mode": "in-person",
+    "url": "https://expoconstruir.com/",
+    "emoji": "🇦🇷"
+  },
+  {
     "id": "nxt-bld-2027",
     "name": "NXT BLD 2027",
     "city": "London",
@@ -768,5 +880,19 @@
     "mode": "in-person",
     "url": "https://nxtbld.com/",
     "emoji": "🇬🇧"
+  },
+  {
+    "id": "smartinfra-2027",
+    "name": "SmartInfra 2027",
+    "city": "Rome",
+    "country": "Italy",
+    "countryCode": "IT",
+    "lat": 41.9028,
+    "lng": 12.4964,
+    "startDate": "2027-06-09",
+    "endDate": "2027-06-11",
+    "mode": "in-person",
+    "url": "https://smartinfra2027.com/",
+    "emoji": "🇮🇹"
   }
 ]
