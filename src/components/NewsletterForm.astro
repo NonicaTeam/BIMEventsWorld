@@ -1,13 +1,14 @@
 ---
 // Brevo newsletter subscription form (monthly BIM events email).
 // The form is intentionally English-only and shared by every language page.
-// Brevo's own stylesheet/script are loaded here; the dark-theme overrides live
+// Nothing is loaded from Brevo's servers: the stylesheet is a self-hosted copy of
+// sibforms.com/forms/end-form/build/sib-styles.css (src/styles/sib-styles.css) and the
+// form script is replaced by the inline handler below. The dark-theme overrides live
 // in global.css under "Newsletter Section".
+import '../styles/sib-styles.css';
 const BREVO_FORM_ACTION =
   'https://7cb22e96.sibforms.com/serve/MUIFAPvHzbNEAfJE_CEdF2su_rX4Y1_BAFxgngxQ_clNMkDnpG4CqZW6jzCZ11mfyDB4RpcV3YI_Uvygyj4Ey5Wl3yW_ouBqjM0uoJHJaWxNW7MeJXSMzxcktUn0h_jEshE5OChPZm6Ryedx0JtdDVx3W4VDOVSR_6xb7Xut_hThgblOHpRjQxBpkAccyWbQJy1Oh4P--CAdxL9a';
 ---
-
-<link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css" />
 
 <section class="newsletter-section" id="newsletter">
   <div class="container newsletter-container">

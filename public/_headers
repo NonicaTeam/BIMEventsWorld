@@ -1,10 +1,11 @@
 # Content-Security-Policy: only scripts from the hosts below may run. Added 2026-09-14 after
 # Brevo's form script (sibforms.com) was found serving ClickFix malware from cdn*.sendibt1.com.
-# sibforms.com is intentionally absent from script-src; it is only allowed as a stylesheet
-# source, as the form-action target, and as a connect-src target (the newsletter form is
-# submitted with fetch so visitors are not navigated to sibforms.com).
+# sibforms.com is intentionally absent from script-src and style-src (its stylesheet is
+# self-hosted in src/styles/sib-styles.css); it is only allowed as the form-action target
+# and as a connect-src target (the newsletter form is submitted with fetch so visitors are
+# not navigated to sibforms.com).
 /*
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.google.com https://www.gstatic.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://sibforms.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://cloudflareinsights.com https://www.google.com https://*.sibforms.com; frame-src https://www.google.com https://recaptcha.google.com; form-action 'self' https://*.sibforms.com https://github.com; base-uri 'self'; object-src 'none'; frame-ancestors 'self'
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.google.com https://www.gstatic.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://cloudflareinsights.com https://www.google.com https://*.sibforms.com; frame-src https://www.google.com https://recaptcha.google.com; form-action 'self' https://*.sibforms.com https://github.com; base-uri 'self'; object-src 'none'; frame-ancestors 'self'
   X-Frame-Options: SAMEORIGIN
   Referrer-Policy: strict-origin-when-cross-origin
 
