@@ -2,6 +2,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Globe from '../../components/Globe.astro';
 import EventTable from '../../components/EventTable.astro';
+import OpenSourceNote from '../../components/OpenSourceNote.astro';
+import NewsletterForm from '../../components/NewsletterForm.astro';
 import SubmissionForm from '../../components/SubmissionForm.astro';
 import { useTranslations } from '../../i18n/utils';
 import { getUpcomingEvents } from '../../utils/events';
@@ -22,5 +24,7 @@ const events = getUpcomingEvents(eventsData as BIMEvent[]);
 >
   <Globe lang={lang} events={events} />
   <EventTable lang={lang} events={events} />
+  <OpenSourceNote lang={lang} />
+  <NewsletterForm />
   <SubmissionForm lang={lang} />
 </BaseLayout>

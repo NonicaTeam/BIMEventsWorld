@@ -1,0 +1,392 @@
+---
+// Newsletter double opt-in landing page.
+// Brevo redirects here after the subscriber clicks the confirmation link in
+// the opt-in email. The page is deliberately hidden from search engines:
+// noindex meta, excluded from the sitemap (astro.config.mjs) and disallowed
+// in public/robots.txt. It uses its own <head> instead of BaseLayout because
+// BaseLayout hardcodes "index, follow", canonical/hreflang tags and schema.org
+// markup that this page must not emit.
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+const title = 'Subscription confirmed | BIM Events Worldwide';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#060b18" />
+    <title>{title}</title>
+    <meta name="robots" content="noindex, nofollow, noarchive" />
+    <meta name="googlebot" content="noindex, nofollow, noarchive" />
+    <meta name="referrer" content="no-referrer" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" />
+  </head>
+  <body class="confirm-body">
+    <main class="confirm-page">
+      <div class="confirm-backdrop" aria-hidden="true">
+        <div class="confirm-orb confirm-orb--a"></div>
+        <div class="confirm-orb confirm-orb--b"></div>
+        <div class="confirm-grid"></div>
+      </div>
+
+      <section class="confirm-card" aria-labelledby="confirm-title">
+        <div class="confirm-check" aria-hidden="true">
+          <span class="confirm-check__ring"></span>
+          <span class="confirm-check__ring confirm-check__ring--outer"></span>
+          <svg class="confirm-check__icon" viewBox="0 0 64 64" fill="none">
+            <circle class="confirm-check__circle" cx="32" cy="32" r="29" />
+            <path class="confirm-check__tick" d="M19 33.5l8.5 8.5L45.5 23" />
+          </svg>
+        </div>
+
+        <p class="section-label">&#x2709;&#xFE0F; Newsletter</p>
+        <h1 id="confirm-title" class="confirm-title">You're subscribed!</h1>
+        <p class="confirm-lead">
+          Thanks for confirming your email. Once a month you'll receive a curated list of
+          upcoming BIM events happening around the world.
+        </p>
+
+        <ul class="confirm-perks">
+          <li>
+            <span class="confirm-perk__icon" aria-hidden="true">&#x1F4C5;</span>
+            <span>One email per month, no spam</span>
+          </li>
+          <li>
+            <span class="confirm-perk__icon" aria-hidden="true">&#x1F30D;</span>
+            <span>Conferences, meetups and webinars worldwide</span>
+          </li>
+          <li>
+            <span class="confirm-perk__icon" aria-hidden="true">&#x1F513;</span>
+            <span>Unsubscribe anytime with one click</span>
+          </li>
+        </ul>
+
+        <div class="confirm-actions">
+          <a class="confirm-btn confirm-btn--primary" href="/en/">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+            </svg>
+            Explore the globe
+          </a>
+          <a class="confirm-btn confirm-btn--ghost" href="/en/#events">Browse upcoming events</a>
+        </div>
+
+        <p class="confirm-tip">
+          Tip: add the sender of your confirmation email to your contacts so the monthly
+          update never lands in spam.
+        </p>
+      </section>
+    </main>
+    <Footer lang="en" />
+  </body>
+</html>
+
+<style>
+  .confirm-body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .confirm-page {
+    position: relative;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(40px, 8vh, 96px) 20px;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  /* --- Backdrop --- */
+  .confirm-backdrop {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  .confirm-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: 0.55;
+    animation: confirmDrift 18s ease-in-out infinite alternate;
+  }
+
+  .confirm-orb--a {
+    width: 520px;
+    height: 520px;
+    top: -180px;
+    left: -140px;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.45), transparent 70%);
+  }
+
+  .confirm-orb--b {
+    width: 460px;
+    height: 460px;
+    right: -160px;
+    bottom: -200px;
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.35), transparent 70%);
+    animation-delay: -9s;
+  }
+
+  .confirm-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--color-border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-border) 1px, transparent 1px);
+    background-size: 48px 48px;
+    opacity: 0.18;
+    mask-image: radial-gradient(ellipse 70% 70% at 50% 45%, #000 20%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 45%, #000 20%, transparent 75%);
+  }
+
+  /* --- Card --- */
+  .confirm-card {
+    width: 100%;
+    max-width: 560px;
+    padding: clamp(32px, 6vw, 56px) clamp(24px, 6vw, 52px);
+    text-align: center;
+    background: linear-gradient(180deg, rgba(26, 39, 68, 0.85), rgba(13, 21, 38, 0.92));
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg), 0 0 80px rgba(59, 130, 246, 0.12);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    animation: fadeInUp 0.6s ease both;
+  }
+
+  .confirm-card .section-label {
+    margin-bottom: 10px;
+  }
+
+  .confirm-title {
+    font-size: clamp(1.9rem, 5vw, 2.5rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin-bottom: 14px;
+    background: linear-gradient(90deg, #ffffff, var(--color-accent-light));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .confirm-lead {
+    font-size: 1.05rem;
+    color: var(--color-text-secondary);
+    max-width: 440px;
+    margin: 0 auto 28px;
+  }
+
+  /* --- Animated check --- */
+  .confirm-check {
+    position: relative;
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 24px;
+    display: grid;
+    place-items: center;
+  }
+
+  .confirm-check__ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1px solid var(--color-success);
+    opacity: 0;
+    animation: confirmRing 2.6s ease-out 0.7s infinite;
+  }
+
+  .confirm-check__ring--outer {
+    animation-delay: 1.5s;
+  }
+
+  .confirm-check__icon {
+    width: 76px;
+    height: 76px;
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 0 18px rgba(16, 185, 129, 0.45));
+  }
+
+  .confirm-check__circle {
+    fill: var(--color-success-bg);
+    stroke: var(--color-success);
+    stroke-width: 2.5;
+    stroke-dasharray: 190;
+    stroke-dashoffset: 190;
+    animation: confirmDraw 0.7s ease-out 0.15s forwards;
+  }
+
+  .confirm-check__tick {
+    stroke: var(--color-success);
+    stroke-width: 4.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 50;
+    stroke-dashoffset: 50;
+    animation: confirmDraw 0.45s ease-out 0.75s forwards;
+  }
+
+  /* --- Perks --- */
+  .confirm-perks {
+    display: grid;
+    gap: 10px;
+    max-width: 380px;
+    margin: 0 auto 32px;
+    text-align: left;
+  }
+
+  .confirm-perks li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    font-size: 0.925rem;
+    color: var(--color-text-primary);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    animation: fadeInUp 0.5s ease both;
+  }
+
+  .confirm-perks li:nth-child(1) { animation-delay: 0.35s; }
+  .confirm-perks li:nth-child(2) { animation-delay: 0.45s; }
+  .confirm-perks li:nth-child(3) { animation-delay: 0.55s; }
+
+  .confirm-perk__icon {
+    flex: 0 0 auto;
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    font-size: 1rem;
+    background: var(--color-bg-tertiary);
+    border-radius: var(--radius-sm);
+  }
+
+  /* --- Actions --- */
+  .confirm-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+    max-width: 380px;
+    margin: 0 auto 24px;
+  }
+
+  .confirm-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: var(--radius-md);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast),
+      background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+  }
+
+  .confirm-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .confirm-btn--primary {
+    color: #fff;
+    background: linear-gradient(135deg, var(--color-accent), var(--color-accent-hover));
+    box-shadow: 0 8px 24px var(--color-accent-glow);
+  }
+
+  .confirm-btn--primary:hover {
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px var(--color-accent-glow-strong);
+  }
+
+  .confirm-btn--ghost {
+    color: var(--color-text-secondary);
+    background: transparent;
+    border: 1px solid var(--color-border-light);
+  }
+
+  .confirm-btn--ghost:hover {
+    color: var(--color-text-primary);
+    border-color: var(--color-accent);
+    background: rgba(59, 130, 246, 0.08);
+  }
+
+  .confirm-btn:focus-visible {
+    outline: 2px solid var(--color-accent-light);
+    outline-offset: 3px;
+  }
+
+  .confirm-tip {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+  }
+
+  .confirm-mono {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+    background: var(--color-bg-tertiary);
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+
+  /* --- Animations --- */
+  @keyframes confirmDraw {
+    to { stroke-dashoffset: 0; }
+  }
+
+  @keyframes confirmRing {
+    0%   { transform: scale(0.75); opacity: 0.7; }
+    100% { transform: scale(1.5); opacity: 0; }
+  }
+
+  @keyframes confirmDrift {
+    from { transform: translate3d(0, 0, 0); }
+    to   { transform: translate3d(40px, 30px, 0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .confirm-card,
+    .confirm-perks li,
+    .confirm-orb,
+    .confirm-check__ring {
+      animation: none;
+      opacity: 1;
+    }
+    .confirm-check__ring { display: none; }
+    .confirm-check__circle,
+    .confirm-check__tick {
+      animation: none;
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .confirm-page {
+      padding: 32px 16px;
+    }
+    .confirm-card {
+      border-radius: var(--radius-lg);
+    }
+  }
+</style>

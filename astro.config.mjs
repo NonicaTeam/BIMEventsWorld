@@ -10,6 +10,8 @@ export default defineConfig({
   integrations: [
     sitemap({
       lastmod: new Date(),
+      // Newsletter opt-in landing page: never listed in search engines.
+      filter: (page) => !page.includes('/subscribed'),
       i18n: {
         defaultLocale: 'en',
         locales: {
