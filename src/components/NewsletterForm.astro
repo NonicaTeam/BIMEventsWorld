@@ -87,24 +87,38 @@ const BREVO_FORM_ACTION =
   </div>
 </section>
 
-<script is:inline>
-  window.REQUIRED_CODE_ERROR_MESSAGE = 'Please choose a country code';
-  window.LOCALE = 'en';
-  window.EMAIL_INVALID_MESSAGE = window.SMS_INVALID_MESSAGE = 'The information provided is not valid. Please try again or use a different email address.';
-  window.REQUIRED_ERROR_MESSAGE = 'This field cannot be empty.';
-  window.GENERIC_INVALID_MESSAGE = 'The information provided is not valid. Please try again or use a different email address.';
-  window.INVALID_NUMBER = 'The information provided is not valid. Please try again or use a different email address.';
-  window.INVALID_DATE = 'Please enter a valid date';
-  window.REQUIRED_MULTISELECT_MESSAGE = 'Please select at least one option';
-  window.translation = {
-    common: {
-      selectedList: '{quantity} list selected',
-      selectedLists: '{quantity} lists selected',
-      selectedOption: '{quantity} selected',
-      selectedOptions: '{quantity} selected',
-    }
-  };
-  var AUTOHIDE = Boolean(0);
-</script>
-<script is:inline defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
+<!--
+  Brevo's form script (sibforms.com/forms/end-form/build/main.js) is deliberately NOT loaded.
+  On 2026-09-14 Brevo served it with an appended loader for cdn*.sendibt1.com/f.js, a
+  "ClickFix" fake-captcha malware that copies a command to the visitor's clipboard.
+  The form works as a plain HTML POST to Brevo; the small handler below only attaches the
+  reCAPTCHA v3 token Brevo expects (field "g-recaptcha-response", action "submit").
+  Do not re-add Brevo's script until Brevo has published an incident note and the file is clean.
+-->
 <script is:inline async defer src="https://www.google.com/recaptcha/api.js?render=6Ldu_7otAAAAACTONmmozeEKQp1pNCN9Q22gA8c3&hl=en"></script>
+<script is:inline>
+  (function () {
+    var form = document.getElementById('sib-form');
+    if (!form) return;
+    var siteKey = '6Ldu_7otAAAAACTONmmozeEKQp1pNCN9Q22gA8c3';
+    var tokenField = document.createElement('input');
+    tokenField.type = 'hidden';
+    tokenField.name = 'g-recaptcha-response';
+    form.appendChild(tokenField);
+    var ready = false;
+    form.addEventListener('submit', function (e) {
+      if (ready || !window.grecaptcha || !grecaptcha.execute) return;
+      e.preventDefault();
+      grecaptcha.ready(function () {
+        grecaptcha.execute(siteKey, { action: 'submit' }).then(function (token) {
+          tokenField.value = token;
+          ready = true;
+          form.submit();
+        }).catch(function () {
+          ready = true;
+          form.submit();
+        });
+      });
+    });
+  })();
+</script>
