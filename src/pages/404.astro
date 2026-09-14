@@ -1,0 +1,54 @@
+---
+// Emits dist/404.html so Cloudflare Pages returns a real 404 for unknown paths
+// (including missing /_astro/ assets) instead of serving index.html with a 200
+// that the immutable cache rule in public/_headers would then keep for a year.
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const lang = 'en';
+---
+
+<BaseLayout
+  lang={lang}
+  title="Page not found | BIM Events World"
+  description="The page you are looking for does not exist."
+  keywords="BIM events, 404"
+  path="404"
+>
+  <section class="form-section not-found">
+    <div class="container form-container">
+      <div class="form-header">
+        <p class="section-label">&#x1F50D; 404</p>
+        <h1 class="section-title">Page not found</h1>
+        <p class="section-subtitle" style="margin: 0 auto;">The page you are looking for does not exist or has moved.</p>
+      </div>
+      <p class="not-found-actions">
+        <a href="/en/" class="form-submit not-found-link">Back to BIM Events World</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style is:global>
+  .not-found {
+    min-height: calc(100vh - 200px);
+    display: flex;
+    align-items: center;
+  }
+
+  .not-found .form-header {
+    margin-bottom: 24px;
+  }
+
+  .not-found-actions {
+    text-align: center;
+  }
+
+  .not-found-link {
+    display: inline-block;
+    text-decoration: none;
+  }
+
+  .not-found-link:hover {
+    color: #fff;
+  }
+</style>
