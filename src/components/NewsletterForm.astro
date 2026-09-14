@@ -44,7 +44,7 @@ const BREVO_FORM_ACTION =
                 <div class="form__label-row">
                   <label class="entry__label" for="EMAIL" data-required="*">Email address</label>
                   <div class="entry__field">
-                    <input class="input" type="text" id="EMAIL" name="EMAIL" autocomplete="off" value="" placeholder="you@example.com" data-required="true" required />
+                    <input class="input" type="email" id="EMAIL" name="EMAIL" autocomplete="email" value="" placeholder="you@example.com" data-required="true" required />
                   </div>
                 </div>
                 <label class="entry__error entry__error--primary"></label>
@@ -91,8 +91,12 @@ const BREVO_FORM_ACTION =
   Brevo's form script (sibforms.com/forms/end-form/build/main.js) is deliberately NOT loaded.
   On 2026-09-14 Brevo served it with an appended loader for cdn*.sendibt1.com/f.js, a
   "ClickFix" fake-captcha malware that copies a command to the visitor's clipboard.
-  The form works as a plain HTML POST to Brevo; the small handler below only attaches the
-  reCAPTCHA v3 token Brevo expects (field "g-recaptcha-response", action "submit").
+  The handler below replaces the parts of that script we need: it attaches the reCAPTCHA v3
+  token Brevo expects (field "g-recaptcha-response", action "submit"), posts the form in the
+  background to the same endpoint with "?isAjax=1" (Brevo then answers with JSON instead of
+  a page), and shows the #success-message / #error-message panels in place. If the background
+  request itself fails (network, CORS), it falls back to a normal HTML POST so subscriptions
+  are never lost.
   Do not re-add Brevo's script until Brevo has published an incident note and the file is clean.
 -->
 <script is:inline async defer src="https://www.google.com/recaptcha/api.js?render=6Ldu_7otAAAAACTONmmozeEKQp1pNCN9Q22gA8c3&hl=en"></script>
@@ -101,23 +105,74 @@ const BREVO_FORM_ACTION =
     var form = document.getElementById('sib-form');
     if (!form) return;
     var siteKey = '6Ldu_7otAAAAACTONmmozeEKQp1pNCN9Q22gA8c3';
+    var successPanel = document.getElementById('success-message');
+    var errorPanel = document.getElementById('error-message');
+    var button = form.querySelector('button[type="submit"]');
+    var loaderIcon = button && button.querySelector('.progress-indicator__icon');
     var tokenField = document.createElement('input');
     tokenField.type = 'hidden';
     tokenField.name = 'g-recaptcha-response';
     form.appendChild(tokenField);
-    var ready = false;
-    form.addEventListener('submit', function (e) {
-      if (ready || !window.grecaptcha || !grecaptcha.execute) return;
-      e.preventDefault();
-      grecaptcha.ready(function () {
-        grecaptcha.execute(siteKey, { action: 'submit' }).then(function (token) {
-          tokenField.value = token;
-          ready = true;
-          form.submit();
-        }).catch(function () {
-          ready = true;
-          form.submit();
+    var submitting = false;
+    var fallback = false;
+
+    function showPanel(panel) {
+      if (successPanel) successPanel.classList.toggle('sib-form-message-panel--active', panel === successPanel);
+      if (errorPanel) errorPanel.classList.toggle('sib-form-message-panel--active', panel === errorPanel);
+      if (panel) panel.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }
+
+    function setBusy(busy) {
+      submitting = busy;
+      if (button) button.disabled = busy;
+      if (loaderIcon) loaderIcon.classList.toggle('sib-hide-loader-icon', !busy);
+    }
+
+    function getToken() {
+      if (!window.grecaptcha || !grecaptcha.execute) return Promise.resolve('');
+      return new Promise(function (resolve) {
+        grecaptcha.ready(function () {
+          grecaptcha.execute(siteKey, { action: 'submit' }).then(resolve, function () { resolve(''); });
         });
+      });
+    }
+
+    function nativeSubmit() {
+      fallback = true;
+      form.submit();
+    }
+
+    form.addEventListener('submit', function (e) {
+      if (fallback) return;
+      e.preventDefault();
+      if (submitting) return;
+      if (typeof form.reportValidity === 'function' && !form.reportValidity()) return;
+      showPanel(null);
+      setBusy(true);
+
+      getToken().then(function (token) {
+        tokenField.value = token;
+        var body = new FormData(form);
+        var url = form.action + (form.action.indexOf('?') === -1 ? '?' : '&') + 'isAjax=1';
+        return fetch(url, { method: 'POST', body: body, headers: { Accept: 'application/json' } })
+          .then(function (res) {
+            return res.text().then(function (text) {
+              var data = null;
+              try { data = JSON.parse(text); } catch (_) { /* not JSON */ }
+              var ok = res.ok && data && data.success !== false && !data.errors;
+              setBusy(false);
+              if (ok) {
+                form.reset();
+                showPanel(successPanel);
+              } else {
+                showPanel(errorPanel);
+              }
+            });
+          });
+      }).catch(function () {
+        // Background request could not be made at all; let the browser post the form.
+        setBusy(false);
+        nativeSubmit();
       });
     });
   })();
