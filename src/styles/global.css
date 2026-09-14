@@ -1210,6 +1210,10 @@ ul, ol {
   text-align: center;
 }
 
+.newsletter-section .form-header {
+  margin-bottom: 20px;
+}
+
 .newsletter-section .sib-form {
   text-align: center;
   background: transparent;
