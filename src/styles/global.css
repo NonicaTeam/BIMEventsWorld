@@ -327,7 +327,8 @@ ul, ol {
   color: var(--color-accent-light);
 }
 
-/* Stats row + "Receive updates" button share one column: the button is exactly as wide as the two stats. */
+/* Stats row + "Receive Monthly Email" button share one grid column, so the button is as wide
+   as the two stats (or as its own label when that is longer, e.g. on phones). */
 .hero-stats-block {
   display: inline-grid;
   grid-template-columns: max-content;
@@ -336,8 +337,6 @@ ul, ol {
 
 .hero-updates-btn {
   display: block;
-  width: 0;
-  min-width: 100%;
   box-sizing: border-box;
   margin-top: 14px;
   padding: 8px 18px;
