@@ -40,6 +40,14 @@
   --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
   --shadow-lg: 0 8px 32px rgba(0,0,0,0.5);
   --shadow-glow: 0 0 30px var(--color-accent-glow);
+  /* Primary "glass edge + gradient" buttons (hero, table, forms, newsletter, active filter) */
+  --btn-gradient:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0) 55%),
+    linear-gradient(135deg, var(--color-accent-light) 0%, var(--color-accent) 55%, var(--color-accent-hover) 100%);
+  --btn-edge: 1px solid rgba(255, 255, 255, 0.55);
+  --btn-edge-hover: rgba(255, 255, 255, 0.85);
+  --btn-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 6px 18px var(--color-accent-glow);
+  --btn-shadow-hover: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 10px 26px var(--color-accent-glow-strong);
   --shadow-glow-strong: 0 0 50px var(--color-accent-glow-strong);
   --transition-fast: 150ms ease;
   --transition-base: 250ms ease;
@@ -351,39 +359,37 @@ ul, ol {
   text-transform: uppercase;
   text-align: center;
   white-space: nowrap;
-  border: 1px solid rgba(255, 255, 255, 0.55);
+  border: var(--btn-edge);
   border-radius: var(--radius-md);
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0) 55%),
-    linear-gradient(135deg, var(--color-accent-light) 0%, var(--color-accent) 55%, var(--color-accent-hover) 100%);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.35),
-    0 6px 18px var(--color-accent-glow);
+  background: var(--btn-gradient);
+  box-shadow: var(--btn-shadow);
   transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
 }
 
-.hero-updates-btn .btn-arrow {
+.hero-updates-btn:hover {
+  color: #fff;
+  border-color: var(--btn-edge-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--btn-shadow-hover);
+}
+
+.hero-updates-btn:active {
+  transform: translateY(0);
+}
+
+/* Arrow icon shared by the primary buttons */
+.btn-arrow {
   width: 14px;
   height: 14px;
   flex: 0 0 14px;
   transition: transform var(--transition-fast);
 }
 
-.hero-updates-btn:hover {
-  color: #fff;
-  border-color: rgba(255, 255, 255, 0.85);
-  transform: translateY(-1px);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.45),
-    0 10px 26px var(--color-accent-glow-strong);
-}
-
-.hero-updates-btn:hover .btn-arrow {
+.hero-updates-btn:hover .btn-arrow,
+.submit-event-btn:hover .btn-arrow,
+.form-submit:hover:not(:disabled) .btn-arrow,
+.newsletter-section #sib-form .sib-form-block__button:hover:not(:disabled) .btn-arrow {
   transform: translateX(3px);
-}
-
-.hero-updates-btn:active {
-  transform: translateY(0);
 }
 
 .stat-label {
@@ -975,21 +981,34 @@ ul, ol {
 }
 
 .submit-event-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   margin-left: auto;
-  padding: 8px 18px;
-  background: var(--color-accent);
+  padding: 9px 18px;
   color: #fff;
-  border-radius: var(--radius-sm);
-  font-size: 0.813rem;
-  font-weight: 600;
-  transition: all var(--transition-fast);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   white-space: nowrap;
+  border: var(--btn-edge);
+  border-radius: var(--radius-md);
+  background: var(--btn-gradient);
+  box-shadow: var(--btn-shadow);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
 }
 
 .submit-event-btn:hover {
-  background: var(--color-accent-hover);
-  box-shadow: var(--shadow-glow);
   color: #fff;
+  border-color: var(--btn-edge-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--btn-shadow-hover);
+}
+
+.submit-event-btn:active {
+  transform: translateY(0);
 }
 
 .events-toolbar {
@@ -1041,30 +1060,39 @@ ul, ol {
 
 .events-filters {
   display: flex;
-  gap: 6px;
+  gap: 4px;
+  padding: 4px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
 }
 
 .filter-btn {
-  padding: 8px 16px;
-  background: var(--color-bg-tertiary);
-  border: 1px solid var(--color-border);
+  padding: 7px 14px;
+  background: transparent;
+  border: 1px solid transparent;
   border-radius: var(--radius-sm);
   color: var(--color-text-secondary);
-  font-size: 0.813rem;
-  font-weight: 500;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: color var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .filter-btn:hover {
-  border-color: var(--color-accent);
   color: var(--color-text-primary);
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.18);
 }
 
 .filter-btn.active {
-  background: var(--color-accent);
-  border-color: var(--color-accent);
-  color: white;
+  color: #fff;
+  border: var(--btn-edge);
+  background: var(--btn-gradient);
+  box-shadow: var(--btn-shadow);
 }
 
 /* === Event Table === */
@@ -1429,21 +1457,29 @@ ul, ol {
   min-height: 0;
   margin-top: 8px;
   padding: 14px 28px;
-  background: var(--color-accent);
   color: #fff;
-  border: none;
+  border: var(--btn-edge);
   border-radius: var(--radius-md);
+  background: var(--btn-gradient);
+  box-shadow: var(--btn-shadow);
   font-family: var(--font-sans);
-  font-size: 0.95rem;
-  font-weight: 600;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   line-height: 1.2;
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
 }
 
-.newsletter-section #sib-form .sib-form-block__button:hover {
-  background: var(--color-accent-hover);
-  box-shadow: var(--shadow-glow);
+.newsletter-section #sib-form .sib-form-block__button:hover:not(:disabled) {
+  border-color: var(--btn-edge-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--btn-shadow-hover);
+}
+
+.newsletter-section #sib-form .sib-form-block__button:disabled .btn-arrow {
+  display: none;
 }
 
 .newsletter-section #sib-form .sib-form-block__button-disabled,
@@ -1913,26 +1949,40 @@ ul, ol {
 }
 
 .form-submit {
-  padding: 14px 28px;
-  background: var(--color-accent);
-  color: white;
-  border: none;
-  border-radius: var(--radius-md);
-  font-weight: 600;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition: all var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
   margin-top: 8px;
+  padding: 14px 28px;
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: var(--btn-edge);
+  border-radius: var(--radius-md);
+  background: var(--btn-gradient);
+  box-shadow: var(--btn-shadow);
+  cursor: pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
 }
 
-.form-submit:hover {
-  background: var(--color-accent-hover);
-  box-shadow: var(--shadow-glow);
+.form-submit:hover:not(:disabled) {
+  border-color: var(--btn-edge-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--btn-shadow-hover);
 }
 
 .form-submit:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+  box-shadow: none;
+}
+
+.form-submit:disabled .btn-arrow {
+  display: none;
 }
 
 .form-message {
