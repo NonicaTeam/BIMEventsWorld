@@ -854,6 +854,20 @@
     "emoji": "🇩🇪"
   },
   {
+    "id": "autodesk-devcon-barcelona-2027",
+    "name": "Autodesk DevCon 2027",
+    "city": "Barcelona",
+    "country": "Spain",
+    "countryCode": "ES",
+    "lat": 41.4106,
+    "lng": 2.2191,
+    "startDate": "2027-04-14",
+    "endDate": "2027-04-15",
+    "mode": "in-person",
+    "url": "https://aps.autodesk.com/blog/save-date-autodesk-devcon-2027-coming-barcelona",
+    "emoji": "🇪🇸"
+  },
+  {
     "id": "expo-construir-2027",
     "name": "Expo Construir 2027",
     "city": "Buenos Aires",
