@@ -36,17 +36,19 @@ const t = useTranslations(lang);
       </div>
       <h1 class="hero-title">{t('hero.title')}</h1>
       <p class="hero-description">{t('hero.subtitle')}<br />{t('hero.pastEventsNote')}<br />{t('hero.onePerCity')}</p>
-      <div class="hero-stats">
-        <div class="stat-item">
-          <span class="stat-number" id="event-count">{events.length}</span>
-          <span class="stat-label">{t('hero.eventsLive')}</span>
+      <div class="hero-stats-block">
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-number" id="event-count">{events.length}</span>
+            <span class="stat-label">{t('hero.eventsLive')}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" id="visit-count">-</span>
+            <span class="stat-label">{t('hero.visits')}</span>
+          </div>
         </div>
-        <div class="stat-item">
-          <span class="stat-number" id="visit-count">-</span>
-          <span class="stat-label">{t('hero.visits')}</span>
-        </div>
+        <a href="#newsletter" class="hero-updates-btn" style="pointer-events: auto;">&#x2709;&#xFE0F; {t('hero.updates')}</a>
       </div>
-      <a href="#submit" class="hero-submit-btn" style="pointer-events: auto;">&#x2795; {t('nav.submit')}</a>
     </div>
   </div>
 

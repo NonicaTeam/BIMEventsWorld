@@ -327,8 +327,18 @@ ul, ol {
   color: var(--color-accent-light);
 }
 
-.hero-submit-btn {
-  display: inline-block;
+/* Stats row + "Receive updates" button share one column: the button is exactly as wide as the two stats. */
+.hero-stats-block {
+  display: inline-grid;
+  grid-template-columns: max-content;
+  justify-items: stretch;
+}
+
+.hero-updates-btn {
+  display: block;
+  width: 0;
+  min-width: 100%;
+  box-sizing: border-box;
   margin-top: 14px;
   padding: 8px 18px;
   background: var(--color-accent);
@@ -336,10 +346,12 @@ ul, ol {
   border-radius: var(--radius-sm);
   font-size: 0.813rem;
   font-weight: 600;
+  text-align: center;
+  white-space: nowrap;
   transition: all var(--transition-fast);
 }
 
-.hero-submit-btn:hover {
+.hero-updates-btn:hover {
   background: var(--color-accent-hover);
   box-shadow: var(--shadow-glow);
   color: #fff;
@@ -1998,7 +2010,7 @@ ul, ol {
     font-size: 0.65rem;
   }
 
-  .hero-submit-btn {
+  .hero-updates-btn {
     margin-top: 8px;
     padding: 6px 14px;
     font-size: 0.75rem;
