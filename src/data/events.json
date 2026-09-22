@@ -908,5 +908,19 @@
     "mode": "in-person",
     "url": "https://smartinfra2027.com/",
     "emoji": "🇮🇹"
+  },
+  {
+    "id": "autodesk-university-2027",
+    "name": "Autodesk University",
+    "city": "Las Vegas",
+    "country": "United States",
+    "countryCode": "US",
+    "lat": 36.1699,
+    "lng": -115.1398,
+    "startDate": "2027-09-14",
+    "endDate": "2027-09-16",
+    "mode": "hybrid",
+    "url": "https://www.linkedin.com/posts/design-and-make-starts-with-you-what-a-ugcPost-7506562814644326400-QN5J/",
+    "emoji": "🇺🇸"
   }
 ]
