@@ -616,6 +616,34 @@
     "emoji": "🇦🇷"
   },
   {
+    "id": "kingdom-digital-twin-riyadh-2026",
+    "name": "Kingdom Digital Twin 2026",
+    "city": "Riyadh",
+    "country": "Saudi Arabia",
+    "countryCode": "SA",
+    "lat": 24.7136,
+    "lng": 46.6753,
+    "startDate": "2026-10-06",
+    "endDate": "2026-10-07",
+    "mode": "in-person",
+    "url": "https://ksa.digitaltwin-summit.com/",
+    "emoji": "🇸🇦"
+  },
+  {
+    "id": "cib-w78-2026-new-delhi",
+    "name": "43rd CIB W78 Conference on IT in Construction",
+    "city": "New Delhi",
+    "country": "India",
+    "countryCode": "IN",
+    "lat": 28.5450,
+    "lng": 77.1926,
+    "startDate": "2026-10-06",
+    "endDate": "2026-10-08",
+    "mode": "in-person",
+    "url": "https://cibw78-2026.com/",
+    "emoji": "🇮🇳"
+  },
+  {
     "id": "buildingsmart-summit-tokyo-2026",
     "name": "buildingSMART International Summit Tokyo 2026",
     "city": "Tokyo",
@@ -658,6 +686,34 @@
     "emoji": "🇺🇸"
   },
   {
+    "id": "cadmat-2027-krakow",
+    "name": "CADMAT 2027",
+    "city": "Kraków",
+    "country": "Poland",
+    "countryCode": "PL",
+    "lat": 50.0647,
+    "lng": 19.9450,
+    "startDate": "2026-10-09",
+    "endDate": "2026-10-09",
+    "mode": "in-person",
+    "url": "https://www.cadmat.pl/",
+    "emoji": "🇵🇱"
+  },
+  {
+    "id": "cif-digital-construction-summit-dublin-2026",
+    "name": "CIF Digital Construction Summit 2026",
+    "city": "Dublin",
+    "country": "Ireland",
+    "countryCode": "IE",
+    "lat": 53.3607,
+    "lng": -6.2512,
+    "startDate": "2026-10-15",
+    "endDate": "2026-10-15",
+    "mode": "in-person",
+    "url": "https://digitalconstruction.ie/",
+    "emoji": "🇮🇪"
+  },
+  {
     "id": "release-aec-paris-2026",
     "name": "RELEASE [AEC] 2026",
     "city": "Paris",
@@ -683,6 +739,20 @@
     "endDate": "2026-10-22",
     "mode": "in-person",
     "url": "https://www.procore.com/groundbreak",
+    "emoji": "🇺🇸"
+  },
+  {
+    "id": "acadia-2026-detroit",
+    "name": "ACADIA 2026 – Humanism Recoded",
+    "city": "Detroit",
+    "country": "United States",
+    "countryCode": "US",
+    "lat": 42.4734,
+    "lng": -83.2497,
+    "startDate": "2026-10-22",
+    "endDate": "2026-10-24",
+    "mode": "in-person",
+    "url": "https://2026.acadia.org/",
     "emoji": "🇺🇸"
   },
   {
@@ -742,6 +812,20 @@
     "emoji": "🇦🇪"
   },
   {
+    "id": "batigital-2026-lausanne",
+    "name": "Conférence Bâtigital 2026",
+    "city": "Lausanne",
+    "country": "Switzerland",
+    "countryCode": "CH",
+    "lat": 46.5236,
+    "lng": 6.5665,
+    "startDate": "2026-11-12",
+    "endDate": "2026-11-12",
+    "mode": "in-person",
+    "url": "https://bauen-digital.ch/event-programm/conference-batigital-2026-lausanne/",
+    "emoji": "🇨🇭"
+  },
+  {
     "id": "basque-tech-summit-iv",
     "name": "Basque Tech Summit IV",
     "city": "San Sebastián",
@@ -770,6 +854,20 @@
     "emoji": "🇲🇽"
   },
   {
+    "id": "ciexpo-2026-hong-kong",
+    "name": "Construction Innovation Expo 2026 (CIExpo)",
+    "city": "Hong Kong",
+    "country": "Hong Kong",
+    "countryCode": "HK",
+    "lat": 22.2830,
+    "lng": 114.1735,
+    "startDate": "2026-11-23",
+    "endDate": "2026-11-25",
+    "mode": "in-person",
+    "url": "https://www.cic.hk/en/events/detail.page-20261123",
+    "emoji": "🇭🇰"
+  },
+  {
     "id": "bim-world-munich-2026",
     "name": "BIM World Munich",
     "city": "Munich",
@@ -796,6 +894,48 @@
     "mode": "in-person",
     "url": "https://melbournebuildexpo.com/",
     "emoji": "🇦🇺"
+  },
+  {
+    "id": "digibouw-2026-utrecht",
+    "name": "DigiBouw 2026",
+    "city": "Utrecht",
+    "country": "Netherlands",
+    "countryCode": "NL",
+    "lat": 52.0880,
+    "lng": 5.1030,
+    "startDate": "2026-11-25",
+    "endDate": "2026-11-26",
+    "mode": "in-person",
+    "url": "https://www.digibouw.nl/",
+    "emoji": "🇳🇱"
+  },
+  {
+    "id": "iccbei-2027-auckland",
+    "name": "ICCBEI 2027",
+    "city": "Auckland",
+    "country": "New Zealand",
+    "countryCode": "NZ",
+    "lat": -36.8531,
+    "lng": 174.7710,
+    "startDate": "2027-01-20",
+    "endDate": "2027-01-22",
+    "mode": "in-person",
+    "url": "https://www.iccbei2027.auckland.ac.nz/",
+    "emoji": "🇳🇿"
+  },
+  {
+    "id": "builtworlds-ai-ml-2027-austin",
+    "name": "BuiltWorlds AI/ML Conference 2027",
+    "city": "Austin",
+    "country": "United States",
+    "countryCode": "US",
+    "lat": 30.2672,
+    "lng": -97.7431,
+    "startDate": "2027-02-17",
+    "endDate": "2027-02-18",
+    "mode": "in-person",
+    "url": "https://builtworlds.com/event/2027-ai-ml-conference/",
+    "emoji": "🇺🇸"
   },
   {
     "id": "geo-week-2027",
@@ -854,6 +994,20 @@
     "emoji": "🇩🇪"
   },
   {
+    "id": "bim-infra-kongress-2027-dresden",
+    "name": "BIM.Infra Kongress 2027",
+    "city": "Dresden",
+    "country": "Germany",
+    "countryCode": "DE",
+    "lat": 51.0504,
+    "lng": 13.7373,
+    "startDate": "2027-04-11",
+    "endDate": "2027-04-13",
+    "mode": "in-person",
+    "url": "https://www.bim-infra.de/",
+    "emoji": "🇩🇪"
+  },
+  {
     "id": "autodesk-devcon-barcelona-2027",
     "name": "Autodesk DevCon 2027",
     "city": "Barcelona",
@@ -908,6 +1062,20 @@
     "mode": "in-person",
     "url": "https://smartinfra2027.com/",
     "emoji": "🇮🇹"
+  },
+  {
+    "id": "fachtagung-digitale-transformation-zurich-2027",
+    "name": "Fachtagung Digitale Transformation in der Bau- & Immobilienbranche",
+    "city": "Zürich",
+    "country": "Switzerland",
+    "countryCode": "CH",
+    "lat": 47.3663,
+    "lng": 8.5337,
+    "startDate": "2027-06-24",
+    "endDate": "2027-06-24",
+    "mode": "in-person",
+    "url": "https://www.sieberpartners.com/wo-wir-verbinden/fachtagung-in-der-bau-und-immobilienbranche",
+    "emoji": "🇨🇭"
   },
   {
     "id": "autodesk-university-2027",
