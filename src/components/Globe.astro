@@ -72,7 +72,10 @@ const t = useTranslations(lang);
       <span class="hover-ring-core"></span>
       <span class="hover-ring-dashed"></span>
     </div>
-    <div id="globe-tooltip" class="globe-tooltip"></div>
+    <div id="globe-tooltip" class="globe-tooltip">
+      <span class="tt-name" id="globe-tooltip-name"></span>
+      <span class="tt-location" id="globe-tooltip-location"></span>
+    </div>
 
     <!-- Side flag for clicked marker -->
     <div class="event-flag" id="event-flag">
@@ -146,6 +149,8 @@ const t = useTranslations(lang);
     const events = JSON.parse(document.getElementById('events-data')?.textContent || '[]');
     const lang = JSON.parse(document.getElementById('lang-data')?.textContent || '"en"');
     const tooltip = document.getElementById('globe-tooltip') as HTMLElement;
+    const tooltipName = document.getElementById('globe-tooltip-name') as HTMLElement;
+    const tooltipLocation = document.getElementById('globe-tooltip-location') as HTMLElement;
     const hoverRing = document.getElementById('globe-hover-ring') as HTMLElement;
 
     // Filter to future events for globe markers
@@ -423,7 +428,10 @@ const t = useTranslations(lang);
         hoverRing.classList.add('visible');
         prevHoveredIdx = hoveredIdx;
         // Show tooltip with slight delay for entrance animation
-        tooltip.textContent = ev.name;
+        tooltipName.textContent = ev.name;
+        tooltipLocation.textContent = mode === 'online'
+          ? 'Online'
+          : [ev.city, ev.country].filter(Boolean).join(', ');
         tooltip.dataset.mode = mode;
         const ttTransform = `translate3d(${pos.x}px, ${pos.y - 24}px, 0) translate(-50%, -100%)`;
         tooltip.style.setProperty('--tt-transform', ttTransform);

@@ -693,6 +693,20 @@ ul, ol {
   visibility: hidden;
   opacity: 0;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 0 15px var(--tt-glow);
+  text-align: center;
+}
+.globe-tooltip .tt-name,
+.globe-tooltip .tt-location {
+  display: block;
+}
+.globe-tooltip .tt-location {
+  margin-top: 1px;
+  font-size: 0.62rem;
+  font-weight: 400;
+  color: var(--color-text-secondary);
+}
+.globe-tooltip .tt-location:empty {
+  display: none;
 }
 .globe-tooltip.visible {
   visibility: visible;
