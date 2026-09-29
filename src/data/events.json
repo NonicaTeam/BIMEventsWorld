@@ -868,6 +868,20 @@
     "emoji": "🇭🇰"
   },
   {
+    "id": "a-era-bim-2026",
+    "name": "A ERA BIM 2026",
+    "city": "São Paulo",
+    "country": "Brazil",
+    "countryCode": "BR",
+    "lat": -23.5536,
+    "lng": -46.6527,
+    "startDate": "2026-11-24",
+    "endDate": "2026-11-26",
+    "mode": "in-person",
+    "url": "https://erabim.com/",
+    "emoji": "🇧🇷"
+  },
+  {
     "id": "bim-world-munich-2026",
     "name": "BIM World Munich",
     "city": "Munich",
