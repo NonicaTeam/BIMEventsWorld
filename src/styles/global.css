@@ -1101,6 +1101,11 @@ ul, ol {
   transform: translateX(120%);
 }
 
+/* Wrapper that only carries data-nosnippet on open slots; its children lay out as the card's own */
+.featured-card-inner {
+  display: contents;
+}
+
 .featured-card-top {
   display: flex;
   align-items: center;
