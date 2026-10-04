@@ -1086,19 +1086,20 @@ ul, ol {
   outline-offset: 3px;
 }
 
-/* Light sweep across the card on hover */
+/* Light sweep across the card on hover in only: the transition lives on :hover,
+   so on hover out the sheen snaps back off-card instead of sweeping in reverse */
 .featured-card::after {
   content: '';
   position: absolute;
   inset: 0;
   background: linear-gradient(115deg, transparent 35%, rgba(255, 243, 196, 0.13) 50%, transparent 65%);
   transform: translateX(-120%);
-  transition: transform 700ms ease;
   pointer-events: none;
 }
 
 .featured-card:hover::after {
   transform: translateX(120%);
+  transition: transform 700ms ease;
 }
 
 /* Wrapper that only carries data-nosnippet on open slots; its children lay out as the card's own */

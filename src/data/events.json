@@ -703,6 +703,34 @@
     "emoji": "🇵🇱"
   },
   {
+    "id": "digital-construction-day-2026-brussels",
+    "name": "Digital Construction Day 2026",
+    "city": "Brussels",
+    "country": "Belgium",
+    "countryCode": "BE",
+    "lat": 50.8503,
+    "lng": 4.3517,
+    "startDate": "2026-10-13",
+    "endDate": "2026-10-13",
+    "mode": "in-person",
+    "url": "https://digitalconstructionday.be/",
+    "emoji": "🇧🇪"
+  },
+  {
+    "id": "bim-con-cfia-2026-san-jose",
+    "name": "BIM CON CFIA 2026",
+    "city": "San José",
+    "country": "Costa Rica",
+    "countryCode": "CR",
+    "lat": 9.9281,
+    "lng": -84.0907,
+    "startDate": "2026-10-14",
+    "endDate": "2026-10-15",
+    "mode": "in-person",
+    "url": "https://congresobimcon.cfia.or.cr/",
+    "emoji": "🇨🇷"
+  },
+  {
     "id": "cif-digital-construction-summit-dublin-2026",
     "name": "CIF Digital Construction Summit 2026",
     "city": "Dublin",
@@ -732,6 +760,20 @@
     "featured": true,
     "logo": "/logos/release-aec-paris-2026.png",
     "logoBg": "dark"
+  },
+  {
+    "id": "bim-day-2026-prague",
+    "name": "BIM DAY 2026",
+    "city": "Prague",
+    "country": "Czech Republic",
+    "countryCode": "CZ",
+    "lat": 50.0755,
+    "lng": 14.4378,
+    "startDate": "2026-10-20",
+    "endDate": "2026-10-21",
+    "mode": "in-person",
+    "url": "https://www.bimday.cz/",
+    "emoji": "🇨🇿"
   },
   {
     "id": "procore-groundbreak-2026",
@@ -776,6 +818,20 @@
     "emoji": "🇫🇮"
   },
   {
+    "id": "buildingsmart-thementag-bim-verkehrswege-2026-fulda",
+    "name": "buildingSMART-Thementag: BIM und Verkehrswege",
+    "city": "Fulda",
+    "country": "Germany",
+    "countryCode": "DE",
+    "lat": 50.5558,
+    "lng": 9.6808,
+    "startDate": "2026-10-27",
+    "endDate": "2026-10-27",
+    "mode": "in-person",
+    "url": "https://www.buildingsmart.de/buildingsmart/aktuelles/buildingsmart-thementag-bim-und-verkehrswege",
+    "emoji": "🇩🇪"
+  },
+  {
     "id": "bim-roadshow-leon-2026",
     "name": "The BIM Road Show México 2026 – León",
     "city": "León",
@@ -804,6 +860,20 @@
     "emoji": "🇨🇦"
   },
   {
+    "id": "bim-open-2026-ostrava",
+    "name": "BIM Open 2026",
+    "city": "Ostrava",
+    "country": "Czech Republic",
+    "countryCode": "CZ",
+    "lat": 49.8209,
+    "lng": 18.2625,
+    "startDate": "2026-11-05",
+    "endDate": "2026-11-05",
+    "mode": "in-person",
+    "url": "https://bimopen.adeon.cz/",
+    "emoji": "🇨🇿"
+  },
+  {
     "id": "mena-construction-summit-2026",
     "name": "MENA Construction Summit 2026",
     "city": "Dubai",
@@ -818,6 +888,20 @@
     "emoji": "🇦🇪"
   },
   {
+    "id": "aectech-2026-nyc",
+    "name": "AECtech 2026 NYC",
+    "city": "New York City",
+    "country": "United States",
+    "countryCode": "US",
+    "lat": 40.7128,
+    "lng": -74.006,
+    "startDate": "2026-11-09",
+    "endDate": "2026-11-15",
+    "mode": "in-person",
+    "url": "https://www.aectech.us/nyc-conference",
+    "emoji": "🇺🇸"
+  },
+  {
     "id": "batigital-2026-lausanne",
     "name": "Conférence Bâtigital 2026",
     "city": "Lausanne",
@@ -830,6 +914,34 @@
     "mode": "in-person",
     "url": "https://bauen-digital.ch/event-programm/conference-batigital-2026-lausanne/",
     "emoji": "🇨🇭"
+  },
+  {
+    "id": "digital-construction-north-2026-manchester",
+    "name": "Digital Construction North 2026",
+    "city": "Manchester",
+    "country": "United Kingdom",
+    "countryCode": "GB",
+    "lat": 53.4808,
+    "lng": -2.2426,
+    "startDate": "2026-11-18",
+    "endDate": "2026-11-18",
+    "mode": "in-person",
+    "url": "https://www.digitalconstructionnorth.com/",
+    "emoji": "🇬🇧"
+  },
+  {
+    "id": "builtworlds-aec-emerging-tech-2026-boston",
+    "name": "BuiltWorlds AEC Emerging Tech 2026",
+    "city": "Boston",
+    "country": "United States",
+    "countryCode": "US",
+    "lat": 42.3601,
+    "lng": -71.0589,
+    "startDate": "2026-11-18",
+    "endDate": "2026-11-19",
+    "mode": "in-person",
+    "url": "https://builtworlds.com/event/2026-aec-emerging-tech/",
+    "emoji": "🇺🇸"
   },
   {
     "id": "basque-tech-summit-iv",
@@ -1000,6 +1112,20 @@
     "emoji": "🇸🇬"
   },
   {
+    "id": "building-transformations-calgary-summit-2027",
+    "name": "Building Transformations Calgary Satellite Summit 2027",
+    "city": "Calgary",
+    "country": "Canada",
+    "countryCode": "CA",
+    "lat": 51.0447,
+    "lng": -114.0719,
+    "startDate": "2027-03-24",
+    "endDate": "2027-03-24",
+    "mode": "in-person",
+    "url": "https://www.buildingtransformations.org/events/2027-summit-calgary",
+    "emoji": "🇨🇦"
+  },
+  {
     "id": "buildtech-week-2027",
     "name": "BuildTech Week 2027",
     "city": "Berlin",
@@ -1037,9 +1163,23 @@
     "lng": 2.2191,
     "startDate": "2027-04-14",
     "endDate": "2027-04-15",
-    "mode": "in-person",
+    "mode": "hybrid",
     "url": "https://aps.autodesk.com/blog/save-date-autodesk-devcon-2027-coming-barcelona",
     "emoji": "🇪🇸"
+  },
+  {
+    "id": "building-transformations-us-summit-2027-phoenix",
+    "name": "Building Transformations U.S. Industry Summit 2027",
+    "city": "Phoenix",
+    "country": "United States",
+    "countryCode": "US",
+    "lat": 33.4484,
+    "lng": -112.074,
+    "startDate": "2027-04-14",
+    "endDate": "2027-04-15",
+    "mode": "in-person",
+    "url": "https://www.buildingtransformations.org/events/2027-summit-phoenix",
+    "emoji": "🇺🇸"
   },
   {
     "id": "expo-construir-2027",
@@ -1084,6 +1224,20 @@
     "emoji": "🇮🇹"
   },
   {
+    "id": "buildingsmart-anwendertag-2027-hamburg",
+    "name": "24. buildingSMART-Anwendertag",
+    "city": "Hamburg",
+    "country": "Germany",
+    "countryCode": "DE",
+    "lat": 53.5511,
+    "lng": 9.9937,
+    "startDate": "2027-06-09",
+    "endDate": "2027-06-09",
+    "mode": "in-person",
+    "url": "https://www.buildingsmart.de/24-buildingsmart-anwendertag",
+    "emoji": "🇩🇪"
+  },
+  {
     "id": "fachtagung-digitale-transformation-zurich-2027",
     "name": "Fachtagung Digitale Transformation in der Bau- & Immobilienbranche",
     "city": "Zürich",
@@ -1110,5 +1264,19 @@
     "mode": "hybrid",
     "url": "https://www.linkedin.com/posts/design-and-make-starts-with-you-what-a-ugcPost-7506562814644326400-QN5J/",
     "emoji": "🇺🇸"
+  },
+  {
+    "id": "bim-world-copenhagen-2027",
+    "name": "BIM World Copenhagen 2027",
+    "city": "Copenhagen",
+    "country": "Denmark",
+    "countryCode": "DK",
+    "lat": 55.6761,
+    "lng": 12.5683,
+    "startDate": "2027-09-22",
+    "endDate": "2027-09-23",
+    "mode": "in-person",
+    "url": "https://bimworld-cph.com/",
+    "emoji": "🇩🇰"
   }
 ]
