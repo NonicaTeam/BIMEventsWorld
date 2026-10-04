@@ -1,0 +1,107 @@
+---
+import type { Lang } from '../i18n/locales';
+import { useTranslations } from '../i18n/utils';
+import { formatDateRange } from '../utils/events';
+import type { BIMEvent } from '../types';
+
+interface Props {
+  lang: Lang;
+  events: BIMEvent[];
+}
+
+const { lang, events } = Astro.props;
+const t = useTranslations(lang);
+
+const SLOTS = 5;
+const BOOKING_URL = 'https://buy.stripe.com/eVq14ncOJa3wboI0wZ4ow0x';
+
+const featured = events.filter((event) => event.featured).slice(0, SLOTS);
+const openSlots = SLOTS - featured.length;
+
+const ICON_DATE = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>';
+const ICON_PLACE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-10.5a6.5 6.5 0 0 1 13 0C18.5 15.4 12 21 12 21Z"/><circle cx="12" cy="10.5" r="2.3"/></svg>';
+const ICON_ARROW = '<svg class="btn-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13m-5-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+---
+
+<section class="featured-section" id="featured">
+  <!-- Gold gradient shared by the star emblems -->
+  <svg class="sr-only" width="0" height="0" aria-hidden="true">
+    <defs>
+      <linearGradient id="featured-gold" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#fff3c4" />
+        <stop offset="0.5" stop-color="#e2b441" />
+        <stop offset="1" stop-color="#b9872a" />
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <div class="container">
+    <div class="events-header">
+      <div>
+        <p class="section-label">&#9733; {t('featured.label')}</p>
+        <h2 class="section-title">{t('featured.title')}</h2>
+        <p class="section-subtitle">{t('featured.subtitle')}</p>
+      </div>
+      <p class="featured-limit">{t('featured.limit')}</p>
+    </div>
+
+    <div class="featured-grid">
+      {featured.map((event) => (
+        <a class="featured-card" href={event.url} target="_blank" rel="noopener sponsored" data-end={event.endDate}>
+          <div class="featured-card-top">
+            <span class="featured-chip">&#9733; {t('featured.label')}</span>
+            <span class="featured-no" aria-hidden="true"></span>
+          </div>
+          <div class:list={['featured-emblem', { 'has-logo': event.logo }]}>
+            {event.logo
+              ? <img src={event.logo} alt="" loading="lazy" />
+              : <span class="featured-emoji">{event.emoji}</span>}
+          </div>
+          <h3 class="featured-name">{event.name}</h3>
+          <ul class="featured-meta">
+            <li><Fragment set:html={ICON_DATE} /><span>{formatDateRange(event.startDate, event.endDate, lang)}</span></li>
+            <li><Fragment set:html={ICON_PLACE} /><span>{event.mode === 'online' ? t('table.online') : `${event.city}, ${event.country}`}</span></li>
+          </ul>
+          <span class="featured-cta"><span>{t('popup.visit')}</span><Fragment set:html={ICON_ARROW} /></span>
+        </a>
+      ))}
+
+      {/* Open slots. The extra hidden ones take over when a featured event ends (see script). */}
+      {Array.from({ length: SLOTS }, (_, i) => (
+        <a class="featured-card featured-card--open" href={BOOKING_URL} target="_blank" rel="noopener" hidden={i >= openSlots}>
+          <div class="featured-card-top">
+            <span class="featured-chip"><span class="featured-chip-dot"></span>{t('featured.slot.badge')}</span>
+            <span class="featured-no" aria-hidden="true"></span>
+          </div>
+          <div class="featured-emblem">
+            <svg class="featured-star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.85 5.78 6.38.93-4.62 4.5 1.09 6.35L12 17.36l-5.7 3 1.09-6.35-4.62-4.5 6.38-.93z"/></svg>
+            <span class="featured-emblem-label">{t('featured.slot.logo')}</span>
+          </div>
+          <h3 class="featured-name">{t('featured.slot.name')}</h3>
+          <ul class="featured-meta">
+            <li><Fragment set:html={ICON_DATE} /><span>{t('featured.slot.date')}</span></li>
+            <li><Fragment set:html={ICON_PLACE} /><span>{t('featured.slot.location')}</span></li>
+          </ul>
+          <span class="featured-cta"><span>{t('featured.slot.cta')}</span><Fragment set:html={ICON_ARROW} /></span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  // Pages are static, so a featured event that has ended is swapped for an open slot on the client
+  document.addEventListener('DOMContentLoaded', () => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const spareSlots = Array.from(document.querySelectorAll<HTMLElement>('.featured-card--open[hidden]'));
+
+    document.querySelectorAll<HTMLElement>('.featured-card[data-end]').forEach((card) => {
+      const [y, m, d] = (card.dataset.end || '').split('-').map(Number);
+      if (new Date(y, m - 1, d) >= today) return;
+      card.hidden = true;
+      const slot = spareSlots.shift();
+      if (slot) slot.hidden = false;
+    });
+  });
+</script>

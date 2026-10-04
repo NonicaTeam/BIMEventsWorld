@@ -12,5 +12,9 @@ export interface BIMEvent {
   url: string;
   emoji: string;
   size?: 'normal' | 'large';
+  /** Paid placement: shown in the Featured section and as a gold star on the globe */
+  featured?: boolean;
+  /** Logo shown on the featured card, e.g. "/logos/my-event.svg" (file in public/) */
+  logo?: string;
   description: Record<string, string>;
 }

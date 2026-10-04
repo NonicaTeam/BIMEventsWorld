@@ -175,6 +175,10 @@ const t = useTranslations(lang);
       'online':    { fill: 'rgba(139, 92, 246, 0.95)',  glow: 'rgba(139, 92, 246, 0.5)' },
     };
 
+    // Featured events get a gold star instead of a mode-colored dot
+    const featuredIdxs: number[] = [];
+    activeMarkerEvents.forEach((e: any, i: number) => { if (e.featured) featuredIdxs.push(i); });
+
     // --- Globe sizing ---
     let w = container.clientWidth;
     let h = container.clientHeight;
@@ -323,6 +327,7 @@ const t = useTranslations(lang);
         const pos = markerScreenPos[i];
         if (!pos || !pos.visible) continue;
         const ev = activeMarkerEvents[i];
+        if (ev.featured) continue;
         const mode = ev.mode || 'in-person';
         const colors = MODE_COLORS[mode] || MODE_COLORS['in-person'];
         const isHovered = i === hoveredIdx;
@@ -351,7 +356,43 @@ const t = useTranslations(lang);
         mCtx.fillStyle = `rgba(255, 255, 255, ${0.7 * depthAlpha})`;
         mCtx.fill();
       }
+      // Stars go last so they sit on top of nearby dots
+      for (const i of featuredIdxs) {
+        const pos = markerScreenPos[i];
+        if (!pos || !pos.visible) continue;
+        drawStar(pos.x, pos.y, i === hoveredIdx ? 14 : 10, Math.min(1, (pos.z - 0.12) / 0.25));
+      }
       mCtx.restore();
+    }
+
+    function drawStar(x: number, y: number, r: number, alpha: number) {
+      // Halo
+      const halo = mCtx.createRadialGradient(x, y, 0, x, y, r * 2.2);
+      halo.addColorStop(0, `rgba(248, 224, 138, ${0.55 * alpha})`);
+      halo.addColorStop(1, 'rgba(226, 180, 65, 0)');
+      mCtx.beginPath();
+      mCtx.arc(x, y, r * 2.2, 0, Math.PI * 2);
+      mCtx.fillStyle = halo;
+      mCtx.fill();
+
+      // Five-point star
+      mCtx.beginPath();
+      for (let p = 0; p < 10; p++) {
+        const angle = -Math.PI / 2 + (p * Math.PI) / 5;
+        const pr = p % 2 === 0 ? r : r * 0.45;
+        mCtx.lineTo(x + Math.cos(angle) * pr, y + Math.sin(angle) * pr);
+      }
+      mCtx.closePath();
+      const gold = mCtx.createLinearGradient(x - r, y - r, x + r, y + r);
+      gold.addColorStop(0, `rgba(255, 243, 196, ${alpha})`);
+      gold.addColorStop(0.5, `rgba(226, 180, 65, ${alpha})`);
+      gold.addColorStop(1, `rgba(185, 135, 42, ${alpha})`);
+      mCtx.fillStyle = gold;
+      mCtx.fill();
+      mCtx.lineJoin = 'round';
+      mCtx.lineWidth = 1;
+      mCtx.strokeStyle = `rgba(255, 250, 225, ${0.9 * alpha})`;
+      mCtx.stroke();
     }
 
     // --- Cached marker screen positions (computed each render frame) ---
@@ -417,7 +458,7 @@ const t = useTranslations(lang);
 
       // Position hover ring at marker
       hoverRing.style.transform = `translate3d(${pos.x}px, ${pos.y}px, 0)`;
-      hoverRing.dataset.mode = mode;
+      hoverRing.dataset.mode = ev.featured ? 'featured' : mode;
 
       // Restart animations when switching to a new marker
       if (hoveredIdx !== prevHoveredIdx) {
@@ -432,7 +473,7 @@ const t = useTranslations(lang);
         tooltipLocation.textContent = mode === 'online'
           ? 'Online'
           : [ev.city, ev.country].filter(Boolean).join(', ');
-        tooltip.dataset.mode = mode;
+        tooltip.dataset.mode = ev.featured ? 'featured' : mode;
         const ttTransform = `translate3d(${pos.x}px, ${pos.y - 24}px, 0) translate(-50%, -100%)`;
         tooltip.style.setProperty('--tt-transform', ttTransform);
         tooltip.style.transform = ttTransform;
@@ -573,7 +614,7 @@ const t = useTranslations(lang);
       }
       if (ctaEl) ctaEl.href = event.url;
       // Set mode color
-      flag.dataset.mode = event.mode || 'in-person';
+      flag.dataset.mode = event.featured ? 'featured' : (event.mode || 'in-person');
       selectedIdx = idx;
       flag.classList.remove('visible', 'flip');
       void flag.offsetWidth;

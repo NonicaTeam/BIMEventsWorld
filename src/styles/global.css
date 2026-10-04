@@ -49,6 +49,19 @@
   --btn-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 6px 18px var(--color-accent-glow);
   --btn-shadow-hover: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 10px 26px var(--color-accent-glow-strong);
   --shadow-glow-strong: 0 0 50px var(--color-accent-glow-strong);
+  /* Gold (featured events): same glass edge + gradient recipe as the primary buttons */
+  --color-gold: #e2b441;
+  --color-gold-light: #f8e08a;
+  --color-gold-dark: #b9872a;
+  --color-gold-ink: #2b1d05;
+  --color-gold-glow: rgba(226, 180, 65, 0.25);
+  --color-gold-glow-strong: rgba(226, 180, 65, 0.4);
+  --btn-gold-gradient:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0) 55%),
+    linear-gradient(135deg, var(--color-gold-light) 0%, var(--color-gold) 55%, var(--color-gold-dark) 100%);
+  --btn-gold-edge: 1px solid rgba(255, 247, 214, 0.8);
+  --btn-gold-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), 0 6px 18px var(--color-gold-glow);
+  --btn-gold-shadow-hover: inset 0 1px 0 rgba(255, 255, 255, 0.7), 0 10px 26px var(--color-gold-glow-strong);
   --transition-fast: 150ms ease;
   --transition-base: 250ms ease;
   --transition-slow: 400ms ease;
@@ -387,6 +400,7 @@ ul, ol {
 
 .hero-updates-btn:hover .btn-arrow,
 .submit-event-btn:hover .btn-arrow,
+.featured-card:hover .btn-arrow,
 .form-submit:hover:not(:disabled) .btn-arrow,
 .newsletter-section #sib-form .sib-form-block__button:hover:not(:disabled) .btn-arrow {
   transform: translateX(3px);
@@ -600,6 +614,14 @@ ul, ol {
   --ring-color: 249, 115, 22;       /* hybrid: orange */
   --ring-glow: 234, 88, 12;
 }
+.globe-hover-ring[data-mode="featured"] {
+  --ring-color: 226, 180, 65;       /* featured: gold */
+  --ring-glow: 185, 135, 42;
+}
+/* Featured markers are stars: keep the star visible instead of covering it with the core dot */
+.globe-hover-ring[data-mode="featured"] .hover-ring-core {
+  display: none;
+}
 
 /* Glowing core dot */
 .globe-hover-ring .hover-ring-core {
@@ -724,6 +746,10 @@ ul, ol {
   --tt-border: rgba(249, 115, 22, 0.3);
   --tt-glow: rgba(234, 88, 12, 0.12);
 }
+.globe-tooltip[data-mode="featured"] {
+  --tt-border: rgba(226, 180, 65, 0.6);
+  --tt-glow: rgba(226, 180, 65, 0.35);
+}
 @keyframes ttIn {
   0%   { opacity: 0; transform: var(--tt-transform) scale(0.85) translateY(6px); }
   100% { opacity: 1; transform: var(--tt-transform) scale(1) translateY(0); }
@@ -783,6 +809,15 @@ ul, ol {
   --flag-accent: var(--color-hybrid);
   --flag-border: rgba(249, 115, 22, 0.45);
   --flag-glow: rgba(249, 115, 22, 0.25);
+}
+.event-flag[data-mode="featured"] {
+  --flag-accent: var(--color-gold);
+  --flag-border: rgba(226, 180, 65, 0.6);
+  --flag-glow: rgba(226, 180, 65, 0.3);
+}
+.event-flag[data-mode="featured"] .flag-cta,
+.event-flag[data-mode="featured"] .flag-cta:hover {
+  color: var(--color-gold-ink);
 }
 
 @keyframes flagIn {
@@ -964,6 +999,299 @@ ul, ol {
   background: var(--color-hybrid-bg);
   color: var(--color-hybrid);
   border: 1px solid rgba(249, 115, 22, 0.25);
+}
+
+/* === Featured Events Section (5 paid slots, gold) === */
+.featured-section {
+  position: relative;
+  padding: 72px 0 80px;
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 0%, rgba(226, 180, 65, 0.11), transparent 70%),
+    var(--color-bg-primary);
+}
+
+.featured-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(248, 224, 138, 0.65), transparent);
+}
+
+.featured-section .section-label {
+  color: var(--color-gold);
+}
+
+.featured-section .section-title {
+  background: linear-gradient(135deg, #ffffff 0%, var(--color-gold-light) 45%, var(--color-gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.featured-limit {
+  padding: 5px 12px;
+  background: rgba(226, 180, 65, 0.08);
+  border: 1px solid rgba(226, 180, 65, 0.35);
+  border-radius: 100px;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 500;
+  color: var(--color-gold-light);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+
+.featured-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 16px;
+  counter-reset: featured-slot;
+}
+
+/* Dark glass card with a gold edge: gloss + base on the padding box, gold gradient on the border box */
+.featured-card {
+  counter-increment: featured-slot;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  color: var(--color-text-primary);
+  border: 1px solid transparent;
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0) 45%) padding-box,
+    linear-gradient(160deg, #221c0f 0%, #111526 55%, #0a0f1d 100%) padding-box,
+    linear-gradient(150deg, rgba(255, 244, 200, 0.95) 0%, rgba(226, 180, 65, 0.55) 22%, rgba(185, 135, 42, 0.22) 55%, rgba(248, 224, 138, 0.7) 100%) border-box;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 12px 32px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.featured-card[hidden] {
+  display: none;
+}
+
+.featured-card:hover {
+  color: var(--color-text-primary);
+  transform: translateY(-4px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 18px 44px rgba(0, 0, 0, 0.55), 0 0 40px var(--color-gold-glow);
+}
+
+.featured-card:focus-visible {
+  outline: 2px solid var(--color-gold-light);
+  outline-offset: 3px;
+}
+
+/* Light sweep across the card on hover */
+.featured-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 35%, rgba(255, 243, 196, 0.13) 50%, transparent 65%);
+  transform: translateX(-120%);
+  transition: transform 700ms ease;
+  pointer-events: none;
+}
+
+.featured-card:hover::after {
+  transform: translateX(120%);
+}
+
+.featured-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.featured-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 9px;
+  background: rgba(226, 180, 65, 0.1);
+  border: 1px solid rgba(226, 180, 65, 0.35);
+  border-radius: 100px;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 500;
+  color: var(--color-gold-light);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+
+.featured-chip-dot {
+  width: 5px;
+  height: 5px;
+  background: var(--color-gold);
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Slot number, counted in CSS so hidden cards are skipped */
+.featured-no::before {
+  content: counter(featured-slot, decimal-leading-zero) ' / 05';
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  color: rgba(248, 224, 138, 0.55);
+  white-space: nowrap;
+}
+
+.featured-emblem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 92px;
+  margin: 14px 0 16px;
+  border: 1px solid rgba(226, 180, 65, 0.22);
+  border-radius: var(--radius-md);
+  background:
+    radial-gradient(ellipse 80% 90% at 50% 0%, rgba(248, 224, 138, 0.2), transparent 70%),
+    rgba(255, 255, 255, 0.02);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* Logos are usually drawn for light backgrounds */
+.featured-emblem.has-logo {
+  padding: 12px 16px;
+  background: #fffdf6;
+}
+
+/* Every logo is scaled (up or down) to fill the same box, whatever the file's dimensions */
+.featured-emblem img {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  object-fit: contain;
+}
+
+.featured-emoji {
+  font-size: 2.1rem;
+  line-height: 1;
+}
+
+.featured-star {
+  width: 34px;
+  height: 34px;
+  fill: url(#featured-gold);
+  stroke: url(#featured-gold);
+  stroke-width: 1.4;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 2px 10px rgba(226, 180, 65, 0.55));
+  transition: transform var(--transition-slow);
+}
+
+.featured-card:hover .featured-star {
+  transform: scale(1.08) rotate(-6deg);
+}
+
+.featured-emblem-label {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: rgba(248, 224, 138, 0.6);
+}
+
+.featured-name {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  margin-bottom: 12px;
+  font-size: 1.02rem;
+  font-weight: 700;
+  line-height: 1.25;
+  overflow: hidden;
+}
+
+.featured-card--open .featured-name {
+  background: linear-gradient(135deg, #ffffff 0%, var(--color-gold-light) 60%, var(--color-gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.featured-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  /* Pinned to the bottom so dates line up across cards with 1- and 2-line names */
+  margin-top: auto;
+  margin-bottom: 16px;
+}
+
+.featured-meta li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+}
+
+.featured-meta li span {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.featured-meta svg {
+  width: 14px;
+  height: 14px;
+  flex: 0 0 14px;
+  fill: none;
+  stroke: var(--color-gold);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Gold twin of the primary buttons */
+.featured-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 12px;
+  color: var(--color-gold-ink);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  line-height: 1.35;
+  text-transform: uppercase;
+  text-align: center;
+  border: var(--btn-gold-edge);
+  border-radius: var(--radius-md);
+  background: var(--btn-gold-gradient);
+  box-shadow: var(--btn-gold-shadow);
+  transition: box-shadow var(--transition-fast), border-color var(--transition-fast);
+}
+
+.featured-card:hover .featured-cta {
+  border-color: #fff;
+  box-shadow: var(--btn-gold-shadow-hover);
+}
+
+/* 3 + 2, second row centered */
+@media (max-width: 1100px) {
+  .featured-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .featured-card {
+    flex: 0 1 calc((100% - 32px) / 3);
+  }
 }
 
 /* === Events Table Section === */
@@ -2147,6 +2475,31 @@ ul, ol {
     align-items: center;
   }
 
+  /* Featured cards → swipeable row that bleeds to the screen edges */
+  .featured-section {
+    padding: 56px 0 44px;
+  }
+
+  .featured-grid {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    margin: 0 -24px;
+    padding: 6px 24px 28px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 0 24px;
+    scrollbar-width: none;
+  }
+
+  .featured-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .featured-card {
+    flex: 0 0 min(250px, 72vw);
+    scroll-snap-align: start;
+  }
+
   .events-search-wrap {
     flex: 0 0 100%;
     max-width: none;
@@ -2220,6 +2573,17 @@ ul, ol {
   .newsletter-section,
   .form-section {
     padding: 48px 0;
+  }
+
+  .featured-section {
+    padding: 48px 0 28px;
+  }
+
+  .featured-grid {
+    margin: 0 -16px;
+    padding-left: 16px;
+    padding-right: 16px;
+    scroll-padding: 0 16px;
   }
 }
 
