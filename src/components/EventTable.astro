@@ -55,10 +55,11 @@ function getModeLabel(mode: string): string {
         </thead>
         <tbody class="events-tbody" id="events-tbody">
           {events.map((event) => (
-            <tr class="event-row" data-mode={event.mode} data-name={event.name.toLowerCase()} data-lat={event.lat} data-lng={event.lng}
+            <tr class:list={['event-row', { 'event-row--featured': event.featured }]} data-mode={event.mode} data-name={event.name.toLowerCase()} data-lat={event.lat} data-lng={event.lng}
                 data-id={event.id} data-event-name={event.name} data-start={event.startDate} data-end={event.endDate}
                 data-city={event.city} data-country={event.country} data-url={event.url}>
               <td data-label={t('table.col.event')}>
+                {event.featured && <span class="event-star" role="img" aria-label={t('featured.label')} title={t('featured.label')}></span>}
                 <a href={`/${lang}/events/${event.id}/`} class="event-title-link">{event.name}</a>
               </td>
               <td data-label={t('table.col.location')}>

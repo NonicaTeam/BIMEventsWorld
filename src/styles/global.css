@@ -1159,9 +1159,12 @@ ul, ol {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
-/* Logos are usually drawn for light backgrounds */
 .featured-emblem.has-logo {
   padding: 12px 16px;
+}
+
+/* Logos are usually drawn for light backgrounds; white/light ones (logoBg: "dark") keep the dark plate */
+.featured-emblem.has-logo:not(.has-logo--dark) {
   background: #fffdf6;
 }
 
@@ -1524,6 +1527,66 @@ ul, ol {
   background: var(--color-accent);
   color: white;
   border-color: var(--color-accent);
+}
+
+/* === Featured rows in the table: gold star, gold name, gold wash from the left edge === */
+.events-table .event-row--featured td:first-child {
+  position: relative;
+  background: linear-gradient(90deg, rgba(226, 180, 65, 0.16) 0%, rgba(226, 180, 65, 0.05) 55%, rgba(226, 180, 65, 0) 100%);
+}
+
+/* Gold edge bar (the first cell's ::before is the mobile label, which that cell never shows) */
+.events-table .event-row--featured td:first-child::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 3px;
+  margin: 0;
+  background: linear-gradient(180deg, var(--color-gold-light), var(--color-gold) 50%, var(--color-gold-dark));
+  box-shadow: 0 0 14px var(--color-gold-glow-strong);
+}
+
+.events-table .event-row--featured td {
+  border-bottom-color: rgba(226, 180, 65, 0.22);
+}
+
+.event-star {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  margin-right: 8px;
+  vertical-align: -2px;
+  background: linear-gradient(135deg, #fff3c4 0%, var(--color-gold) 50%, var(--color-gold-dark) 100%);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 1.8l3.1 6.4 7 1-5.1 4.9 1.2 7L12 17.8l-6.2 3.3 1.2-7L1.9 9.2l7-1z'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 1.8l3.1 6.4 7 1-5.1 4.9 1.2 7L12 17.8l-6.2 3.3 1.2-7L1.9 9.2l7-1z'/%3E%3C/svg%3E") center / contain no-repeat;
+  filter: drop-shadow(0 0 5px rgba(226, 180, 65, 0.6));
+}
+
+.event-row--featured .event-title-link {
+  font-weight: 600;
+  background: linear-gradient(135deg, #ffffff 0%, var(--color-gold-light) 50%, var(--color-gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.event-row--featured .event-title-link:hover {
+  background-image: linear-gradient(135deg, #fff3c4 0%, var(--color-gold) 100%);
+}
+
+.event-row--featured .event-link {
+  color: var(--color-gold-light);
+  background: rgba(226, 180, 65, 0.1);
+  border-color: rgba(226, 180, 65, 0.4);
+}
+
+.event-row--featured .event-link:hover {
+  color: var(--color-gold-ink);
+  background: var(--btn-gold-gradient);
+  border-color: rgba(255, 247, 214, 0.8);
+  box-shadow: var(--btn-gold-shadow);
 }
 
 .event-actions-cell {
@@ -2557,6 +2620,21 @@ ul, ol {
 
   .events-table td:first-child::before {
     display: none;
+  }
+
+  /* Featured row → gold-edged card */
+  .events-table tbody tr.event-row--featured,
+  .events-table tbody tr.event-row--featured:hover {
+    border-color: rgba(226, 180, 65, 0.55);
+    background:
+      linear-gradient(160deg, rgba(226, 180, 65, 0.16) 0%, rgba(226, 180, 65, 0.03) 55%),
+      var(--color-bg-card);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 0 24px rgba(226, 180, 65, 0.12);
+  }
+
+  .events-table .event-row--featured td:first-child {
+    background: none;
+    border-bottom-color: rgba(226, 180, 65, 0.3);
   }
 
   .form-row {

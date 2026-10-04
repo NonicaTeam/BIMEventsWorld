@@ -684,7 +684,9 @@
     "mode": "in-person",
     "url": "https://pinnaclefuturebuild.com/",
     "emoji": "🇺🇸",
-    "featured": true
+    "featured": true,
+    "logo": "/logos/pinnacle-futurebuild-summit-2026.png",
+    "logoBg": "dark"
   },
   {
     "id": "cadmat-2027-krakow",
@@ -727,7 +729,9 @@
     "mode": "in-person",
     "url": "https://www.release-aec.com/",
     "emoji": "🇫🇷",
-    "featured": true
+    "featured": true,
+    "logo": "/logos/release-aec-paris-2026.png",
+    "logoBg": "dark"
   },
   {
     "id": "procore-groundbreak-2026",

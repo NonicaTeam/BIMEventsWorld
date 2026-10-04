@@ -16,5 +16,7 @@ export interface BIMEvent {
   featured?: boolean;
   /** Logo shown on the featured card, e.g. "/logos/my-event.svg" (file in public/) */
   logo?: string;
+  /** Plate behind the logo: "dark" for white/light logos. Defaults to "light". */
+  logoBg?: 'light' | 'dark';
   description: Record<string, string>;
 }
