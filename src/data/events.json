@@ -683,7 +683,8 @@
     "endDate": "2026-10-09",
     "mode": "in-person",
     "url": "https://pinnaclefuturebuild.com/",
-    "emoji": "🇺🇸"
+    "emoji": "🇺🇸",
+    "featured": true
   },
   {
     "id": "cadmat-2027-krakow",
@@ -725,7 +726,8 @@
     "endDate": "2026-10-20",
     "mode": "in-person",
     "url": "https://www.release-aec.com/",
-    "emoji": "🇫🇷"
+    "emoji": "🇫🇷",
+    "featured": true
   },
   {
     "id": "procore-groundbreak-2026",
