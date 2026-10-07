@@ -899,7 +899,10 @@
     "endDate": "2026-11-15",
     "mode": "in-person",
     "url": "https://www.aectech.us/nyc-conference",
-    "emoji": "🇺🇸"
+    "emoji": "🇺🇸",
+    "featured": true,
+    "logo": "/logos/aectech-2026-nyc.png",
+    "logoBg": "dark"
   },
   {
     "id": "batigital-2026-lausanne",
@@ -1109,7 +1112,10 @@
     "endDate": "2027-03-18",
     "mode": "in-person",
     "url": "https://www.digitalconstructionasia.com/",
-    "emoji": "🇸🇬"
+    "emoji": "🇸🇬",
+    "featured": true,
+    "logo": "/logos/digital-construction-asia-2027.png",
+    "logoBg": "dark"
   },
   {
     "id": "building-transformations-calgary-summit-2027",
