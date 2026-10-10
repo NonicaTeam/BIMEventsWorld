@@ -11,16 +11,17 @@ interface Props {
   description: string;
   keywords: string;
   events?: BIMEvent[];
+  event?: BIMEvent;
   path?: string;
 }
 
-const { lang, title, description, keywords, events, path } = Astro.props;
+const { lang, title, description, keywords, events, event, path } = Astro.props;
 ---
 
 <!doctype html>
 <html lang={lang}>
   <head>
-    <SEOHead lang={lang} title={title} description={description} keywords={keywords} events={events} path={path} />
+    <SEOHead lang={lang} title={title} description={description} keywords={keywords} events={events} event={event} path={path} />
   </head>
   <body>
     <main>

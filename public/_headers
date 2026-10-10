@@ -26,3 +26,10 @@
 
 /sw.js
   Cache-Control: public, max-age=0, must-revalidate
+
+/events.json
+  Cache-Control: public, max-age=3600
+  Access-Control-Allow-Origin: *
+
+/llms.txt
+  Cache-Control: public, max-age=3600

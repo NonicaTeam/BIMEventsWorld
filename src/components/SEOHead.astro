@@ -1,6 +1,8 @@
 ---
 import { languages, type Lang } from '../i18n/locales';
 import type { BIMEvent } from '../types';
+import { SITE_URL } from '../utils/events';
+import { eventSchema, eventListSchema } from '../utils/schema';
 
 interface Props {
   lang: Lang;
@@ -8,11 +10,12 @@ interface Props {
   description: string;
   keywords: string;
   events?: BIMEvent[];
+  event?: BIMEvent;
   path?: string;
 }
 
-const { lang, title, description, keywords, events = [], path } = Astro.props;
-const siteUrl = 'https://bimeventsworld.com';
+const { lang, title, description, keywords, events = [], event, path } = Astro.props;
+const siteUrl = SITE_URL;
 const pageSuffix = path ? `/${path}` : '/';
 const currentUrl = `${siteUrl}/${lang}${pageSuffix}`;
 
@@ -25,33 +28,12 @@ const websiteSchema = {
   inLanguage: lang,
 };
 
-const eventSchemas = events.map((event) => ({
-  '@context': 'https://schema.org',
-  '@type': 'Event',
-  name: event.name,
-  startDate: event.startDate,
-  endDate: event.endDate,
-  description: event.description ? (event.description[lang] || event.description.en) : event.name,
-  url: event.url,
-  eventAttendanceMode:
-    event.mode === 'online'
-      ? 'https://schema.org/OnlineEventAttendanceMode'
-      : event.mode === 'hybrid'
-        ? 'https://schema.org/MixedEventAttendanceMode'
-        : 'https://schema.org/OfflineEventAttendanceMode',
-  location:
-    event.mode === 'online'
-      ? { '@type': 'VirtualLocation', url: event.url }
-      : {
-          '@type': 'Place',
-          name: `${event.city}, ${event.country}`,
-          address: {
-            '@type': 'PostalAddress',
-            addressLocality: event.city,
-            addressCountry: event.countryCode,
-          },
-        },
-}));
+// Event pages get an Event block; home pages an ItemList of the upcoming events
+const eventSchemas = event
+  ? [eventSchema(event, lang)]
+  : events.length > 0
+    ? [eventListSchema(events, lang, currentUrl)]
+    : [];
 ---
 
 <meta charset="utf-8" />
@@ -68,6 +50,7 @@ const eventSchemas = events.map((event) => ({
   <link rel="alternate" hreflang={locale} href={`${siteUrl}/${locale}${pageSuffix}`} />
 ))}
 <link rel="alternate" hreflang="x-default" href={`${siteUrl}/en${pageSuffix}`} />
+<link rel="alternate" type="application/json" href="/events.json" title="Upcoming BIM events (JSON)" />
 
 <meta property="og:type" content="website" />
 <meta property="og:title" content={title} />

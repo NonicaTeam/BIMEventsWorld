@@ -1,0 +1,60 @@
+name: Daily rebuild
+
+# Rebuilds the site on Cloudflare Pages every day so past events drop out of the HTML,
+# /events.json and the sitemap without anyone having to push a commit.
+
+on:
+  schedule:
+    - cron: '0 3 * * *' # 03:00 UTC
+  workflow_dispatch:
+
+permissions:
+  actions: write # keepalive job re-enables this workflow
+  contents: read
+
+concurrency:
+  group: daily-rebuild
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Trigger Cloudflare Pages deploy hook
+        env:
+          DEPLOY_HOOK: ${{ secrets.CF_PAGES_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$DEPLOY_HOOK" ]; then
+            echo "::error::Repository secret CF_PAGES_DEPLOY_HOOK is missing. Create a deploy hook in Cloudflare (Pages project > Settings > Builds > Deploy hooks) and save its URL as this secret."
+            exit 1
+          fi
+
+          status=$(curl --silent --show-error --max-time 30 --retry 3 --retry-all-errors \
+            --output response.json --write-out '%{http_code}' -X POST "$DEPLOY_HOOK") || {
+            echo "::error::Could not reach the Cloudflare deploy hook."
+            exit 1
+          }
+
+          echo "HTTP $status"
+          cat response.json; echo
+
+          if [ "$status" -lt 200 ] || [ "$status" -ge 300 ]; then
+            echo "::error::Cloudflare deploy hook returned HTTP $status."
+            exit 1
+          fi
+          if ! grep -q '"success": *true' response.json; then
+            echo "::error::Cloudflare deploy hook did not report success."
+            exit 1
+          fi
+
+  # GitHub disables scheduled workflows after 60 days without repository activity.
+  # Re-enabling the workflow through the API on every run resets that timer, without dummy commits.
+  keepalive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Keep this scheduled workflow enabled
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api --method PUT "repos/${{ github.repository }}/actions/workflows/daily-rebuild.yml/enable"
