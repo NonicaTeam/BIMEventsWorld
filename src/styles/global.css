@@ -1971,6 +1971,31 @@ ul, ol {
   fill: currentColor;
 }
 
+.newsletter-section .newsletter-recaptcha-notice {
+  margin: 10px 0 0;
+  font-size: 0.7rem;
+  line-height: 1.5;
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+.newsletter-section .newsletter-recaptcha-notice a {
+  color: var(--color-accent-light);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.newsletter-section .newsletter-recaptcha-notice a:hover {
+  color: var(--color-text-primary);
+}
+
+/* Google allows hiding the reCAPTCHA v3 badge only if the form shows its notice
+   (.newsletter-recaptcha-notice in NewsletterForm.astro). Use visibility, not
+   display: none, which breaks reCAPTCHA. */
+.grecaptcha-badge {
+  visibility: hidden;
+}
+
 /* === Submission Form Section === */
 .form-section {
   position: relative;
