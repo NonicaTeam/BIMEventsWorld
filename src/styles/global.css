@@ -1001,7 +1001,7 @@ ul, ol {
   border: 1px solid rgba(249, 115, 22, 0.25);
 }
 
-/* === Featured Events Section (5 paid slots, gold) === */
+/* === Featured Events Section (3 paid slots, gold) === */
 .featured-section {
   position: relative;
   padding: 72px 0 80px;
@@ -1047,7 +1047,7 @@ ul, ol {
 
 .featured-grid {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
   counter-reset: featured-slot;
 }
@@ -1151,7 +1151,7 @@ ul, ol {
 
 /* Slot number, counted in CSS so hidden cards are skipped */
 .featured-no::before {
-  content: counter(featured-slot, decimal-leading-zero) ' / 05';
+  content: counter(featured-slot, decimal-leading-zero) ' / 03';
   font-family: var(--font-mono);
   font-size: 0.62rem;
   letter-spacing: 0.06em;
@@ -1298,19 +1298,6 @@ ul, ol {
 .featured-card:hover .featured-cta {
   border-color: #fff;
   box-shadow: var(--btn-gold-shadow-hover);
-}
-
-/* 3 + 2, second row centered */
-@media (max-width: 1100px) {
-  .featured-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .featured-card {
-    flex: 0 1 calc((100% - 32px) / 3);
-  }
 }
 
 /* === Events Table Section === */
@@ -2585,8 +2572,7 @@ ul, ol {
   }
 
   .featured-grid {
-    flex-wrap: nowrap;
-    justify-content: flex-start;
+    display: flex;
     margin: 0 -24px;
     padding: 6px 24px 28px;
     overflow-x: auto;

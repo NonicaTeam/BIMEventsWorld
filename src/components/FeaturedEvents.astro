@@ -12,7 +12,7 @@ interface Props {
 const { lang, events } = Astro.props;
 const t = useTranslations(lang);
 
-const SLOTS = 5;
+const SLOTS = 3;
 const BOOKING_URL = 'https://buy.stripe.com/eVq14ncOJa3wboI0wZ4ow0x';
 
 const featured = events.filter((event) => event.featured).slice(0, SLOTS);
