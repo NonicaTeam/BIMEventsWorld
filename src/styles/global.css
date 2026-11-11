@@ -1031,6 +1031,11 @@ ul, ol {
   background-clip: text;
 }
 
+/* Wider than other section subtitles so the sentence fits on one line on desktop */
+.featured-subtitle {
+  max-width: none;
+}
+
 .featured-limit {
   padding: 5px 12px;
   background: rgba(226, 180, 65, 0.08);
