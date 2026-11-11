@@ -989,6 +989,20 @@
     "emoji": "🇭🇰"
   },
   {
+    "id": "big-5-global-2026-dubai",
+    "name": "Big 5 Global 2026",
+    "city": "Dubai",
+    "country": "United Arab Emirates",
+    "countryCode": "AE",
+    "lat": 25.2048,
+    "lng": 55.2708,
+    "startDate": "2026-11-23",
+    "endDate": "2026-11-26",
+    "mode": "in-person",
+    "url": "https://www.big5global.com/",
+    "emoji": "🇦🇪"
+  },
+  {
     "id": "a-era-bim-2026",
     "name": "A ERA BIM 2026",
     "city": "São Paulo",
@@ -1015,6 +1029,20 @@
     "mode": "in-person",
     "url": "https://www.bim-world.de/",
     "emoji": "🇩🇪"
+  },
+  {
+    "id": "buildsmart-conference-2026-seoul",
+    "name": "buildSMART CONFERENCE 2026",
+    "city": "Seoul",
+    "country": "South Korea",
+    "countryCode": "KR",
+    "lat": 37.5665,
+    "lng": 126.9780,
+    "startDate": "2026-11-24",
+    "endDate": "2026-11-24",
+    "mode": "in-person",
+    "url": "https://event-us.kr/6lVSx7IttA4u/event/133009",
+    "emoji": "🇰🇷"
   },
   {
     "id": "melbourne-build-expo-2026",
@@ -1045,6 +1073,20 @@
     "emoji": "🇳🇱"
   },
   {
+    "id": "japan-build-tokyo-2026",
+    "name": "JAPAN BUILD Tokyo 2026",
+    "city": "Tokyo",
+    "country": "Japan",
+    "countryCode": "JP",
+    "lat": 35.6762,
+    "lng": 139.6503,
+    "startDate": "2026-12-02",
+    "endDate": "2026-12-04",
+    "mode": "in-person",
+    "url": "https://www.japan-build.jp/hub/en-gb.html",
+    "emoji": "🇯🇵"
+  },
+  {
     "id": "iccbei-2027-auckland",
     "name": "ICCBEI 2027",
     "city": "Auckland",
@@ -1071,6 +1113,20 @@
     "mode": "in-person",
     "url": "https://builtworlds.com/event/2027-ai-ml-conference/",
     "emoji": "🇺🇸"
+  },
+  {
+    "id": "bimsummit-2027-tallinn",
+    "name": "BIMsummit 2027",
+    "city": "Tallinn",
+    "country": "Estonia",
+    "countryCode": "EE",
+    "lat": 59.4370,
+    "lng": 24.7536,
+    "startDate": "2027-02-18",
+    "endDate": "2027-02-18",
+    "mode": "hybrid",
+    "url": "https://bimsummit.ee/",
+    "emoji": "🇪🇪"
   },
   {
     "id": "geo-week-2027",
@@ -1132,6 +1188,20 @@
     "emoji": "🇨🇦"
   },
   {
+    "id": "bim-world-paris-2027",
+    "name": "BIM World Paris 2027",
+    "city": "Paris",
+    "country": "France",
+    "countryCode": "FR",
+    "lat": 48.8566,
+    "lng": 2.3522,
+    "startDate": "2027-03-31",
+    "endDate": "2027-04-01",
+    "mode": "in-person",
+    "url": "https://www.bim-w.com/",
+    "emoji": "🇫🇷"
+  },
+  {
     "id": "buildtech-week-2027",
     "name": "BuildTech Week 2027",
     "city": "Berlin",
@@ -1160,6 +1230,20 @@
     "emoji": "🇩🇪"
   },
   {
+    "id": "bentley-tech-summit-2027-toronto",
+    "name": "Bentley Tech Summit 2027",
+    "city": "Toronto",
+    "country": "Canada",
+    "countryCode": "CA",
+    "lat": 43.6532,
+    "lng": -79.3832,
+    "startDate": "2027-04-13",
+    "endDate": "2027-04-15",
+    "mode": "in-person",
+    "url": "https://www.bentley.com/en/events/bentley-tech-summit/",
+    "emoji": "🇨🇦"
+  },
+  {
     "id": "autodesk-devcon-barcelona-2027",
     "name": "Autodesk DevCon 2027",
     "city": "Barcelona",
@@ -1185,6 +1269,48 @@
     "endDate": "2027-04-15",
     "mode": "in-person",
     "url": "https://www.buildingtransformations.org/events/2027-summit-phoenix",
+    "emoji": "🇺🇸"
+  },
+  {
+    "id": "sydney-build-expo-2027",
+    "name": "Sydney Build Expo 2027",
+    "city": "Sydney",
+    "country": "Australia",
+    "countryCode": "AU",
+    "lat": -33.8688,
+    "lng": 151.2093,
+    "startDate": "2027-04-28",
+    "endDate": "2027-04-29",
+    "mode": "in-person",
+    "url": "https://www.sydneybuildexpo.com/sydney-build-blog/2027-pr1",
+    "emoji": "🇦🇺"
+  },
+  {
+    "id": "enr-futuretech-2027",
+    "name": "ENR FutureTech 2027",
+    "city": "San Francisco",
+    "country": "United States",
+    "countryCode": "US",
+    "lat": 37.7749,
+    "lng": -122.4194,
+    "startDate": "2027-05-04",
+    "endDate": "2027-05-05",
+    "mode": "in-person",
+    "url": "https://www.enr.com/futuretech",
+    "emoji": "🇺🇸"
+  },
+  {
+    "id": "nibs-building-innovation-2027",
+    "name": "NIBS Building Innovation 2027",
+    "city": "Tysons",
+    "country": "United States",
+    "countryCode": "US",
+    "lat": 38.9187,
+    "lng": -77.2311,
+    "startDate": "2027-05-04",
+    "endDate": "2027-05-05",
+    "mode": "in-person",
+    "url": "https://nibs.org/building-innovation-conference",
     "emoji": "🇺🇸"
   },
   {
@@ -1258,6 +1384,20 @@
     "emoji": "🇨🇭"
   },
   {
+    "id": "builtworlds-construction-tech-2027-chicago",
+    "name": "BuiltWorlds Construction Tech Conference 2027",
+    "city": "Chicago",
+    "country": "United States",
+    "countryCode": "US",
+    "lat": 41.8781,
+    "lng": -87.6298,
+    "startDate": "2027-07-14",
+    "endDate": "2027-07-15",
+    "mode": "in-person",
+    "url": "https://builtworlds.com/event/2027-construction-tech-conference/",
+    "emoji": "🇺🇸"
+  },
+  {
     "id": "autodesk-university-2027",
     "name": "Autodesk University",
     "city": "Las Vegas",
@@ -1284,5 +1424,19 @@
     "mode": "in-person",
     "url": "https://bimworld-cph.com/",
     "emoji": "🇩🇰"
+  },
+  {
+    "id": "digital-construction-day-2027-brussels",
+    "name": "Digital Construction Day 2027",
+    "city": "Brussels",
+    "country": "Belgium",
+    "countryCode": "BE",
+    "lat": 50.8503,
+    "lng": 4.3517,
+    "startDate": "2027-10-19",
+    "endDate": "2027-10-19",
+    "mode": "in-person",
+    "url": "https://www.digitalconstructionday.be/",
+    "emoji": "🇧🇪"
   }
 ]
