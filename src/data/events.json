@@ -1199,7 +1199,10 @@
     "endDate": "2027-04-01",
     "mode": "in-person",
     "url": "https://www.bim-w.com/",
-    "emoji": "🇫🇷"
+    "emoji": "🇫🇷",
+    "featured": true,
+    "logo": "/logos/bim-world-paris-2027.png",
+    "logoBg": "dark"
   },
   {
     "id": "buildtech-week-2027",
