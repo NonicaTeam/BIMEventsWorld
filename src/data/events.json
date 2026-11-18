@@ -1188,6 +1188,20 @@
     "emoji": "🇨🇦"
   },
   {
+    "id": "archi-tech-social-night-boston-2027",
+    "name": "archi+tech Social Night Boston",
+    "city": "Boston",
+    "country": "United States",
+    "countryCode": "US",
+    "lat": 42.3712,
+    "lng": -71.0577,
+    "startDate": "2027-03-25",
+    "endDate": "2027-03-25",
+    "mode": "in-person",
+    "url": "https://luma.com/uhkgoxe8",
+    "emoji": "🇺🇸"
+  },
+  {
     "id": "bim-world-paris-2027",
     "name": "BIM World Paris 2027",
     "city": "Paris",
@@ -1469,5 +1483,19 @@
     "mode": "in-person",
     "url": "https://www.digitalconstructionday.be/",
     "emoji": "🇧🇪"
+  },
+  {
+    "id": "archi-tech-social-night-nyc-2027",
+    "name": "archi+tech Social Night NYC",
+    "city": "New York City",
+    "country": "United States",
+    "countryCode": "US",
+    "lat": 40.7128,
+    "lng": -74.0060,
+    "startDate": "2027-11-10",
+    "endDate": "2027-11-10",
+    "mode": "in-person",
+    "url": "https://luma.com/b2l02mvm",
+    "emoji": "🇺🇸"
   }
 ]
