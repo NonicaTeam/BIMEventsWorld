@@ -1331,6 +1331,20 @@
     "emoji": "🇦🇷"
   },
   {
+    "id": "aia27-philadelphia",
+    "name": "AIA27 Conference on Architecture & Design",
+    "city": "Philadelphia",
+    "country": "United States",
+    "countryCode": "US",
+    "lat": 39.9526,
+    "lng": -75.1652,
+    "startDate": "2027-05-19",
+    "endDate": "2027-05-22",
+    "mode": "in-person",
+    "url": "https://conferenceonarchitecture.com/",
+    "emoji": "🇺🇸"
+  },
+  {
     "id": "nxt-bld-2027",
     "name": "NXT BLD 2027",
     "city": "London",
@@ -1343,6 +1357,20 @@
     "mode": "in-person",
     "url": "https://nxtbld.com/",
     "emoji": "🇬🇧"
+  },
+  {
+    "id": "aec-innovate-2027-denver",
+    "name": "AEC Innovate 2027",
+    "city": "Denver",
+    "country": "United States",
+    "countryCode": "US",
+    "lat": 39.7392,
+    "lng": -104.9903,
+    "startDate": "2027-06-02",
+    "endDate": "2027-06-04",
+    "mode": "in-person",
+    "url": "https://events.psmj.com/innovate/",
+    "emoji": "🇺🇸"
   },
   {
     "id": "smartinfra-2027",
